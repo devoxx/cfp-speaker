@@ -7,3 +7,8 @@ Used technologies:
 - Angular-UI
 - Underscore.JS
 - Bootstrap.JS
+
+## Development environment
+
+To start app on local environment, just run ```mvn jetty:run```
+
