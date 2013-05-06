@@ -1,0 +1,144 @@
+<div ng-controller="Speaker_GlobalCtrl">
+    <div ng-controller="Speaker_SubmitTalkCtrl">
+        <ng-include src="'views/speaker/_menu.html'"></ng-include>
+        <h3>Submit Talk</h3>
+        <form name="submitTalkForm" onsubmit="return false">
+            <dl>
+                <dt><label for="talkEvent">Event</label></dt>
+                <dd>
+                    <select id="talkEvent" ng-model="model.event" ng-options="e.name for e in global.events" required ng-hide="global.events.length == 1">
+                        <option value="">Choose event</option>
+                    </select>
+                    <input type="text" ng-disabled="true" ng-model="model.event.name" ng-show="global.events.length == 1">
+                </dd>
+                <div collapse="!model.event"  class="alert-info">
+                    <h4>Event details</h4>
+                    <dt>Date</dt>
+                    <dd ng-show="model.event.eventFrom == model.event.eventTo">{{model.event.eventFrom}}</dd>
+                    <dd ng-hide="model.event.eventFrom == model.event.eventTo">{{model.event.eventFrom + " until " + model.event.eventTo}}</dd>
+                    <dt>Location</dt>
+                    <dd>{{model.event.location.name + ", " + model.event.location.country}}</dd>
+                    <dt>Description</dt>
+                    <dd>{{model.event.description}}</dd>
+                    <dt>Contact data</dt>
+                    <dd>{{model.event.email}}</dd>
+                </div>
+
+                <div ng-show="model.event">
+                    <dt><label for="talkTitle">Title</label></dt>
+                    <dd><input id="talkTitle" type="text" ng-model="model.talk.title" required></dd>
+
+                    <dt><label>State</label></dt>
+                    <dd>Draft</dd>
+
+                    <dt><label for="talkType">Type</label></dt>
+                    <dd>
+                        <select id="talkType" ng-model="model.talk.type" required ng-disabled="!model.event" ng-options="t.name for t in model.event.types"></select>
+                    </dd>
+
+                    <dt><label for="talkTrack">Track</label></dt>
+                    <dd>
+                        <select id="talkTrack" ng-model="model.talk.track" required ng-disabled="!model.event" ng-options="t.name for t in model.event.tracks"></select>
+                    </dd>
+
+                    <dt><label for="talkAddTag">Tags</label></dt>
+                    <dd>
+                        <input id="talkAddTag"
+                               type="text"
+                               ng-model="model.newTag"
+                               placeholder="Tags"
+                               typeahead="t for t in getTags($viewValue)"
+                               devoxx-on-return-key="addTag()">
+                        <a ng-click="addTag()">Add tag (or press return)</a>
+                        <ul>
+                            <li ng-repeat="tagName in model.talk.tagNames">{{tagName}} <a ng-click="model.talk.tagNames.splice($index, 1)">&times;</a> </li>
+                        </ul>
+                    </dd>
+
+                    <dt><label for="talkAddSpeaker">Speakers</label></dt>
+                    <dd>
+                        <input id="talkAddSpeaker"
+                               type="email"
+                               ng-model="model.newSpeaker.email"
+                               placeholder="Enter the speakers' email address"
+                               devoxx-on-return-key="addSpeaker()">
+                        <a ng-click="addSpeaker()">Add speaker (or press return)</a>
+                        <ul>
+                            <li ng-repeat="speaker in model.talk.speakers">
+                                {{speaker.firstName}} {{speaker.lastName}}
+                                <span ng-show="speaker.unknown" class="alert-info">will be invited by email</span>
+                            </li>
+                        </ul>
+                    </dd>
+
+                    <dt><label for="talkOutline">Talk outline</label></dt>
+                    <dd><textarea id="talkOutline" ng-model="model.talk.outline"></textarea></dd>
+
+                    <dt><label for="talkMessageToSteering">Message to steering committee (optional)</label></dt>
+                    <dd><textarea id="talkMessageToSteering" ng-model="model.talk.messageToSteering"></textarea></dd>
+
+                    <dt></dt>
+                    <dd><label><input type="checkbox" ng-model="model.talk.shareWithJugsAllowed"> I allow Devoxx to share my proposal with related User Groups</label></dd>
+
+                    <dt></dt>
+                    <dd><label> <input type="checkbox" ng-model="model.termsAndConditionsAgreed"> I agree to the terms and conditions</label></dd>
+
+                    <dt></dt>
+                    <dd>
+                        <input type="submit" ng-click="submit(model.talk)" class="btn btn-primary">
+                        <input type="reset" ng-click="cancel(model.talk)" class="btn">
+                    </dd>
+                </div>
+            </dl>
+        </form>
+        <br class="clear">
+        <div modal="model.addSpeakerDialogOpen" close="close()">
+            <div class="modal-header">
+                <h1>Add new speaker</h1>
+            </div>
+            <div class="modal-body">
+                <form name="addSpeakerForm">
+                    <dl>
+                        <dt><label for="talkAddNewSpeakerEmail">Email address</label></dt>
+                        <dd>
+                            <input id="talkAddNewSpeakerEmail"
+                                   type="email"
+                                   ng-model="model.newSpeaker.email"
+                                   ng-disabled="true"
+                                   required>
+                        </dd>
+
+                        <dt><label for="talkAddNewSpeakerFirstName">FirstName</label></dt>
+                        <dd><input id="talkAddNewSpeakerFirstName" type="text" ng-model="model.newSpeaker.firstName" required></dd>
+
+                        <dt><label for="talkAddNewSpeakerLastName">LastName</label></dt>
+                        <dd><input id="talkAddNewSpeakerLastName" type="text" ng-model="model.newSpeaker.lastName" required></dd>
+
+                        <dt><label for="talkAddNewSpeakerCompany">Company</label></dt>
+                        <dd><input id="talkAddNewSpeakerCompany" type="text" ng-model="model.newSpeaker.company" required></dd>
+
+                        <dt><label for="talkAddNewSpeakerBio">Bio</label></dt>
+                        <dd><textarea id="talkAddNewSpeakerBio" type="text" ng-model="model.newSpeaker.bio" required></textarea></dd>
+
+                        <dt><label for="talkAddNewSpeakerReferences">References</label></dt>
+                        <dd><textarea id="talkAddNewSpeakerReferences" type="text" ng-model="model.newSpeaker.references" required></textarea></dd>
+
+                        <dt><label for="talkAddNewSpeakerTwitterHandle">Twitter handle</label></dt>
+                        <dd><input id="talkAddNewSpeakerTwitterHandle" type="text" ng-model="model.newSpeaker.twitterHandle"></dd>
+                    </dl>
+
+                    <input type="submit"
+                           ng-click="addNewSpeaker(model.newSpeaker)"
+                           class="btn"
+                           value="Add new speaker (speaker will be invited by email)">
+                    <input type="reset"
+                           ng-click="model.addSpeakerDialogOpen = false"
+                           class="btn"
+                           value="Cancel">
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

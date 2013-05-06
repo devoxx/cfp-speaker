@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="angularcfp:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="angularcfp-1.0.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="angularcfp:war exploded" />
+    </root>
+  </artifact>
+</component>

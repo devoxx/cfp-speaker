@@ -1,0 +1,22 @@
+<div ng-controller="Speaker_MyTalksCtrl">
+    <ng-include src="'views/speaker/_menu.html'"></ng-include>
+    <h3>My talks</h3>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Event</th>
+                <th>Title</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="talk in model.myTalks" ng-click="showDetails(talk)">
+                <td></td>
+                <td>{{talk.eventName}}</td>
+                <td>{{talk.title}}</td>
+                <td>{{talk.state}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
