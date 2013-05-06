@@ -7,3 +7,5 @@ Used technologies:
 - Angular-UI
 - Underscore.JS
 - Bootstrap.JS
+
+[![Built on CloudBees](http://www.cloudbees.com/sites/default/files/Button-Built-on-CB-1.png)](https://devoxx.ci.cloudbees.com/job/cfp-speaker/)
