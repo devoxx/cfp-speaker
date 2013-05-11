@@ -1,0 +1,26 @@
+
+<div ng-controller="ProfileCtrl">
+    <h3>Logged in</h3>
+    <p>Logged in as {{model.loggedInUser.firstname + ' ' + model.loggedInUser.lastName}}</p>
+    <p>Authorizations</p>
+    <ul ng-show="profileComplete(model.loggedInUser)">
+        <li ng-repeat="auth in model.loggedInUser.authorities">
+            <h4>{{auth}}</h4>
+            <p ng-show="auth == 'SPEAKER'"><a href="/speaker-cfp">Go to the speaker registration app</a></p>
+            <p ng-show="auth == 'STEERING'"><a href="/steering-cfp">Go to the steering app</a></p>
+            <p ng-show="auth == 'ADMIN'"><a href="/admin-cfp">Go to the admin app</a></p>
+        </li>
+    </ul>
+    <div ng-hide="profileComplete(model.loggedInUser)">
+        <h3>Profile not complete</h3>
+        <p>Your profile is not yet complete. To continue, please fill in the missing values in the form below</p>
+        <form>
+            <ng-include src="'views/speaker/speaker_details.html'"></ng-include>
+            <input type="submit"
+                   ng-click="updateProfile(model.speakerDetails)"
+                   class="btn"
+                   value="Update profile">
+        </form>
+    </div>
+</div>
+

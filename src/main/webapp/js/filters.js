@@ -1,3 +1,5 @@
+'use strict';
+
 app.filter('spaceSeparatedArray', function() {
     return function(input) {
         return input.join(' ');

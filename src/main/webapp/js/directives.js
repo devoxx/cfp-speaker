@@ -1,3 +1,5 @@
+'use strict';
+
 app.directive('devoxxOnReturnKey', function() {
     return {
         restrict: 'A',
@@ -11,6 +13,21 @@ app.directive('devoxxOnReturnKey', function() {
         }
     };
 });
+
+app.directive('devoxxSetFocusOn', function ($timeout) {
+    return {
+        link: function (scope, element, attrs, ctrl) {
+            scope.$watch(attrs.devoxxSetFocusOn, function (newValue, oldValue) {
+                if (newValue && !oldValue) {
+                    $timeout(function () {
+                        $('#' + attrs.devoxxSetFocusField).focus();
+                    });
+                }
+            });
+        }
+    };
+});
+
 //
 //app.directive('devoxxDoesNotExistInList', function($parse) {
 //    return {

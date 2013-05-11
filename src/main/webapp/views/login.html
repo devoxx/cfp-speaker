@@ -1,7 +1,10 @@
 <div ng-controller="LoginCtrl">
-    <h3>Login</h3>
-    <p>Login as</p>
-    <button ng-click="login('speaker')">Speaker</button>
-    <button ng-click="login('prg_cmt')">Programme Committee Member</button>
-    <button ng-click="login('admin')">Admin</button>
+    <div>
+        <h3>Login</h3>
+        <p>Login as</p>
+        Email: <input type="email" ng-model="model.email">
+        Password: <input type="password" ng-model="model.password" devoxx-on-return-key="login()">
+        <button ng-click="login()">Login</button>
+    </div>
+
 </div>

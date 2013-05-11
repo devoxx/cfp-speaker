@@ -38,7 +38,7 @@
                 <dd>
                     <ul class="unstyled">
                         <li>
-                            <span ng-class="{strikethrough: model.talk.onBehalfOf}">Currently logged in user: {{model.currentSpeaker.name}}</span>
+                            <span ng-class="{strikethrough: model.talk.onBehalfOf}">Currently logged in user: {{model.currentUser.name}}</span>
                             <label><input type="checkbox" ng-model="model.talk.onBehalfOf" id="onBehalfOf"/>You are registering on behalf of:</label>
                         </li>
                         <li ng-repeat="speaker in model.talk.speakers" class="form-inline">

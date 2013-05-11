@@ -1,4 +1,6 @@
-var app = angular.module('DevoxxCfpApp', ['Admin', 'PrgCmt', 'Speaker', 'Generic Services', 'ui.bootstrap', '$strap.directives'], null);
+'use strict';
+
+var app = angular.module('DevoxxCfpApp', [ 'Speaker', 'Generic Services', 'ui.bootstrap', '$strap.directives' ], null);
 
 app.config(function($routeProvider) {
     console.log('generic config')
@@ -10,6 +12,9 @@ app.config(function($routeProvider) {
         }).when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl'
+        }).when('/profile', {
+            templateUrl: 'views/profile.html',
+            controller: 'ProfileCtrl'
         }).when('/about', {
             templateUrl: 'views/about.html',
             controller: 'AboutCtrl'
