@@ -140,7 +140,7 @@ genericServicesModule.factory('UsersService', function($q, $filter) {
     }
 });
 
-var baseUri = 'http://localhost/staging-cfp/api/v2/proposal';
+var baseUri = 'http://localhost:8080/v2/proposal';
 
 genericServicesModule.factory('Tags', function($resource, $q, $filter) {
     var cached;

@@ -4,7 +4,7 @@ var prgCmtModuleId = 'PrgCmt',
     prgCmtCtrlPrefix = prgCmtModuleId  + '_',
     prgCmtModule = angular.module(prgCmtModuleId, []);
 
-prgCmtModule.value('appName', 'Programme Committee Module');
+prgCmtModule.value('appName', 'Review Proposals');
 
 prgCmtModule.config(function($routeProvider) {
     console.log('module prg_cmt config')
