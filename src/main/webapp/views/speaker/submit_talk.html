@@ -1,15 +1,14 @@
 <div ng-controller="Speaker_GlobalCtrl">
     <div ng-controller="Speaker_SubmitTalkCtrl">
-        <ng-include src="'views/speaker/_menu.html'"></ng-include>
         <h3>Submit Proposal</h3>
         <form name="submitTalkForm" onsubmit="return false">
             <dl>
                 <dt><label for="talkEvent">Event</label></dt>
                 <dd>
-                    <select id="talkEvent" ng-model="model.talk.event" ng-options="e.name for e in global.events" required ng-hide="global.events.length == 1">
+                    <select id="talkEvent" ng-model="model.talk.event" ng-options="e.name for e in global.events()" required ng-hide="global.events().length == 1">
                         <option value="">Choose event</option>
                     </select>
-                    <input type="text" ng-disabled="true" ng-model="model.talk.event.name" ng-show="global.events.length == 1">
+                    <input type="text" ng-disabled="true" ng-model="model.talk.event.name" ng-show="global.events().length == 1">
                 </dd>
                 <div collapse="!model.talk.event"  class="alert-info">
                     <h4>Event details</h4>
@@ -126,10 +125,10 @@
                            ng-click="addNewSpeaker(model.speakerDetails)"
                            class="btn"
                            value="Add new speaker (speaker will be invited by email)">
-                    <input type="reset"
-                           ng-click="model.addSpeakerDialogOpen = false"
-                           class="btn"
-                           value="Cancel">
+                    <!--<input type="reset"-->
+                           <!--ng-click="model.addSpeakerDialogOpen = false"-->
+                           <!--class="btn"-->
+                           <!--value="Cancel">-->
                 </form>
             </div>
             <div class="modal-footer">

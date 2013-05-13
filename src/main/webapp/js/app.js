@@ -1,6 +1,7 @@
 'use strict';
 
-var app = angular.module('DevoxxCfpApp', [ 'Speaker', 'Generic Services', 'ui.bootstrap', '$strap.directives' ], null);
+// var app = angular.module('DevoxxCfpApp', [ 'Speaker', 'Generic Services', 'ui.bootstrap', '$strap.directives' ], null);
+var app = angular.module('DevoxxCfpApp', [ 'Speaker', 'Generic Services', '$strap.directives' ], null);
 
 app.config(function($routeProvider) {
     console.log('generic config')
@@ -15,13 +16,14 @@ app.config(function($routeProvider) {
         }).when('/profile', {
             templateUrl: 'views/profile.html',
             controller: 'ProfileCtrl'
-        }).when('/about', {
-            templateUrl: 'views/about.html',
-            controller: 'AboutCtrl'
-        }).when('/contact', {
-            templateUrl: 'views/contact.html',
-            controller: 'ContactCtrl'
         }).otherwise({
             redirectTo: '/'
         });
 });
+
+app.run(['$rootScope', 'UserService', 'EventService', function ($rootScope, UserService, EventService) {
+    UserService.loginByToken();
+    UserService.waitLoggedIn().then(function(){
+        EventService.load();
+    })
+}]);

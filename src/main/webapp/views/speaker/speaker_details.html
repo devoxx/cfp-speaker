@@ -5,23 +5,26 @@
                type="email"
                ng-model="model.speakerDetails.email"
                ng-disabled="true"
-               required>
+               >
     </dd>
 
     <dt><label for="speakerDetailsFirstname">First name</label></dt>
-    <dd><input id="speakerDetailsFirstname" type="text" ng-model="model.speakerDetails.firstname" required></dd>
+    <dd><input id="speakerDetailsFirstname" type="text" ng-model="model.speakerDetails.firstname"></dd>
 
     <dt><label for="speakerDetailsLastname">Last name</label></dt>
-    <dd><input id="speakerDetailsLastname" type="text" ng-model="model.speakerDetails.lastname" required></dd>
+    <dd><input id="speakerDetailsLastname" type="text" ng-model="model.speakerDetails.lastname" ></dd>
+
+    <dt><label for="speakerDetailsCountry">Country</label></dt>
+    <dd><input id="speakerDetailsCountry" type="text" ng-model="model.speakerDetails.country" ></dd>
 
     <dt><label for="speakerDetailsCompany">Company</label></dt>
-    <dd><input id="speakerDetailsCompany" type="text" ng-model="model.speakerDetails.company" required></dd>
+    <dd><input id="speakerDetailsCompany" type="text" ng-model="model.speakerDetails.company" ></dd>
 
     <dt><label for="speakerDetailsBio">Bio</label></dt>
-    <dd><textarea id="speakerDetailsBio" type="text" ng-model="model.speakerDetails.bio" required></textarea></dd>
+    <dd><textarea id="speakerDetailsBio" type="text" ng-model="model.speakerDetails.speakerBio" ></textarea></dd>
 
     <dt><label for="speakerDetailsReferences">References</label></dt>
-    <dd><textarea id="speakerDetailsReferences" type="text" ng-model="model.speakerDetails.references" required></textarea></dd>
+    <dd><textarea id="speakerDetailsReferences" type="text" ng-model="model.speakerDetails.speakingReferences" ></textarea></dd>
 
     <dt><label for="speakerDetailsTwitterHandle">Twitter handle</label></dt>
     <dd><input id="speakerDetailsTwitterHandle" type="text" ng-model="model.speakerDetails.twitterHandle"></dd>

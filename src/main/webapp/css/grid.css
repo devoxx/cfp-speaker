@@ -1,0 +1,129 @@
+
+/* Main container for all */
+
+.grid {
+	margin: 0 auto;
+	max-width: 900px;
+	padding: 0 30px;
+}
+
+.row {
+	clear: both;
+}
+.row:before,
+.row:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.row:after {
+    clear: both;
+}
+
+.row {
+    *zoom: 1;
+}
+
+
+
+
+
+/* Common columns definitions */
+.col1 { float: left; width: 5%; }
+.col2 { float: left; width: 10%; }
+.col3 { float: left; width: 15%; }
+.col4 { float: left; width: 20%; }
+.col5 { float: left; width: 25%; }
+.col6 { float: left; width: 30%; }
+.col7 { float: left; width: 35%; }
+.col8 { float: left; width: 40%; }
+.col9 { float: left; width: 45%; }
+.col10 { float: left; width: 50%; }
+.col11 { float: left; width: 55%; }
+.col12 { float: left; width: 60%; }
+.col13 { float: left; width: 65%; }
+.col14 { float: left; width: 70%; }
+.col15 { float: left; width: 75%; }
+.col16 { float: left; width: 80%; }
+.col17 { float: left; width: 85%; }
+.col18 { float: left; width: 90%; }
+.col19 { float: left; width: 95%; }
+.col20 { float: left; width: 100%; }
+
+.row .push1 { margin-left: 5%; }
+.row .push2 { margin-left: 10%; }
+.row .push3 { margin-left: 15%; }
+.row .push4 { margin-left: 20%; }
+.row .push5 { margin-left: 25%; }
+.row .push6 { margin-left: 30%; }
+.row .push7 { margin-left: 35%; }
+.row .push8 { margin-left: 40%; }
+.row .push9 { margin-left: 45%; }
+.row .push10 { margin-left: 50%; }
+.row .push11 { margin-left: 55%; }
+.row .push12 { margin-left: 60%; }
+.row .push13 { margin-left: 65%; }
+.row .push14 { margin-left: 70%; }
+.row .push15 { margin-left: 75%; }
+.row .push16 { margin-left: 80%; }
+.row .push17 { margin-left: 85%; }
+.row .push18 { margin-left: 90%; }
+.row .push19 { margin-left: 95%; }
+
+
+
+/* Small devices */
+@media all and (max-width: 600px) {
+	
+	.grid {
+		padding: 0 20px;
+	}
+	
+	.row {
+	}
+
+	.col1, 
+	.col2, 
+	.col3, 
+	.col4, 
+	.col5, 
+	.col6, 
+	.col7, 
+	.col8, 
+	.col9, 
+	.col10,
+	.col11, 
+	.col12, 
+	.col13, 
+	.col14, 
+	.col15, 
+	.col16,
+	.col17,
+	.col18,
+	.col19,
+	.col20 {
+		float: none;
+		width: 100%;
+		padding: 0 0 20px 0;
+	}
+		
+	.row .push1 ,
+	.row .push2 ,
+	.row .push3 ,
+	.row .push4 ,
+	.row .push5 ,
+	.row .push6 ,
+	.row .push7 ,
+	.row .push8 ,
+	.row .push9 ,
+	.row .push10 ,
+	.row .push11 ,
+	.row .push12 ,
+	.row .push13 ,
+	.row .push14 ,
+	.row .push15 ,
+	.row .push16 ,
+	.row .push17 ,
+	.row .push18 ,
+	.row .push19 { margin-left: 0; }
+}

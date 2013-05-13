@@ -1,12 +1,11 @@
 <div ng-controller="Speaker_GlobalCtrl">
     <div ng-controller="Speaker_SubmitTalkCtrl">
-        <ng-include src="'views/speaker/_menu.html'"></ng-include>
         <h3>Submit Talk</h3>
         <form name="submitTalkForm" onsubmit="return false">
             <dl>
                 <dt>Event</dt>
                 <dd>
-                    <select ng-model="model.event" ng-options="e.name for e in global.events" required>
+                    <select ng-model="model.event" ng-options="e.name for e in global.events()" required>
                         <option value="">Choose event</option>
                     </select>
                 </dd>

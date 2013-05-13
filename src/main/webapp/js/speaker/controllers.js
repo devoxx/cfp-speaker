@@ -14,39 +14,23 @@ speakerModule.config(function($routeProvider) {
     };
     // Speaker routing
     $routeProvider
-        .when(speakerUrlPrefix, {
-            resolve: resolveCurrentUser,
-            templateUrl: speakerViewPrefix + '/home.html',
-            controller: speakerCtrlPrefix + 'HomeCtrl'
-        }).when(speakerUrlPrefix + '/my_talks', {
+        .when(speakerUrlPrefix + '/proposals', {
             resolve: resolveCurrentUser,
             templateUrl: speakerViewPrefix + '/my_talks.html',
             controller: speakerCtrlPrefix + 'MyTalksCtrl'
-        }).when(speakerUrlPrefix + '/submit_talk', {
+        }).when(speakerUrlPrefix + '/proposal/new', {
             resolve: resolveCurrentUser,
             templateUrl: speakerViewPrefix + '/submit_talk.html',
             controller: speakerCtrlPrefix + 'SubmitTalkCtrl'
-        }).when(speakerUrlPrefix + '/talk_details/:talkId', {
+        }).when(speakerUrlPrefix + '/proposal/:talkId', {
             resolve: resolveCurrentUser,
             templateUrl: speakerViewPrefix + '/talk_details.html',
             controller: speakerCtrlPrefix + 'TalkDetailsCtrl'
         });
-
 });
 
-speakerModule.resolveCurrentUser = function($q, UsersService) {
-    var defer = $q.defer();
-    var currentUserHttp = UsersService.getCurrentUser();
-    currentUserHttp.then(function(data, status, headers, config) {
-        if (data) {
-            defer.resolve(data);
-        } else {
-            defer.reject("No valid userToken");
-        };
-    }, function(data, status, headers, config) {
-        defer.reject("No valid userToken");
-    });
-    return defer.promise;
+speakerModule.resolveCurrentUser = function(UserService) {
+    return UserService.waitLoggedIn();
 };
 
 speakerModule.controller(speakerCtrlPrefix + 'HomeCtrl', function($scope) {
@@ -54,14 +38,14 @@ speakerModule.controller(speakerCtrlPrefix + 'HomeCtrl', function($scope) {
 
 speakerModule.controller(speakerCtrlPrefix + 'MyTalksCtrl', function($scope, $location, TalksService) {
     $scope.model = {
-        myTalks: TalksService.allTalksForSpeaker()
+        myTalks: TalksService.allTalksForSpeaker({ id: 9}) // TODO FIXME event ID
     };
     $scope.showDetails = function(talk) {
-        $location.path('/speaker/talk_details/'+talk.id);
+        $location.path('/speaker/proposal/'+talk.id);
     };
 });
 
-speakerModule.controller(speakerCtrlPrefix + 'SubmitTalkCtrl', function($scope, $route, UsersService, Tags, Talks, EventBus) {
+speakerModule.controller(speakerCtrlPrefix + 'SubmitTalkCtrl', function($scope, $route, UserService, Tags, Talks, EventService) {
     $scope.model = {
         talk: {
             tags: [],
@@ -76,15 +60,16 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitTalkCtrl', function($scope, 
             backdropFade: true,
             dialogFade:true
         },
-        currentUser: UsersService.getCurrentUser(),
+        currentUser: UserService.getCurrentUser(),
         onBehalfOf: false
     };
 
-    EventBus.onEventsLoaded($scope, function(events, event) {
-        if (events.length == 1) {
-            $scope.model.talk.event = events[0];
+    $scope.$watch(EventService.getEvents, function(){
+        console.log("Event fired " + EventService.getEvents());
+        if ($scope.global && $scope.global.events() && $scope.global.events().length == 1) {
+            $scope.model.talk.event = $scope.global.events()[0];
         }
-    });
+    })
 
     $scope.getTags = function(partialTagName) {
         return Tags.query(partialTagName);
@@ -121,7 +106,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitTalkCtrl', function($scope, 
         };
         if (email
          && speakerDoesNotExist(model.talk.speakers, email)) {
-            UsersService.getSpeakerByEmailAddress(email)
+            UserService.getSpeakerByEmailAddress(email)
                 .success(function(data, status, headers, config) {
                     var results = data.results;
                     if (results.length != 0) {
@@ -179,28 +164,11 @@ speakerModule.controller(speakerCtrlPrefix + 'TalkDetailsCtrl', function($scope,
     };
 });
 
-speakerModule.controller(speakerCtrlPrefix + 'GlobalCtrl', function($scope, $timeout, $q, UsersService, Events, EventBus) {
+speakerModule.controller(speakerCtrlPrefix + 'GlobalCtrl', function($scope, $timeout, $q, UserService, EventService, EventBus) {
     $scope.global = {};
-    $scope.global.events = Events.query();
-    $scope.global.events.$then(function() {
-        for (var i = 0; i < $scope.global.events.length; i++) {
-            var event = $scope.global.events[i];
-            var e = Events.get({eventId: event.id})
-            e.$then(function (ee) {
-                return function(resource) {
-                    var event = resource.data;
-                    ee.tracks = event.tracks;
-                    ee.types = event.types;
-                };
-            }(event),
-            function(error) {
-                console.log('Error: ' + error)
-            });
-        }
-        $scope.global.events.splice(2, 1);
-        $scope.global.events.splice(0, 1);
-        EventBus.eventsLoaded($scope.global.events);
-    });
+
+    $scope.global.events = EventService.getEvents;
+
     $scope.global.experienceOptions = [
         'NOVICE',
         'MEDIOR',
