@@ -46,6 +46,8 @@ speakerModule.controller(speakerCtrlPrefix + 'MyTalksCtrl', function($scope, $lo
 });
 
 speakerModule.controller(speakerCtrlPrefix + 'SubmitTalkCtrl', function($scope, $route, UserService, Tags, Talks, EventService) {
+    console.log($route.current.locals)
+    console.log($route.current.locals.currentUser)
     $scope.model = {
         talk: {
             tags: [],
@@ -97,9 +99,14 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitTalkCtrl', function($scope, 
         var model = $scope.model,
             email = model.speakerDetails.email;
         var getSpeakerEmails = function(speakers) {
-            return $.map(speakers, function(speaker) {
-                return speaker.email;
-            });
+            if (speakers && speakers.length) {
+                console.log('len', speakers[0])
+                return $.map(speakers, function(speaker) {
+                    console.log('args', arguments)
+                    return speaker.email;
+                });
+            }
+            return [];
         };
         var speakerDoesNotExist = function(speakers, email) {
             return getSpeakerEmails(speakers).indexOf(email) == -1
@@ -116,6 +123,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitTalkCtrl', function($scope, 
                             model.speakerDetails.email = '';
                         }
                     } else {
+                        console.log('modal')
                         model.addSpeakerDialogOpen = true;
                         model.speakerDetails = {
                             email: email

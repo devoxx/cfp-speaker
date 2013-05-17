@@ -161,7 +161,7 @@ a.btn:hover {
 .dotList li h4 {
 	color: #000;
 	text-align: center;
-}
+}
 .dotList li .popup {
 	display: none;
 }
@@ -269,6 +269,10 @@ header nav ul li ul {
 	white-space: nowrap;
 	width: 500px;
 }
+header nav ul li ul li {
+	display: inline;
+	float: left;
+}
 header nav ul li.subright ul {
 	left: auto;
 	right: 0;
@@ -290,20 +294,27 @@ header nav ul li.search a {
 	width: 5px;
 	text-indent: -9999px; 
 }
-header .popup .popup {
-	display: none;
+header .popup ul {
 	right: 0;
+	left: auto;
 	padding: 20px;
 	position: absolute;
 	top: 44px;
 	background: #2f2b2d;
 	-webkit-border-radius: 6px;
-	border-radius: 6px; 
+	border-radius: 6px;
+	width: auto;
+	white-space: normal;
+}
+header .popup ul li {
+	display: block;
+	float: none;
 }
 header .popup input {
 	background: #444142;
 	color: #fff;
 	margin: 0 0 10px 0;
+	padding: 10px;
 	width: 190px;
 }
 header .popup input.btn {
@@ -364,6 +375,9 @@ header .search .popup ol li a:hover .title {
 header #submenu {
 	background: #2f2b2d;
 	height: 0;
+}
+.menuSpacer {
+	height: 64px;
 }
 
 .area {
@@ -519,7 +533,6 @@ footer .sponsors a {
 
 #carousel {
 	background: url(../images/carousel_bg_white.png) no-repeat center bottom, url(../images/carousel_bg.jpg) repeat center;
-	padding-top: 62px;
 	position: relative;
 }
 
@@ -796,6 +809,22 @@ footer .sponsors a {
 /* @end */
 
 
+
+/* @group Page: Call */
+
+.callforpapers #topinfo {
+	padding: 70px 0 0 0;
+	
+}
+.callforpapers .col11 {
+	padding: 0;
+}
+
+/* @end */
+
+
+
+
 /* @group Helper classes */
 
 .ir {
@@ -875,26 +904,67 @@ footer .sponsors a {
 	}
 }
 
-@media only screen and (max-width: 835px) {
+@media only screen and (max-width: 780px) {
 
-	header {
-		min-width: 418px;	
-	}
-	header nav ul li.hide_mobile {
-		display: none;
-	}
 	header nav ul li a {
 		padding-left: 8px;
 		padding-right: 8px;
 	}
 }
 
-@media only screen and (max-width: 600px) {
-	
+@media only screen and (max-width: 740px) {
+
+	.menuSpacer {
+		height: 104px;
+	}
+
+	header .col6 img {
+		display: block;
+		margin: 0 auto;
+	}
+	header .col6,
+	header .col14 {
+		width: 100%;
+	}
+	header .col14 {
+		padding-top: 15px;
+	}
 	header nav ul {
+		float: none;
+		margin: 0 0 0 -8px;
+		text-align: center;
+	}
+	header nav ul li {
+		display: inline-block;
+		float: none;
+	}
+	header nav ul li a {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+	header nav ul li.subright ul {
+		left: 0;
+		right: auto;
+	}
+	header nav ul li.subright ul li {
 		float: left;
 	}
+}
+
+@media only screen and (max-width: 600px) {
 	
+	.menuSpacer {
+		height: 65px;
+	}
+		
+	header .col6 img {
+		display: block;
+		margin: 0;
+	}
+	
+	
+	
+		
 	#splash h1,
 	#splash .btn {
 		margin: 0;
@@ -1017,10 +1087,6 @@ footer .sponsors a {
     h3 {
         page-break-after: avoid;
     }
-}
-
-.container {
-    padding: 80px;
 }
 
 /* @end */

@@ -1,17 +1,56 @@
-/*
 
-Uniform Theme: Uniform Default
-Version: 1.8
-By: Josh Pyles
-License: MIT License
----
-For use with the Uniform plugin:
-http://uniformjs.com/
 
-*/
+
+form {
+}
+form ul li {
+	margin: 0 0 15px;
+	padding: 0 0 0 150px;
+}
+form ul li label {
+	display: inline;
+	float: left;
+	margin: 0 0 0 -150px;
+	padding: 13px 0;
+	text-transform: uppercase;
+	width: 140px;
+}
+
+
+
+
+
+
+/* INPUT & TEXTAREA */
+input.uniform-input,
+select.uniform-multiselect,
+textarea.uniform {
+	font-size: 14px;
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	font-weight: normal;
+	color: #777;
+	border: none;
+	padding: 23px 25px;
+	-webkit-border-radius: 5px;	    
+    border-radius: 5px;
+    width: 70%;
+    -webkit-box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.4);
+}
+input.uniform-input.hover, input.uniform-input.focus,
+select.uniform-multiselect.hover,
+select.uniform-multiselect.focus,
+textarea.uniform.hover,
+textarea.uniform.focus {
+}
+
+
+
+
+
 /* General settings */
 div.selector, div.selector span, div.checker span, div.radio span, div.uploader, div.uploader span.action, div.button, div.button span {
-  background-image: url("../images/sprite.png");
+  background-image: url("../images/forms.png");
   background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased; }
 div.selector, div.checker, div.button, div.radio, div.uploader {
@@ -26,15 +65,8 @@ div.selector, div.checker, div.button, div.radio, div.uploader {
 div.selector, div.selector *, div.radio, div.radio *, div.checker, div.checker *, div.uploader, div.uploader *, div.button, div.button * {
   margin: 0;
   padding: 0; }
-
-/* Input & Textarea */
-input.uniform-input,
-select.uniform-multiselect,
-textarea.uniform {
-}
-  input.uniform-input.active,
-  select.uniform-multiselect.active,
-  textarea.uniform.active { }
+  
+  
 
 
 
@@ -43,60 +75,58 @@ textarea.uniform {
 div.checker input,
 input[type="search"],
 input[type="search"]:active {
-  -moz-appearance: none;
-  -webkit-appearance: none; }
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
 
 /* Select */
 div.selector {
-  background-position: 0 -130px;
-  line-height: 26px;
-  height: 26px;
-  padding: 0 0 0 10px;
-  position: relative;
-  overflow: hidden; }
-  div.selector span {
-    text-overflow: ellipsis;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    background-position: right 0;
-    height: 26px;
-    line-height: 26px;
-    padding-right: 25px;
-    cursor: pointer;
-    width: 100%;
-    display: block; }
-  div.selector.fixedWidth {
-    width: 190px; }
-    div.selector.fixedWidth span {
-      width: 155px; }
-  div.selector select {
-    opacity: 0;
-    filter: alpha(opacity=0);
-    -moz-opacity: 0;
-    border: none;
-    background: none;
-    position: absolute;
-    height: 22px;
-    top: 2px;
-    left: 0px;
-    width: 100%; }
-  div.selector.active {
-    background-position: 0 -156px; }
-    div.selector.active span {
-      background-position: right -26px; }
-  div.selector.hover, div.selector.focus {
-    background-position: 0 -182px; }
-    div.selector.hover span, div.selector.focus span {
-      background-position: right -52px; }
-    div.selector.hover.active, div.selector.focus.active {
-      background-position: 0 -208px; }
-      div.selector.hover.active span, div.selector.focus.active span {
-        background-position: right -78px; }
-  div.selector.disabled, div.selector.disabled.active {
-    background-position: 0 -234px; }
-    div.selector.disabled span, div.selector.disabled.active span {
-      background-position: right -104px; }
+	background-position: 0 0;
+	line-height: 65px;
+	height: 65px;
+	padding: 0 0 0 14px;
+	position: relative;
+	overflow: hidden;
+	font-size: 14px;
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	font-weight: normal;
+	color: #777777;
+}
+div.selector span {
+	text-overflow: ellipsis;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	background-position: right -140px;
+	height: 65px;
+	line-height: 63px;
+	padding: 0 40px 0 15px;
+	cursor: pointer;
+	width: 100%;
+	display: block;
+	width: 250px;
+}
+div.selector select {
+	opacity: 0;
+	filter: alpha(opacity=0);
+	-moz-opacity: 0;
+	border: none;
+	background: none;
+	position: absolute;
+	height: 65px;
+	top: 2px;
+	left: 0px;
+	width: 100%;
+	min-width: 340px;
+}
+div.selector.hover,
+div.selector.focus {
+	background-position: 0 -70px;
+}
+div.selector.hover span,
+div.selector.focus span {
+	background-position: right -210px;
+}
 
 /* Checkbox */
 div.checker {
@@ -185,131 +215,86 @@ div.radio {
 
 /* Uploader */
 div.uploader {
-  background-position: 0 -297px;
-  height: 28px;
-  width: 190px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden; }
-  div.uploader span.action {
-    background-position: right -409px;
-    height: 28px;
-    line-height: 28px;
-    width: 82px;
-    text-align: center;
-    float: left;
-    display: inline;
-    overflow: hidden;
-    cursor: pointer; }
-  div.uploader span.filename {
-    text-overflow: ellipsis;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    float: left;
-    cursor: default;
-    height: 24px;
-    margin: 2px 0 2px 2px;
-    line-height: 24px;
-    width: 85px;
-    padding: 0 10px; }
-  div.uploader input {
-    opacity: 0;
-    filter: alpha(opacity=0);
-    -moz-opacity: 0;
-    border: none;
-    background: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    float: right;
-    cursor: default;
-    width: 100%;
-    height: 100%; }
-  div.uploader.active span.action {
-    background-position: right -465px; }
-  div.uploader.hover, div.uploader.focus {
-    background-position: 0 -353px; }
-    div.uploader.hover span.action, div.uploader.focus span.action {
-      background-position: right -437px; }
-    div.uploader.hover.active span.action, div.uploader.focus.active span.action {
-      background-position: right -493px; }
-  div.uploader.disabled, div.uploader.disabled.active {
-    background-position: 0 -325px; }
-    div.uploader.disabled span.action, div.uploader.disabled.active span.action {
-      background-position: right -381px; }
+	background: #fff;
+	font-size: 14px;
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	font-weight: normal;
+	color: #777;
+	border: none;
+	padding: 10px;
+	-webkit-border-radius: 5px;	    
+	border-radius: 5px;
+	width: 74%;
+	-webkit-box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.4);
+	box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+div.uploader span.action {
+	background-position: right -409px;
+	height: 28px;
+	line-height: 28px;
+	width: 82px;
+	text-align: center;
+	float: left;
+	display: inline;
+	overflow: hidden;
+	cursor: pointer;
+	background: #000;
+	color: #fff;
+	display: inline-block;
+	white-space: nowrap;
+	padding: 13px 30px;
+	text-transform: uppercase;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+}
+div.uploader.hover span.action {
+	background: #F5AF33;
+	color: #000;
+}
+div.uploader span.filename {
+	text-overflow: ellipsis;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	float: right;
+	cursor: default;
+	margin: 0;
+	line-height: 70px;
+	padding: 0;
+	position: absolute;
+	left: 170px;
+	top: 0;
+}
+div.uploader input {
+	opacity: 0;
+	filter: alpha(opacity=0);
+	-moz-opacity: 0;
+	border: none;
+	background: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	float: right;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+}
 
       
 
-/* INPUT & TEXTAREA */
-input.uniform-input,
-select.uniform-multiselect,
-textarea.uniform {
-  font-size: 14px;
-  font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
-  font-weight: normal;
-  color: #777;
-  border: none;
- padding: 8px 15px; 
-   }
-  input.uniform-input.hover, input.uniform-input.focus,
-  select.uniform-multiselect.hover,
-  select.uniform-multiselect.focus,
-  textarea.uniform.hover,
-  textarea.uniform.focus {
-    -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-    border-color: #999; }
-
 /* PRESENTATION */
 div.button span {
-  font-weight: bold;
-  font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
-  font-size: 14px;
-  text-transform: uppercase; }
-div.button.hover span, div.button.focus span { }
-div.button.disabled span, div.button.disabled.active span { }
+	font-weight: bold;
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+div.button.hover span, div.button.focus span {
+}
+div.button.disabled span, div.button.disabled.active span {
+}
 
 
-
-
-/* Select */
-div.selector {
-  font-size: 12px; }
-  div.selector span {
-    color: #666;
-    text-shadow: 0 1px 0 white; }
-  div.selector select {
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-    font-size: 12px; }
-  div.selector.disabled span, div.selector.disabled.active span {
-    color: #bbb; }
-
-
-
-/* Checker */
-div.checker {
-  margin-right: 5px; }
-
-/* Radio */
-div.radio {
-  margin-right: 3px; }
-
-
-
-/* Uploader */
-div.uploader span.action {
-  text-shadow: white 0px 1px 0px;
-  background-color: #fff;
-  font-size: 11px;
-  font-weight: bold; }
-div.uploader span.filename {
-  color: #777;
-  border-right: solid 1px #bbbbbb;
-  font-size: 11px; }
-div.uploader.disabled span.action, div.uploader.disabled.active span.action {
-  color: #aaa; }
-div.uploader.disabled span.filename, div.uploader.disabled.active span.filename {
-  border-color: #ddd;
-  color: #aaa; }

@@ -1,9 +1,76 @@
 $(document).ready(function() {
 
-	$("select, input[type=file], input[type=text], input[type=password], input[type=email]").uniform();
+	$("select, input[type=file], input[type=text], input[type=password], input[type=email], textarea").uniform();
+	
+	    jQuery('header nav').meanmenu();
+	
+
+	$('#carousel ul').bxSlider({
+		mode: 'fade',		/* */
+		speed: 500,			/* */
+		auto: true,			/* */
+		minSlides: 1,		/* */
+		maxSlides: 1,		/* */
+		slideMargin: 0,		/* */
+		pause: 4000,		/* timeout between animation */
+		moveSlides: 1,		/* number slides to move */
+		controls: false, 	/* show prev/next */
+		pager: true, 		/* show pager */
+		touchEnabled: false,
+		swipeThreshold: 5,
+		oneToOneTouch: false,
+		tickerHover: true,
+		adaptiveHeight: true
+	});
+	
+	
+	
+	$('#news .carousel ul').bxSlider({
+		mode: 'horizontal',	/* */
+		speed: 500,			/* */
+		auto: false,			/* */
+		minSlides: 1,		/* */
+		maxSlides: 40,		/* */
+		slideMargin: 2,		/* */
+		pause: 4000,		/* timeout between animation */
+		moveSlides: 1,		/* number slides to move */
+		controls: true, 	/* show prev/next */
+		pager: false, 		/* show pager */
+		touchEnabled: false,
+		swipeThreshold: 5,
+		oneToOneTouch: false,
+		slideWidth: 266,
+		tickerHover: true,
+		adaptiveHeight: true
+	});
 
 
-//	$("#tweetwall .carousel ul li:even").addClass("even");
+
+
+	$("#tweetwall .carousel ul li:even").addClass("even");
+	
+	$('#tweetwall .carousel ul').bxSlider({
+		mode: 'vertical',	/* */
+		speed: 500,			/* */
+		auto: true,			/* */
+		minSlides: 3,		/* */
+		maxSlides: 3,		/* */
+		slideMargin: 0,		/* */
+		pause: 4000,		/* timeout between animation */
+		moveSlides: 1,		/* number slides to move */
+		controls: false, 	/* show prev/next */
+		pager: false, 		/* show pager */
+		touchEnabled: false,
+		swipeThreshold: 50,
+		oneToOneTouch: false,
+		easing: 'ease',
+		tickerHover: true,
+		adaptiveHeight: true
+	});
+	
+	
+	
+	
 	
 	$("header nav ul li.submenu").mouseover(function(){
 		$(this).addClass("open");
@@ -19,12 +86,14 @@ $(document).ready(function() {
 	
 	$("header nav ul li.popup").mouseover(function(){
 		$(this).addClass("open");
-		$(this).find('div.popup').fadeIn(200);
+		$(this).find('ul').fadeIn(200);
 		
 	}).mouseleave(function() {		
 		$(this).removeClass("open");
-		$(this).find('div.popup').fadeOut(200);	
+		$(this).find('ul').fadeOut(200);	
 	});
+	
+	
 	
 	
 		
@@ -34,12 +103,17 @@ $(document).ready(function() {
 	// clone image
 	$('footer .sponsors img').each(function(){
 		var el = $(this);
-		el.css({"position":"absolute"}).wrap("<div class='img_wrapper' style='display: inline-block'>").clone().addClass('img_grayscale').css({"position":"absolute","z-index":"998","opacity":"0"}).insertBefore(el).queue(function(){
-			var el = $(this);
-			el.parent().css({"width":this.width,"height":this.height});
-			el.dequeue();
-		});
-		this.src = grayscale(this.src);
+		el.wrap("<span class='img_wrapper'>")
+        .clone()
+        .addClass('img_grayscale')
+        .css({"position":"absolute","z-index":"998","opacity":"0"})
+        .insertBefore(el)
+        .queue(function(){
+            var el = $(this);
+            el.parent().css({"width":this.width,"height":this.height});
+            el.dequeue();
+        });
+		grayscale(this, this.src);
 	});
 	
 	// Fade image 
@@ -49,29 +123,31 @@ $(document).ready(function() {
 	$('.img_grayscale').mouseout(function(){
 		$(this).stop().animate({opacity:0}, 500);
 	});
-
 });
 
-
 // Grayscale w canvas method
-function grayscale(src){
-	var canvas = document.createElement('canvas');
-	var ctx = canvas.getContext('2d');
-	var imgObj = new Image();
-	imgObj.src = src;
-	canvas.width = imgObj.width;
-	canvas.height = imgObj.height; 
-	ctx.drawImage(imgObj, 0, 0); 
-	var imgPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
-	for(var y = 0; y < imgPixels.height; y++){
-		for(var x = 0; x < imgPixels.width; x++){
-			var i = (y * 4) * imgPixels.width + x * 4;
-			var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-			imgPixels.data[i] = avg; 
-			imgPixels.data[i + 1] = avg; 
-			imgPixels.data[i + 2] = avg;
-		}
-	}
-	ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
-	return canvas.toDataURL();
+function grayscale(elem, src){
+	var _imgObj = new Image();
+	_imgObj.onload = (function(elem, imgObj) {
+        return function() {
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = imgObj.width;
+            canvas.height = imgObj.height;
+            ctx.drawImage(imgObj, 0, 0);
+            var imgPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            for(var y = 0; y < imgPixels.height; y++){
+                for(var x = 0; x < imgPixels.width; x++){
+                    var i = (y * 4) * imgPixels.width + x * 4;
+                    var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+                    imgPixels.data[i] = avg;
+                    imgPixels.data[i + 1] = avg;
+                    imgPixels.data[i + 2] = avg;
+                }
+            }
+            ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+            elem.src = canvas.toDataURL();
+        };
+    })(elem, _imgObj);
+    _imgObj.src = src;
 }
