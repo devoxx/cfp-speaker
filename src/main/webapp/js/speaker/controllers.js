@@ -4,7 +4,7 @@ var speakerModuleId = 'Speaker',
     speakerUrlPrefix = '/speaker',
     speakerViewPrefix = 'views/speaker',
     speakerCtrlPrefix = speakerModuleId  + '_',
-    speakerModule = angular.module(speakerModuleId, [ 'Generic Services', 'ngCookies' ]);
+    speakerModule = angular.module(speakerModuleId, [ 'GenericServices', 'ngCookies' ]);
 
 speakerModule.value('appName', 'Speaker Module', []);
 

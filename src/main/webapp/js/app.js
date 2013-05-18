@@ -1,7 +1,7 @@
 'use strict';
 
 // var app = angular.module('DevoxxCfpApp', [ 'Speaker', 'Generic Services', 'ui.bootstrap', '$strap.directives' ], null);
-var app = angular.module('DevoxxCfpApp', [ 'Speaker', 'Generic Services', '$strap.directives' ], null);
+var app = angular.module('cfpSpeakerApp', [ 'Speaker', 'GenericServices' ], null);
 
 app.config(function($routeProvider) {
     console.log('generic config')

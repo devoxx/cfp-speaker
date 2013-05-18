@@ -1,6 +1,6 @@
 'use strict';
 
-var genericServicesModule = angular.module('Generic Services', ['ngResource']);
+var genericServicesModule = angular.module('GenericServices', ['ngResource', 'Config']);
 
 // var baseUri = 'http://localhost/staging-cfp/v2/proposal';
 // var authBaseUri = 'http://localhost/staging-cfp/v2/auth';
@@ -27,8 +27,10 @@ genericServicesModule.factory('EventBus', function($rootScope) {
 genericServicesModule.factory('TalksService', function($http, UserService) {
     return {
         allTalksForSpeaker: function(event) {
+
             var url = baseUri + '/event/{eventId}/presentation'
                     .replace('{eventId}', event.id);
+
             return $http.get(url, {
                 params: {
                     userToken: UserService.getToken()
