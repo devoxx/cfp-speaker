@@ -1,10 +1,7 @@
 $(document).ready(function() {
-
 	$("select, input[type=file], input[type=text], input[type=password], input[type=email], textarea").uniform();
-	
-	    jQuery('header nav').meanmenu();
-	
 
+	    jQuery('header nav').meanmenu();
 	$('#carousel ul').bxSlider({
 		mode: 'fade',		/* */
 		speed: 500,			/* */
@@ -22,9 +19,7 @@ $(document).ready(function() {
 		tickerHover: true,
 		adaptiveHeight: true
 	});
-	
-	
-	
+
 	$('#news .carousel ul').bxSlider({
 		mode: 'horizontal',	/* */
 		speed: 500,			/* */
@@ -43,9 +38,6 @@ $(document).ready(function() {
 		tickerHover: true,
 		adaptiveHeight: true
 	});
-
-
-
 
 	$("#tweetwall .carousel ul li:even").addClass("even");
 	
@@ -67,11 +59,7 @@ $(document).ready(function() {
 		tickerHover: true,
 		adaptiveHeight: true
 	});
-	
-	
-	
-	
-	
+
 	$("header nav ul li.submenu").mouseover(function(){
 		$(this).addClass("open");
 		$("header #submenu").stop().animate({height: 45}, 200);
@@ -82,8 +70,7 @@ $(document).ready(function() {
 		$(this).find('ul').stop().fadeOut(200);
 		$("header #submenu").animate({height: 0}, 200);		
 	});
-	
-	
+
 	$("header nav ul li.popup").mouseover(function(){
 		$(this).addClass("open");
 		$(this).find('ul').fadeIn(200);
@@ -92,11 +79,7 @@ $(document).ready(function() {
 		$(this).removeClass("open");
 		$(this).find('ul').fadeOut(200);	
 	});
-	
-	
-	
-	
-		
+
 	// Fade in images so there isn't a color "pop" document load and then on window load
 	$("footer .sponsors img").fadeIn(200);
 	

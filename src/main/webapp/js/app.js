@@ -4,7 +4,6 @@ var app = angular.module('cfpSpeakerApp', [ 'Speaker', 'GenericServices', 'ui.bo
 //var app = angular.module('cfpSpeakerApp', [ 'Speaker', 'GenericServices', '$strap.directives' ], null);
 
 app.config(function($routeProvider) {
-    console.log('generic config')
     // General routing
     $routeProvider
         .when('/', {
