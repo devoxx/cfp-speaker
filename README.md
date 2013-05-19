@@ -9,9 +9,14 @@ Used technologies:
 - Angular-UI
 - Underscore.JS
 - Bootstrap.JS
+- Karma
 
 ## Development environment
 
 To start app on local environment, just run ```mvn jetty:run```
+
+## AngularJS Unit Testing
+
+First install karma ```npm install karma``` and then run it ```karma start```
 
 [![Built on CloudBees](http://www.cloudbees.com/sites/default/files/Button-Built-on-CB-1.png)](https://devoxx.ci.cloudbees.com/job/cfp-speaker/)
