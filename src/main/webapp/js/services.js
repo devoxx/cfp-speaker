@@ -5,8 +5,8 @@ var genericServicesModule = angular.module('GenericServices', ['ngResource', 'Co
 // var baseUri = 'http://localhost/staging-cfp/v2/proposal';
 // var authBaseUri = 'http://localhost/staging-cfp/v2/auth';
 
-var baseUri = 'http://localhost:8080/v2/proposal';
-var authBaseUri = 'http://localhost:8080/v2/auth';
+var baseUri = 'https://staging-cfp.devoxx.com/v2/proposal';
+var authBaseUri = 'https://staging-cfp.devoxx.com/v2/auth';
 
 genericServicesModule.factory('EventBus', function($rootScope) {
     var EVENTS_LOADED_MSG = 'devoxx:eventsLoadedMessage';
