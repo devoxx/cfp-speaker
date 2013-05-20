@@ -163,7 +163,7 @@ genericServicesModule.factory('UserService', function ($q, $filter, $http, $cook
     return userService;
 });
 
-genericServicesModule.factory('Tags', function ($resource, $q, $filter) {
+genericServicesModule.factory('Tags', function ($resource, $q, $filter, UserService) {
     var cached;
     var filter = function (list, partialTagName) {
         var ret = angular.copy(list);
@@ -178,7 +178,7 @@ genericServicesModule.factory('Tags', function ($resource, $q, $filter) {
         query: function (partialTagName) {
             var defer = $q.defer();
             if (!cached) {
-                var url = baseUri + '/event/1/tag?size=1000';
+                var url = baseUri + '/event/1/tag?size=1000&userToken=' + UserService.getToken();
                 var res = $resource(url, { }, {
                     query: { method: 'get', isArray: false }
                 });
@@ -275,13 +275,3 @@ genericServicesModule.factory('Talks', function ($http, $cookies) {
     }
 });
 
-
-var a = {"tags": [
-    {},
-    {}
-], "speakers": [
-    {"id": 312, "version": 31},
-    {"id": 2, "version": 82}
-], "event": {"id": 9},
-    "language": {"id": "1"},
-    "title": "test by jk", "type": {"id": 1, "version": 14, "name": "Conference"}, "track": {"id": 19, "name": "Future<Devoxx>"}, "audienceExperience": "NOVICE", "summary": "summary by jk"}

@@ -9,7 +9,6 @@ speakerModule.controller(speakerCtrlPrefix + 'ProposalsCtrl', function($scope, $
     $scope.getProposals = function(event) {
         if (event) {
             TalksService.allProposalsForEvent(event.id).then(function(http) {
-                console.log('http', http.data)
                 $scope.model.myProposals = http.data;
             });
         }
