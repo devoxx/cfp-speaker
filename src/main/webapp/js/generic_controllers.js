@@ -3,16 +3,19 @@
 // Injecting rootScope only allowed in AppCtrl, because of handling routing errors
 app.controller('AppCtrl', function($rootScope, $route, $location) {
     $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
-        console.log('$routeChangeError:', event, current, previous, rejection);
+        console.log('$routeChangeError:', arguments);
         if (rejection === 'No valid userToken') {
             $location.path('/login');
         }
     });
     $rootScope.$on('$routeChangeStart', function(event, current, previous, rejection) {
-        console.log('$routeChangeStart', event, current, previous, rejection);
+        console.log('$routeChangeStart', arguments);
     });
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous, rejection) {
-        console.log('$routeChangeSuccess', event, current, previous, rejection);
+        console.log('$routeChangeSuccess', arguments);
+    });
+    $rootScope.$on('$viewContentLoaded', function(event, current, previous, rejection) {
+        console.log('$viewContentLoaded', arguments);
     });
 });
 
@@ -21,8 +24,18 @@ app.controller('LoginCtrl', function($scope, $location, $cookies, $http, $filter
     $scope.login = function() {
         UserService.login($scope.model.email, $scope.model.password);
     };
-    $scope.currentUser = UserService.getCurrentUser;
+    console.log(UserService.waitLoggedIn)
+    UserService.waitLoggedIn().then(function(data) {
+        console.log('data', data)
+        $scope.currentUser = data;
+    });
+//    console.log($scope.currentUser)
     $scope.logout = UserService.logout;
+//    UserService.waitLoggedIn().then(function(data) {
+//        $scope.currentUser = data;
+//        console.log('done')
+//        $location.path('/home')
+//    });
 });
 
 app.controller('NavigationCtrl', function($scope, $cookies, $location) {

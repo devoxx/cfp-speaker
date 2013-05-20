@@ -1,7 +1,8 @@
 $(document).ready(function() {
-	$("select, input[type=file], input[type=text], input[type=password], input[type=email], textarea").uniform();
+//    $("select, input, textarea").uniform();
 
-	    jQuery('header nav').meanmenu();
+    $('header nav').meanmenu();
+
 	$('#carousel ul').bxSlider({
 		mode: 'fade',		/* */
 		speed: 500,			/* */
@@ -61,57 +62,53 @@ $(document).ready(function() {
 	});
 
 	$("header nav ul li.submenu").mouseover(function(){
-		$(this).addClass("open");
-		$("header #submenu").stop().animate({height: 45}, 200);
-		$(this).find('ul').stop().fadeIn();
-		
-	}).mouseleave(function() {		
-		$(this).removeClass("open");
-		$(this).find('ul').stop().fadeOut(200);
-		$("header #submenu").animate({height: 0}, 200);		
-	});
-
-	$("header nav ul li.popup").mouseover(function(){
-		$(this).addClass("open");
-		$(this).find('ul').fadeIn(200);
-		
-	}).mouseleave(function() {		
-		$(this).removeClass("open");
-		$(this).find('ul').fadeOut(200);	
-	});
+            $(this).addClass("open");
+            $("header #submenu").stop().animate({height: 45}, 200);
+            $(this).find('ul').stop().fadeIn();
+        }).mouseleave(function() {
+            $(this).removeClass("open");
+            $(this).find('ul').stop().fadeOut(200);
+            $("header #submenu").animate({height: 0}, 200);
+        }).mouseover(function(){
+            $(this).addClass("open");
+            $(this).find('ul').fadeIn(200);
+        }).mouseleave(function() {
+            $(this).removeClass("open");
+            $(this).find('ul').fadeOut(200);
+        });
 
 	// Fade in images so there isn't a color "pop" document load and then on window load
-	$("footer .sponsors img").fadeIn(200);
-	
-	// clone image
-	$('footer .sponsors img').each(function(){
-		var el = $(this);
-		el.wrap("<span class='img_wrapper'>")
-        .clone()
-        .addClass('img_grayscale')
-        .css({"position":"absolute","z-index":"998","opacity":"0"})
-        .insertBefore(el)
-        .queue(function(){
+	$("footer .sponsors img")
+        .fadeIn(200)
+        .each(function(){
+            // clone image
             var el = $(this);
-            el.parent().css({"width":this.width,"height":this.height});
-            el.dequeue();
+            el.wrap("<span class='img_wrapper'>")
+                .clone()
+                .addClass('img_grayscale')
+                .css({"position":"absolute","z-index":"998","opacity":"0"})
+                .insertBefore(el)
+                .queue(function(){
+                    var el = $(this);
+                    el.parent()
+                      .css({"width":this.width,"height":this.height})
+                      .dequeue();
+                });
+            grayscale(this, this.src);
         });
-		grayscale(this, this.src);
-	});
-	
-	// Fade image 
-	$('footer .sponsors img').mouseover(function(){
-		$(this).parent().find('img:first').stop().animate({opacity:1}, 200);
-	})
+
+    // Fade image in and out on hover
 	$('.img_grayscale').mouseout(function(){
 		$(this).stop().animate({opacity:0}, 500);
-	});
+	}).mouseover(function(){
+        $(this).parent().find('img.img_grayscale').stop().animate({opacity:1}, 200);
+    });
 });
 
 // Grayscale w canvas method
 function grayscale(elem, src){
-	var _imgObj = new Image();
-	_imgObj.onload = (function(elem, imgObj) {
+	var newImage = new Image();
+	newImage.onload = (function(elem, imgObj) {
         return function() {
             var canvas = document.createElement('canvas');
             var ctx = canvas.getContext('2d');
@@ -131,6 +128,6 @@ function grayscale(elem, src){
             ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
             elem.src = canvas.toDataURL();
         };
-    })(elem, _imgObj);
-    _imgObj.src = src;
+    })(elem, newImage);
+    newImage.src = src;
 }

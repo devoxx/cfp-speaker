@@ -1,7 +1,6 @@
 'use strict';
 
 var app = angular.module('cfpSpeakerApp', [ 'Speaker', 'GenericServices', 'ui.bootstrap' ], null);
-//var app = angular.module('cfpSpeakerApp', [ 'Speaker', 'GenericServices', '$strap.directives' ], null);
 
 app.config(function($routeProvider) {
     // General routing
@@ -19,12 +18,3 @@ app.config(function($routeProvider) {
             redirectTo: '/'
         });
 });
-
-app.run(['$rootScope', 'UserService', 'EventService', function ($rootScope, UserService, EventService) {
-
-// TODO this needs to be triggered probably somewhere else so it doesn't get triggered during unit tests  FIXME
-//    UserService.loginByToken();
-//    UserService.waitLoggedIn().then(function(){
-//        EventService.load();
-//    })
-}]);

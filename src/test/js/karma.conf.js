@@ -6,31 +6,6 @@
 basePath = '';
 
 
-/*
-    <script type="text/javascript" src="js/vendor/modernizr-2.6.2.min.js"></script>
-
-    <script type="text/javascript" src="js/vendor/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular.js"></script>
-    <script type="text/javascript" src="js/lib/angular-cookies.js"></script>
-    <script type="text/javascript" src="js/lib/angular-resource.js"></script>
-    <!--<script type="text/javascript" src="js/lib/bootstrap-2.3.1.js"></script>-->
-    <script type="text/javascript" src="js/ui-bootstrap-tpls-0.2.0.js"></script>
-    <script type="text/javascript" src="js/angular-strap.min.js"></script>
-    <script type="text/javascript" src="js/services.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/directives.js"></script>
-    <script type="text/javascript" src="js/filters.js"></script>
-    <script type="text/javascript" src="js/generic_controllers.js"></script>
-    <script type="text/javascript" src="js/speaker/controllers.js"></script>
-
-    <!--<script src="js/vendor/jquery-1.9.1.min.js"></script>-->
-    <!--<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>-->
-    <script type="text/javascript" src="js/vendor/jquery.meanmenu.2.0.min.js"></script>
-    <script type="text/javascript" src="js/vendor/jquery.uniform.min.js"></script>
-    <script type="text/javascript" src="js/vendor/jquery.bxslider.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-*/
-
 // list of files / patterns to load in the browser
 files = [
     JASMINE,
@@ -46,6 +21,7 @@ files = [
     '../../main/webapp/js/lib/ui-bootstrap-tpls-0.2.0.js',
     '../../main/webapp/js/lib/angular-strap.min.js',
     '../../main/webapp/js/*.js',
+    '../../main/webapp/js/speaker/module.js',
     '../../main/webapp/js/speaker/*.js',
     'lib/angular-mocks.js',
     '**/*Spec.js',
@@ -92,7 +68,7 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome'];
+browsers = ['PhantomJS'];
 
 
 // If browser does not capture in given timeout [ms], kill it

@@ -1,0 +1,40 @@
+<div id="paper_form" class="area lightgrey" ng-controller="Speaker_GlobalCtrl">
+    <div class="grid">
+
+        <div class="row">
+            <div class="col20">
+                <h4>Submit Proposal</h4>
+
+                <div ng-controller="Speaker_ProposalsCtrl">
+                    <h3>My Proposals</h3>
+                    <select ng-model="model.event" ng-options="e.name for e in model.events()" ng-change="getProposals(model.event)" devoxx-uniform>
+                        <option value="">Choose an event</option>
+                    </select>
+                    <a href="#/speaker/proposal/new" class="btn btn-primary">New</a>
+                    <table class="table" ng-show="model.event">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>State</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="proposal in model.myProposals">
+                                <td><input type="checkbox"></td>
+                                <td>{{proposal.title}}</td>
+                                <td>{{proposal.type.name}}</td>
+                                <td>{{proposal.state}}</td>
+                                <td><a ng-click="showDetails(proposal)" class="btn">Edit</a></td>
+                                <td><a ng-click="deleteProposal(proposal)" class="btn">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

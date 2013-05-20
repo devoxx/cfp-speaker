@@ -8,16 +8,16 @@ var genericServicesModule = angular.module('GenericServices', ['ngResource', 'Co
 var baseUri = 'http://localhost/staging-cfp/v2/proposal';
 var authBaseUri = 'http://localhost/staging-cfp/v2/auth';
 
-genericServicesModule.factory('EventBus', function($rootScope) {
+genericServicesModule.factory('EventBus', function ($rootScope) {
     var EVENTS_LOADED_MSG = 'devoxx:eventsLoadedMessage';
     return {
-        eventsLoaded: function(events) {
+        eventsLoaded: function (events) {
             $rootScope.$broadcast(EVENTS_LOADED_MSG, {
                 events: events
             });
         },
-        onEventsLoaded: function($scope, handler) {
-            $scope.$on(EVENTS_LOADED_MSG, function(event, msg) {
+        onEventsLoaded: function ($scope, handler) {
+            $scope.$on(EVENTS_LOADED_MSG, function (event, msg) {
                 handler(msg.events, event)
             })
         }
@@ -26,10 +26,9 @@ genericServicesModule.factory('EventBus', function($rootScope) {
 
 genericServicesModule.factory('TalksService', function($http, UserService) {
     return {
-        allTalksForSpeaker: function(event) {
-
+        allProposalsForEvent: function (eventId) {
             var url = baseUri + '/event/{eventId}/presentation'
-                    .replace('{eventId}', event.id);
+                .replace('{eventId}', eventId);
 
             return $http.get(url, {
                 params: {
@@ -37,22 +36,30 @@ genericServicesModule.factory('TalksService', function($http, UserService) {
                 }
             });
         },
-        byId: function(event, talk, userToken) {
-            var url = baseUri + '/event/{eventId}/presentation/{talkId}'
-                    .replace('{eventId}', event.id)
-                    .replace('{talkId}', talk.id);
+        byId: function (eventId, proposalId) {
+            var url = baseUri + '/event/{eventId}/presentation/{proposalId}'
+                .replace('{eventId}', eventId)
+                .replace('{proposalId}', proposalId);
             return $http.get(url, {
                 params: {
-                    userToken: userToken
+                    userToken: UserService.getToken()
                 }
             });
         }
     };
 });
 
-genericServicesModule.factory('UserService', function($q, $filter, $http, $cookies, $location) {
+genericServicesModule.factory('UserService', function ($q, $filter, $http, $cookies, $location) {
+    var loginDefer = $q.defer();
 
-    var defer = $q.defer();
+    function orderTokensByExpiry(loginTokens) {
+        var ret = angular.copy(loginTokens) || [];
+        ret = $filter('orderBy')(ret, function (token) {
+            return token.expires;
+        }, true);
+        ret = $filter('limitTo')(ret, 1);
+        return ret;
+    }
 
     var userService = {
         login: function (username, pass) {
@@ -62,16 +69,22 @@ genericServicesModule.factory('UserService', function($q, $filter, $http, $cooki
                     login: username,
                     password: pass
                 }
-            }).success(function(data){
-                        $cookies.userToken = data.loginTokens[0].token; // FIXME TODO get token from login
-                        userService.currentUser = data;
-                        defer.resolve();
-                        if (!userService.profileComplete()) {
-                            $location.path("/profile");
-                        }
-                    });
+            }).success(function (data) {
+                var tokens = orderTokensByExpiry(data.loginTokens);
+                if (tokens && tokens[0] && Date.parse(tokens[0].expires) > new Date().getTime()) {
+                    $cookies.userToken = tokens[0].token; // FIXME TODO get token from login
+                    loginDefer.resolve(data);
+                } else {
+                    $cookies.userToken = null;
+                    loginDefer.reject("Usertoken expired");
+                    $location.path('/login');
+                }
+            }).error(function() {
+                loginDefer.reject("Usertoken expired");
+                $location.path('/login');
+            });
         },
-        loginByToken: function() {
+        loginByToken: function () {
             if ($cookies.userToken) {
                 var url = authBaseUri + '/token';
                 $http.post(url, {}, {
@@ -79,33 +92,43 @@ genericServicesModule.factory('UserService', function($q, $filter, $http, $cooki
                         userToken: $cookies.userToken
                     }
                 }).success(function (data) {
-                    userService.currentUser = data;
-                    defer.resolve();
-                    if (!userService.profileComplete()) {
-                        $location.path("/profile");
-                    }
+//                    $location.path('/speaker/proposals')
+//                    var tokens = orderTokensByExpiry(data.loginTokens);
+//                    if (tokens && tokens[0] && Date.parse(tokens[0].expires) > new Date().getTime()) {
+//                        $cookies.userToken = tokens[0].token; // FIXME TODO get token from login
+                        loginDefer.resolve(data);
+//                    } else {
+//                        $cookies.userToken = null;
+//                        loginDefer.reject("Usertoken expired");
+////                        $location.path('/login');
+//                    }
+//                    userService.currentUser = data;
+//                    loginDefer.resolve(data);
+                }).error(function() {
+                    loginDefer.reject("Usertoken expired");
+//                    $location.path('/login');
                 });
             }
         },
-        logout: function() {
+        logout: function () {
             if (userService.currentUser) {
                 userService.currentUser = null;
                 delete $cookies.userToken;
                 // FIXME TODO $http.delete(/token)
             }
         },
-        profileComplete: function() {
+        profileComplete: function () {
             var profile = userService.currentUser;
             return profile && profile.email && profile.firstname && profile.lastname
-                   && profile.company && profile.speakerBio && profile.speakingReferences;
+                && profile.company && profile.speakerBio && profile.speakingReferences;
         },
-        waitLoggedIn: function() {
-            return defer.promise;
+        waitLoggedIn: function () {
+            return loginDefer.promise;
         },
         getCurrentUser: function () {
             return userService.currentUser;
         },
-        getToken: function() {
+        getToken: function () {
             return $cookies.userToken;
         },
         getSpeakerByEmailAddress: function (email) {
@@ -127,40 +150,42 @@ genericServicesModule.factory('UserService', function($q, $filter, $http, $cooki
                         userToken: $cookies.userToken
                     }
                 }).success(function (response) {
-                            defer.resolve(response);
-                        }).error(function (response) {
-                            defer.reject('No valid userToken');
-                        });
+                        defer.resolve(response);
+                    }).error(function (response) {
+                        defer.reject('No valid userToken');
+                    });
             } else {
                 defer.reject('No valid userToken');
             }
             return defer.promise;
         }
     };
-    return  userService;
+    return userService;
 });
 
-genericServicesModule.factory('Tags', function($resource, $q, $filter) {
+genericServicesModule.factory('Tags', function ($resource, $q, $filter) {
     var cached;
-    var filter = function(list, partialTagName) {
+    var filter = function (list, partialTagName) {
         var ret = angular.copy(list);
         ret = $filter('filter')(ret, partialTagName.toLowerCase());
-        ret = $filter('orderBy')(ret, function(o) { return o.name.toLowerCase(); });
+        ret = $filter('orderBy')(ret, function (o) {
+            return o.name.toLowerCase();
+        });
         ret = $filter('limitTo')(ret, 10);
         return ret;
     };
     return {
-        query: function(partialTagName) {
+        query: function (partialTagName) {
             var defer = $q.defer();
             if (!cached) {
                 var url = baseUri + '/event/1/tag?size=1000';
                 var res = $resource(url, { }, {
                     query: { method: 'get', isArray: false }
                 });
-                res.query({ }, function(data) {
+                res.query({ }, function (data) {
                     cached = data.results;
                     defer.resolve(filter(cached, partialTagName));
-                }, function(response) {
+                }, function (response) {
                     defer.reject('Error loading tags');
                 });
             } else {
@@ -171,31 +196,28 @@ genericServicesModule.factory('Tags', function($resource, $q, $filter) {
     }
 });
 
-genericServicesModule.factory('EventService', function($http, UserService) {
-
+genericServicesModule.factory('EventService', function ($http, UserService) {
     var events;
-
     return {
-        load: function() {
+        load: function () {
             var url = baseUri + '/event';
             return $http.get(url, {
                 params: {
                     userToken: UserService.getToken()
                 }
-            }).success(function(result){
+            }).success(function (result) {
                 events = result;
-
             });
         },
-        getEvents: function(){
+        getEvents: function () {
             return events;
         }
     };
 });
 
-genericServicesModule.factory('Talks', function($http, $cookies) {
+genericServicesModule.factory('Talks', function ($http, $cookies) {
     var url = baseUri + '/event/{eventId}/presentation';
-    var createUrl = function(url, talk) {
+    var createUrl = function (url, talk) {
         return url.replace('{eventId}', talk.event.id)
     };
     var config = {
@@ -203,28 +225,28 @@ genericServicesModule.factory('Talks', function($http, $cookies) {
             userToken: $cookies.userToken
         }
     };
-    var transform = function(talk) {
-        console.log('talk', talk);
+    var transform = function (talk) {
         var i;
         var ret = {};
         ret.tags = [];
-        for (i = 0; i < talk.tags.length; i++) {
-            var tag = talk.tags[i];
-            ret.tags.push({
-                id: tag.id
-            });
+        if (talk.tags) {
+            for (i = 0; i < talk.tags.length; i++) {
+                var tag = talk.tags[i];
+                ret.tags.push({
+                    id: tag.id
+                });
+            }
         }
         ret.speakers = [];
-        for (i = 0; i < talk.speakers.length; i++) {
-            var speaker = talk.speakers[i];
-            ret.speakers.push({
-                id: speaker.id,
-                version: speaker.version
-            });
+        if (talk.speakers) {
+            for (i = 0; i < talk.speakers.length; i++) {
+                var speaker = talk.speakers[i];
+                ret.speakers.push({
+                    id: speaker.id,
+                    version: speaker.version
+                });
+            }
         }
-        ret.event = {
-            id: talk.event.id
-        };
         ret.language = {
             id: parseInt(talk.language.id)
         };
@@ -240,15 +262,14 @@ genericServicesModule.factory('Talks', function($http, $cookies) {
         };
         ret.audienceExperience = talk.audienceExperience;
         ret.summary = talk.summary;
-        ret.sharedProposal = talk.shareWithJugsAllowed;
-        console.log('ret', ret);
+//        ret.sharedProposal = talk.shareWithJugsAllowed;
         return ret;
     };
     return {
-        post: function(talk) {
+        post: function (talk) {
             return $http.post(createUrl(url, talk), transform(talk), config);
         },
-        put: function(talk) {
+        put: function (talk) {
             return $http.put(createUrl(url, talk), transform(talk), config);
         }
     }

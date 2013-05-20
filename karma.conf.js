@@ -12,12 +12,8 @@ files = [
   'src/main/webapp/js/lib/angular-mocks.js',
   'src/main/webapp/js/lib/angular-resource.js',
   'src/main/webapp/js/ui-bootstrap-tpls-0.2.0.js',
-  'src/main/webapp/js/app.js',
-  'src/main/webapp/js/services.js',
-  'src/main/webapp/js/generic_controllers.js',
-  'src/main/webapp/js/directives.js',
-  'src/main/webapp/js/config.js',
-  'src/main/webapp/js/speaker/controllers.js',
+  'src/main/webapp/js/*.js',
+  'src/main/webapp/js/speaker/*.js',
   'src/test/js/**/*.js'
 ];
 

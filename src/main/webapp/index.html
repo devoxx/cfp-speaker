@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" ng-app="DevoxxCfpApp">
+<html class="no-js" ng-app="cfpSpeakerApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -12,25 +12,28 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/meanmenu.css">
     <link rel="stylesheet" href="css/uniform.css">
+    <link rel="stylesheet" href="css/devoxx.css">
 
     <script type="text/javascript" src="js/vendor/modernizr-2.6.2.min.js"></script>
-
     <script type="text/javascript" src="js/vendor/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/lib/angular.js"></script>
     <script type="text/javascript" src="js/lib/angular-cookies.js"></script>
     <script type="text/javascript" src="js/lib/angular-resource.js"></script>
-    <!--<script type="text/javascript" src="js/lib/bootstrap-2.3.1.js"></script>-->
     <script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.2.0.js"></script>
     <script type="text/javascript" src="js/lib/angular-strap.min.js"></script>
-    <script type="text/javascript" src="js/services.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/not_in_karma/run.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/directives.js"></script>
     <script type="text/javascript" src="js/filters.js"></script>
     <script type="text/javascript" src="js/generic_controllers.js"></script>
-    <script type="text/javascript" src="js/speaker/controllers.js"></script>
+    <script type="text/javascript" src="js/speaker/module.js"></script>
+    <script type="text/javascript" src="js/speaker/Global.js"></script>
+    <script type="text/javascript" src="js/speaker/Proposals.js"></script>
+    <script type="text/javascript" src="js/speaker/SubmitProposal.js"></script>
+    <script type="text/javascript" src="js/speaker/ProposalDetails.js"></script>
 
-    <!--<script src="js/vendor/jquery-1.9.1.min.js"></script>-->
-    <!--<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>-->
     <script type="text/javascript" src="js/vendor/jquery.meanmenu.2.0.min.js"></script>
     <script type="text/javascript" src="js/vendor/jquery.uniform.min.js"></script>
     <script type="text/javascript" src="js/vendor/jquery.bxslider.min.js"></script>
@@ -43,9 +46,7 @@
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
-
 </head>
-
 <body class="callforpapers">
     <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -80,8 +81,8 @@
                         <li class="btn hide_mobile">
                             <a href="#">Buy tickets</a>
                         </li>
-                        <li class="btn popup login btn_grey" ng-hide="currentUser()">
-                            <a href="#">Login</a>
+                        <li class="btn popup login btn_grey" ng-hide="currentUser">
+                            <a>Login</a>
                             <ul>
                                 <li>
                                     <div class="popup">
@@ -95,10 +96,10 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="submenu subright"  ng-show="currentUser()">
-                            <a href="#">User (icon)</a>
+                        <li class="submenu subright" ng-show="currentUser">
+                            <a>User (icon)</a>
                             <ul>
-                                <li><a href="#" ng-click="logout()">Logout</a></li>
+                                <li><a href="#/speaker" ng-click="logout()">Logout</a></li>
                                 <li><a href="#/speaker/proposals">Proposals</a></li>
                                 <li><a href="#">Review</a></li>
                                 <li><a href="#">Admin</a></li>

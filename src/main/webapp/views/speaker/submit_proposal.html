@@ -1,0 +1,207 @@
+<div id="topinfo" class="area blue" style="display: none">
+    <div class="grid">
+        <div class="row">
+            <div class="col9">
+                <h1>last call for papers</h1>
+
+                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Vivamus sagittis.
+                    laoreet rutrum faucibus dolor auctor
+                    Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. </p>
+            </div>
+            <div class="col11">
+                <img src="images_dummy/slide_02.png" class="visual" alt=""/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="paper_form" class="area lightgrey" ng-controller="Speaker_GlobalCtrl">
+    <div class="grid">
+
+        <div class="row">
+            <div class="col20">
+                <h4>Submit Proposal</h4>
+
+                <form name="submitProposalForm" onsubmit="return false">
+                    <ul>
+                        <li>
+                            <label for="talkEvent">Event</label>
+                            <select name="event"
+                                    id="talkEvent" ng-model="model.talk.event"
+                                    ng-options="e.name for e in global.events()"
+                                    required
+                                    ng-hide="global.events().length == 1"
+                                    devoxx-uniform>
+                                <option value="">Choose event</option>
+                            </select>
+                            <input type="text"
+                                   ng-disabled="true"
+                                   ng-model="model.talk.event.name"
+                                   ng-show="global.events().length == 1"
+                                   devoxx-uniform>
+                            <div ng-show="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}}</div>
+                            <div ng-hide="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}} until {{model.talk.event.eventTo|date:shortDate}}</div>
+                        </li>
+
+                        <div ng-show="model.talk.event"
+                             devoxx-set-focus-on="model.talk.event"
+                             devoxx-set-focus-field="talkTitle">
+                            <li>
+                                <label for="talkTitle">Title</label>
+                                <input id="talkTitle" type="text" ng-model="model.talk.title" required devoxx-uniform>
+                            </li>
+                            <li>
+                                <label>State</label>
+                                <input type="text" disabled value="Draft" devoxx-uniform>
+                            </li>
+
+                            <li>
+                                <label for="talkType">Type</label>
+                                <select name="type"
+                                        id="talkType" ng-model="model.talk.type"
+                                        required
+                                        ng-disabled="!model.talk.event"
+                                        ng-options="t.name for t in model.talk.event.types"
+                                        devoxx-uniform></select>
+                            </li>
+
+                            <li>
+                                <label for="talkTrack">Track</label>
+                                <select id="talkTrack"
+                                        name="track"
+                                        ng-model="model.talk.track"
+                                        required
+                                        ng-disabled="!model.talk.event"
+                                        ng-options="t.name for t in model.talk.event.tracks"
+                                        devoxx-uniform></select>
+                            </li>
+
+                            <li>
+                                <label for="talkAddTag">Tags</label>
+                                <input id="talkAddTag"
+                                       name="addTag"
+                                       type="text"
+                                       ng-model="model.newTag"
+                                       placeholder="Tags"
+                                       typeahead="t.name for t in getTags($viewValue)"
+                                       devoxx-on-return-key="addTag()"
+                                       devoxx-uniform>
+                                <a ng-click="addTag()">Add tag (or press return)</a>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li ng-repeat="tag in model.talk.tags">{{tag.name}} <a
+                                        ng-click="model.talk.tags.splice($index, 1)">&times;</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <label for="talkAddSpeaker">Speakers</label>
+                                <input id="talkAddSpeaker"
+                                       type="email"
+                                       ng-model="model.speakerDetails.email"
+                                       placeholder="Enter the speakers' email address"
+                                       devoxx-on-return-key="addSpeaker()"
+                                       devoxx-uniform>
+                                <br>
+                                <a ng-click="addSpeaker()">Add speaker (or press return)</a>
+                                <ul>
+                                    <dl ng-repeat="speaker in model.talk.speakers">
+                                        <dt>
+                                            <img ng-src="{{createAvatarUrl(speaker.id, speaker.imageFile)}}">
+                                            {{speaker.firstname}} {{speaker.lastname}} |
+                                            <span ng-show="speaker.unknown" class="alert-info">will be invited by email | </span>
+                                            <span ng-show="speaker.id == model.currentUser.id" class="alert-info">This is you | </span>
+                                            <a ng-click="model.talk.speakers.splice($index, 1)">&times;</a>
+                                        </dt>
+                                    </dl>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <label for="talkSummary">Talk summary</label>
+                                <textarea id="talkSummary" ng-model="model.talk.summary" devoxx-uniform required></textarea>
+                            </li>
+
+                            <li>
+                                <label for="talkMessageToSteering">Message to steering committee (optional)</label>
+                                <textarea id="talkMessageToSteering" ng-model="model.talk.messageToSteering" devoxx-uniform></textarea>
+                            </li>
+
+                            <li>
+                                <label for="talkAudienceExperience">Audience experience</label>
+                                <select name="audienceExperience"
+                                        id="talkAudienceExperience"
+                                        ng-model="model.talk.audienceExperience"
+                                        ng-options="option for option in global.experienceOptions"
+                                        required
+                                        devoxx-uniform></select>
+                            </li>
+
+                            <li>
+                                <label for="talkLanguage">Language</label>
+                                <select name="language"
+                                        id="talkLanguage"
+                                        ng-model="model.talk.language"
+                                        ng-options="option.label for option in global.languageOptions"
+                                        required
+                                        devoxx-uniform></select>
+                            </li>
+
+                            <li>
+                                <label></label>
+                                <span>
+                                    <label>
+                                        <input type="checkbox"
+                                               ng-model="model.talk.shareWithJugsAllowed">
+                                        I allow Devoxx to share my proposal with related User Groups
+                                    </label>
+                                </span>
+                            </li>
+
+                            <li>
+                                <label></label>
+                                <span>
+                                    <label>
+                                        <input type="checkbox"
+                                               ng-model="model.termsAndConditionsAgreed"
+                                               required>
+                                        I agree to the terms and conditions
+                                    </label>
+                                </span>
+                            </li>
+
+                            <li>
+                                <a ng-click="submit(model.talk, submitProposalForm)" class="btn btn-primary">Submit</a>
+                                <a ng-click="cancel(model.talk)" class="">Cancel</a>
+                            </li>
+                        </div>
+                    </ul>
+                </form>
+                <br class="clear">
+            </div>
+        </div>
+    </div>
+
+    <div modal="model.addSpeakerDialogOpen"
+         devoxx-set-focus-on="model.addSpeakerDialogOpen"
+         devoxx-set-focus-field="speakerDetailsFirstname"
+         close="closeNewSpeaker()">
+        <div class="modal-header">
+            <h1>Add new speaker</h1>
+        </div>
+        <div class="modal-body">
+            <form name="addSpeakerForm" ng-submit="addNewSpeaker(model.speakerDetails)">
+                <ng-include src="'views/speaker/speaker_details.html'"></ng-include>
+                <input type="submit"
+                       class="btn"
+                       value="Add new speaker (speaker will be invited by email)"
+                       devoxx-set-focus-on="!model.addSpeakerDialogOpen"
+                       devoxx-set-focus-field="talkAddSpeaker">
+            </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+
+</div>
