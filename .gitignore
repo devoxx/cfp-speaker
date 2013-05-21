@@ -1,3 +1,8 @@
+node_modules
+dist
+.tmp
+.sass-cache
+app/components
 *.log
 *.swp
 *.orig
@@ -8,8 +13,7 @@
 *.ipr
 *.iml
 .DS_Store
-target/
-bin/
 .idea/
-pom.xml.releaseBackup
-release.properties
+test_out
+coverage
+

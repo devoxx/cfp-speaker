@@ -1,22 +1,13 @@
-// Karma configuration
+// Karma E2E configuration
 
 // base path, that will be used to resolve files and exclude
 basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-  'app/components/unstable-angular-complete/angular.js',
-  'app/components/unstable-angular-complete/angular-mocks.js',
-  'app/components/unstable-angular-complete/angular-resource.js',
-  'app/components/unstable-angular-complete/angular-cookies.js',
-  'app/scripts/(!main).js',
-  'app/scripts/**/(!main).js',
-  '.tmp/scripts/**/*.js',
-  'test/mock/**/*.js',
-  'test/spec/**/*.js',
-  '.tmp/spec/**/*.js'
+  ANGULAR_SCENARIO,
+  ANGULAR_SCENARIO_ADAPTER,
+  'test/e2e/**/*.js'
 ];
 
 // list of files to exclude
@@ -24,23 +15,13 @@ exclude = [];
 
 // test results reporter to use
 // possible values: dots || progress || growl
-reporters = ['progress', 'coverage', 'junit'];
-
-preprocessors = {
-  '.tmp/scripts/**/*.js': 'coverage',
-  '!(dist)/scripts/**/*.js': 'coverage'
-};
-
-coverageReporter = {
-  type : 'html',
-  dir : 'coverage/'
-}
+reporters = ['progress', 'junit'];
 
 // web server port
-port = 8080;
+port = 8081;
 
 // cli runner port
-runnerPort = 9100;
+runnerPort = 9101;
 
 // enable / disable colors in the output (reporters and logs)
 colors = true;
@@ -69,7 +50,16 @@ captureTimeout = 50000;
 // if true, it capture browsers, run tests and exit
 singleRun = false;
 
-junitReporter = {
-  outputFile: 'test_out/unit.xml',
-  suite: 'unit'
+
+proxies = {
+  '/': 'http://localhost:9001/'
 };
+
+
+junitReporter = {
+  outputFile: 'test_out/e2e.xml',
+  suite: 'e2e'
+};
+
+
+urlRoot = 'k';
