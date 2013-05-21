@@ -1,0 +1,13 @@
+{
+  "name": "cfp-speaker",
+  "version": "0.0.0",
+  "dependencies": {
+    "unstable-angular-complete": "ryanzec/bower-unstable-angular-complete#~1.1.4",
+    "json3": "~3.2.4",
+    "es5-shim": "~2.0.8",
+    "jquery.uniform": "2.1.1",
+    "bxslider-4": "latest",
+    "jquery": "~1.9.1",
+    "modernizr": "~2.6.2"
+  }
+}
