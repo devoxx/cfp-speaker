@@ -1,0 +1,151 @@
+
+@font-face {
+    font-family: 'GothamBook';
+    src: url('gothambook-webfont.eot');
+    src: url('gothambook-webfont.eot?#iefix') format('embedded-opentype'),
+         url('gothambook-webfont.woff') format('woff'),
+         url('gothambook-webfont.ttf') format('truetype'),
+         url('gothambook-webfont.svg#gothambookregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+/* hide the link until viewport size is reached */
+a.meanmenu-reveal {
+	display: none;
+}
+
+/* when under viewport size, .mean-container is added to body */
+.mean-container .mean-bar {
+	float: left;
+	min-height: 65px;
+	position: fixed;
+	width: 100%;
+	z-index: 999999;
+}
+.mean-container a.meanmenu-reveal {
+	width: 22px;
+	height: 22px;
+	padding: 21px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	color: #000;
+	text-decoration: none;
+	font-size: 16px;
+	text-indent: -9999em;
+	line-height: 22px;
+	font-size: 1px;
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 700;
+}
+.mean-container a.meanmenu-reveal span {
+	display: block;
+	background: #000;
+	height: 3px;
+	margin-top: 3px;
+}
+.mean-container .mean-nav {
+	float: left;
+	width: 100%;
+	background: #fafafa;
+	margin-top: 65px;
+}
+.mean-container .mean-nav ul {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	list-style-type: none;
+}
+.mean-container .mean-nav ul li {
+	position: relative;
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+}
+.mean-container .mean-nav ul li a {
+	display: block;
+	float: left;
+	width: 90%;
+	padding: 20px 20px;
+	margin: 0;
+	text-align: left;
+	color: #000;
+	font: 15px/15px GothamBook;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.mean-container .mean-nav ul li a:hover {
+	color: #F5AF33;
+}
+.mean-container .mean-nav ul li li {
+	border: none;
+}
+.mean-container .mean-nav ul li li a {
+width: 80%;
+padding: 1em 35px;
+text-shadow: none !important;
+visibility: visible;
+color: #535353;
+}
+.mean-container .mean-nav ul li a.mean-expand {
+	width: 26px;
+	height: 26px;
+	border: none !important;
+	padding: 12px !important;
+	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+	font-weight: 700;
+}
+.mean-container .mean-nav ul li a.mean-expand:hover {
+	background: none;
+}
+.mean-container .mean-push {
+	float: left;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	clear: both;
+}
+.mean-nav .wrapper {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+
+
+.mean-container .mean-nav ul li.login .popup {
+	padding: 0 20px;
+}
+.mean-container .mean-nav ul li.login input {
+	background: #ededed;
+	width: 29%;
+	padding: 10px;
+}
+.mean-container .mean-nav ul li.login input.btn {
+	background: #f5af33;
+	border: none;
+	color: #fff;
+	display: inline-block;
+	padding: 9px;
+	font: bold 12px/13px "GothamBook","Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+	text-transform: uppercase;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	width: auto;
+}
+.mean-container .mean-nav ul li.login .popup a {
+	padding-left: 0;
+	color: #9c9c9c;
+}
+.mean-container .mean-nav ul li.search {
+	display: none;
+}
