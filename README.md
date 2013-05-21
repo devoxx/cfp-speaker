@@ -10,13 +10,42 @@ Used technologies:
 - Underscore.JS
 - Bootstrap.JS
 - Karma
+- Grunt
+- Bower
+- NodeJS
+- IstanbulJS
 
-## Development environment
+#Setup global env
 
-To start app on local environment, just run ```mvn jetty:run```
+- Install [nodejs] [1]
+ - It comes with [npm] [2]
+- Have a look to [yeoman] [3]: it helps to scallfold an angular project with best practices
+- [sudo] npm install -g yo grunt-cli bower generator-angular generator-karma
 
-## AngularJS Unit Testing
+#Setup project env
+- cd path/to/project
+- npm install && bower install
+ - *npm install* is configured with **package.json** and generates the directory **node_modules**
+ - *bower* is configured with **component.json** or **bower.json** and generates the directory **app/components**
 
-First install karma ```npm install karma``` and then run it ```karma start```
+##Starts your application##
+
+- grunt server
+ - *grunt* is configured with **Gruntfile.js**
+
+##Build your app, including testing and optimization##
+
+ - grunt
+
+##Update your project's dependencies##
+- bower update
+ - it update **app/components** directory
+
+##Update your project's build dependencies##
+- npm update
+ - it update **node_modules** directory
+
+##Support##
+- [Best practices] [4]
 
 [![Built on CloudBees](http://www.cloudbees.com/sites/default/files/Button-Built-on-CB-1.png)](https://devoxx.ci.cloudbees.com/job/cfp-speaker/)
