@@ -56,6 +56,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
+              mountFolder(connect, 'images_dummy'),
               mountFolder(connect, yeomanConfig.app)
             ];
           }

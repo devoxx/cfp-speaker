@@ -20,10 +20,9 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
     };
   }).factory('TalksService',function ($http, UserService) {
     return {
-      allTalksForSpeaker: function (event) {
-
+      allProposalsForEvent: function (eventId) {
         var url = baseUri + '/event/{eventId}/presentation'
-          .replace('{eventId}', event.id);
+          .replace('{eventId}', eventId);
 
         return $http.get(url, {
           params: {
@@ -31,20 +30,29 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
           }
         });
       },
-      byId: function (event, talk, userToken) {
-        var url = baseUri + '/event/{eventId}/presentation/{talkId}'
-          .replace('{eventId}', event.id)
-          .replace('{talkId}', talk.id);
+      byId: function (eventId, proposalId) {
+        var url = baseUri + '/event/{eventId}/presentation/{proposalId}'
+          .replace('{eventId}', eventId)
+          .replace('{proposalId}', proposalId);
         return $http.get(url, {
           params: {
-            userToken: userToken
+            userToken: UserService.getToken()
           }
         });
       }
     };
   }).factory('UserService',function ($q, $filter, $http, $cookies, $location) {
 
-    var defer = $q.defer();
+    var loginDefer = $q.defer();
+
+    function orderTokensByExpiry(loginTokens) {
+      var ret = angular.copy(loginTokens) || [];
+      ret = $filter('orderBy')(ret, function (token) {
+        return token.expires;
+      }, true);
+      ret = $filter('limitTo')(ret, 1);
+      return ret;
+    }
 
     var userService = {
       login: function (username, pass) {
@@ -55,12 +63,18 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
             password: pass
           }
         }).success(function (data) {
-            $cookies.userToken = data.userToken; // FIXME TODO get token from login
-            userService.currentUser = data;
-            defer.resolve();
-            if (!userService.profileComplete()) {
-              $location.path("/profile");
+            var tokens = orderTokensByExpiry(data.loginTokens);
+            if (tokens && tokens[0] && Date.parse(tokens[0].expires) > new Date().getTime()) {
+              $cookies.userToken = tokens[0].token; // FIXME TODO get token from login
+              loginDefer.resolve(data);
+            } else {
+              $cookies.userToken = null;
+              loginDefer.reject("Usertoken expired");
+              $location.path('/login');
             }
+          }).error(function () {
+            loginDefer.reject("Usertoken expired");
+            $location.path('/login');
           });
       },
       loginByToken: function () {
@@ -71,11 +85,21 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
               userToken: $cookies.userToken
             }
           }).success(function (data) {
-              userService.currentUser = data;
-              defer.resolve();
-              if (!userService.profileComplete()) {
-                $location.path("/profile");
-              }
+//                    $location.path('/speaker/proposals')
+//                    var tokens = orderTokensByExpiry(data.loginTokens);
+//                    if (tokens && tokens[0] && Date.parse(tokens[0].expires) > new Date().getTime()) {
+//                        $cookies.userToken = tokens[0].token; // FIXME TODO get token from login
+              loginDefer.resolve(data);
+//                    } else {
+//                        $cookies.userToken = null;
+//                        loginDefer.reject("Usertoken expired");
+////                        $location.path('/login');
+//                    }
+//                    userService.currentUser = data;
+//                    loginDefer.resolve(data);
+            }).error(function () {
+              loginDefer.reject("Usertoken expired");
+//                    $location.path('/login');
             });
         }
       },
@@ -92,7 +116,7 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
           && profile.company && profile.speakerBio && profile.speakingReferences;
       },
       waitLoggedIn: function () {
-        return defer.promise;
+        return loginDefer.promise;
       },
       getCurrentUser: function () {
         return userService.currentUser;
@@ -130,7 +154,7 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
       }
     };
     return  userService;
-  }).factory('Tags',function ($resource, $q, $filter) {
+  }).factory('Tags',function ($resource, $q, $filter, UserService) {
     var cached;
     var filter = function (list, partialTagName) {
       var ret = angular.copy(list);
@@ -145,7 +169,7 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
       query: function (partialTagName) {
         var defer = $q.defer();
         if (!cached) {
-          var url = baseUri + '/event/1/tag?size=1000';
+          var url = baseUri + '/event/1/tag?size=1000&userToken=' + UserService.getToken();
           var res = $resource(url, { }, {
             query: { method: 'get', isArray: false }
           });
@@ -162,9 +186,7 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
       }
     }
   }).factory('EventService',function ($http, UserService) {
-
     var events;
-
     return {
       load: function () {
         var url = baseUri + '/event';
@@ -174,7 +196,6 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
           }
         }).success(function (result) {
             events = result;
-
           });
       },
       getEvents: function () {
@@ -192,27 +213,27 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
       }
     };
     var transform = function (talk) {
-      console.log('talk', talk);
       var i;
       var ret = {};
       ret.tags = [];
-      for (i = 0; i < talk.tags.length; i++) {
-        var tag = talk.tags[i];
-        ret.tags.push({
-          id: tag.id
-        });
+      if (talk.tags) {
+        for (i = 0; i < talk.tags.length; i++) {
+          var tag = talk.tags[i];
+          ret.tags.push({
+            id: tag.id
+          });
+        }
       }
       ret.speakers = [];
-      for (i = 0; i < talk.speakers.length; i++) {
-        var speaker = talk.speakers[i];
-        ret.speakers.push({
-          id: speaker.id,
-          version: speaker.version
-        });
+      if (talk.speakers) {
+        for (i = 0; i < talk.speakers.length; i++) {
+          var speaker = talk.speakers[i];
+          ret.speakers.push({
+            id: speaker.id,
+            version: speaker.version
+          });
+        }
       }
-      ret.event = {
-        id: talk.event.id
-      };
       ret.language = {
         id: parseInt(talk.language.id)
       };
@@ -228,8 +249,7 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
       };
       ret.audienceExperience = talk.audienceExperience;
       ret.summary = talk.summary;
-      ret.sharedProposal = talk.shareWithJugsAllowed;
-      console.log('ret', ret);
+//        ret.sharedProposal = talk.shareWithJugsAllowed;
       return ret;
     };
     return {
@@ -242,12 +262,3 @@ angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
     }
   });
 
-var a = {"tags": [
-  {},
-  {}
-], "speakers": [
-  {"id": 312, "version": 31},
-  {"id": 2, "version": 82}
-], "event": {"id": 9},
-  "language": {"id": "1"},
-  "title": "test by jk", "type": {"id": 1, "version": 14, "name": "Conference"}, "track": {"id": 19, "name": "Future<Devoxx>"}, "audienceExperience": "NOVICE", "summary": "summary by jk"}
