@@ -1,6 +1,4 @@
 $(document).ready(function() {
-//    $("select, input, textarea").uniform();
-
     $('header nav').meanmenu();
 
 	$('#carousel ul').bxSlider({
@@ -61,21 +59,23 @@ $(document).ready(function() {
 		adaptiveHeight: true
 	});
 
-	$("header nav ul li.submenu").mouseover(function(){
-            $(this).addClass("open");
-            $("header #submenu").stop().animate({height: 45}, 200);
-            $(this).find('ul').stop().fadeIn();
-        }).mouseleave(function() {
-            $(this).removeClass("open");
-            $(this).find('ul').stop().fadeOut(200);
-            $("header #submenu").animate({height: 0}, 200);
-        }).mouseover(function(){
-            $(this).addClass("open");
-            $(this).find('ul').fadeIn(200);
-        }).mouseleave(function() {
-            $(this).removeClass("open");
-            $(this).find('ul').fadeOut(200);
-        });
+    $("header nav ul li.submenu").mouseover(function(){
+        $(this).addClass("open");
+        $("header #submenu").stop().animate({height: 45}, 200);
+        $(this).find('ul').stop().fadeIn();
+    }).mouseleave(function() {
+        $(this).removeClass("open");
+        $(this).find('ul').stop().fadeOut(200);
+        $("header #submenu").animate({height: 0}, 200);
+    });
+
+    $("header nav ul li.popup").mouseover(function(){
+        $(this).addClass("open");
+        $(this).find('ul').fadeIn(200);
+    }).mouseleave(function() {
+        $(this).removeClass("open");
+        $(this).find('ul').fadeOut(200);
+    });
 
 	// Fade in images so there isn't a color "pop" document load and then on window load
 	$("footer .sponsors img")
