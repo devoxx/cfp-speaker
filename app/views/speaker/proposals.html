@@ -9,8 +9,8 @@
                     <h3>My Proposals</h3>
                     <a href="#/speaker/proposal/new" class="btn btn-primary">New</a>
                     <hr>
-                    <h4 ng-show="!model.myProposals">Loading</h4>
-                    <h4 ng-show="model.myProposals && model.myProposals.length == 0">No proposals</h4>
+                    <h4 ng-show="!model.myProposals">Loading...</h4>
+                    <h4 ng-show="model.myProposals.length == 0">No proposals</h4>
                     <table class="table" ng-show="model.myProposals.length > 0">
                         <thead>
                             <tr>
@@ -24,7 +24,7 @@
                                 <td class="col1">{{proposal.title}}</td>
                                 <td class="col2">{{proposal.state}}</td>
                                 <td class="col3">
-                                    <a ng-click="showDetails(proposal)" class="btn">Edit</a>
+                                    <a ng-click="editProposal(proposal)" class="btn">Edit</a>
                                     <a ng-click="deleteProposal(proposal)" class="btn">Delete</a>
                                 </td>
                             </tr>

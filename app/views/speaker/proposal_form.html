@@ -23,6 +23,7 @@
                 <h4>Submit Proposal</h4>
 
                 <form name="submitProposalForm" onsubmit="return false">
+                    <input type="hidden" ng-model="model.talk.id">
                     <ul>
                         <li>
                             <label for="talkEvent">Event</label>
@@ -31,7 +32,7 @@
                                     ng-options="e.name for e in global.events()"
                                     required
                                     ng-hide="global.events().length == 1"
-                                    devoxx-uniform>
+                                    devoxx-unsiform>
                                 <option value="">Choose event</option>
                             </select>
                             <input type="text"
@@ -52,7 +53,7 @@
                             </li>
                             <li>
                                 <label>State</label>
-                                <input type="text" disabled value="Draft" devoxx-uniform>
+                                <input type="text" disabled ng-model="model.talk.state" devoxx-uniform>
                             </li>
 
                             <li>
@@ -86,12 +87,14 @@
                                        typeahead="t.name for t in getTags($viewValue)"
                                        devoxx-on-return-key="addTag()"
                                        devoxx-uniform>
-                                <a ng-click="addTag()">Add tag (or press return)</a>
+                                <a ng-click="addTag()" style="cursor: pointer">Add tag (or press return)</a>
                             </li>
                             <li>
                                 <ul>
-                                    <li ng-repeat="tag in model.talk.tags">{{tag.name}} <a
-                                        ng-click="model.talk.tags.splice($index, 1)">&times;</a></li>
+                                    <li ng-repeat="tag in model.talk.tags">
+                                        {{tag.name}}
+                                        <a style="cursor: pointer"
+                                           ng-click="model.talk.tags.splice($index, 1)">&times;</a></li>
                                 </ul>
                             </li>
 
@@ -104,7 +107,7 @@
                                        devoxx-on-return-key="addSpeaker()"
                                        devoxx-uniform>
                                 <br>
-                                <a ng-click="addSpeaker()">Add speaker (or press return)</a>
+                                <a ng-click="addSpeaker()" style="cursor: pointer">Add speaker (or press return)</a>
                                 <ul>
                                     <dl ng-repeat="speaker in model.talk.speakers">
                                         <dt>
@@ -112,7 +115,8 @@
                                             {{speaker.firstname}} {{speaker.lastname}} |
                                             <span ng-show="speaker.unknown" class="alert-info">will be invited by email | </span>
                                             <span ng-show="speaker.id == model.currentUser.id" class="alert-info">This is you | </span>
-                                            <a ng-click="model.talk.speakers.splice($index, 1)">&times;</a>
+                                            <a ng-click="model.talk.speakers.splice($index, 1)"
+                                               style="cursor: pointer">&times;</a>
                                         </dt>
                                     </dl>
                                 </ul>

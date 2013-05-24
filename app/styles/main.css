@@ -115,6 +115,7 @@ a {
 	color: #f5af33;
 }
 a.btn {
+    cursor: pointer;
 	background: #f5af33 url(../images/btn_arrow.png) no-repeat 36px -65px;
 	color: #000;
 	display: inline-block;

@@ -15,9 +15,8 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 }
             });
         },
-        byId: function (eventId, proposalId) {
-            var url = baseUri + '/event/{eventId}/presentation/{proposalId}'
-                .replace('{eventId}', eventId)
+        byId: function (proposalId) {
+            var url = baseUri + '/{proposalId}'
                 .replace('{proposalId}', proposalId);
             return $http.get(url, {
                 params: {
@@ -28,7 +27,9 @@ genericServices.factory('TalksService',function ($http, UserService) {
         deleteProposal: function(proposal) {
             var url = baseUri + '/' + proposal.id;
             return $http.delete(url, {
-                userToken: UserService.getToken()
+                params: {
+                    userToken: UserService.getToken()
+                }
             });
         }
     };

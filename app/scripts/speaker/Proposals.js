@@ -2,7 +2,7 @@
 speakerModule.controller(speakerCtrlPrefix + 'ProposalsCtrl', function($scope, $location, TalksService, EventService) {
     $scope.model = {
         event: null,
-        myProposals: [],
+        myProposals: null,
         events: EventService.getEvents
     };
 
@@ -12,8 +12,8 @@ speakerModule.controller(speakerCtrlPrefix + 'ProposalsCtrl', function($scope, $
         console.log(data);
     });
 
-    $scope.showDetails = function(proposal) {
-        $location.path('/speaker/proposal/' + $scope.model.event.id + '/' + proposal.id);
+    $scope.editProposal = function(proposal) {
+        $location.path('/speaker/proposal/' + proposal.id);
     };
 
     $scope.deleteProposal = function(proposal) {

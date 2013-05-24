@@ -20,12 +20,12 @@ speakerModule.config(function($routeProvider) {
             controller: speakerCtrlPrefix + 'ProposalsCtrl'
         }).when(speakerUrlPrefix + '/proposal/new', {
             resolve: resolveCurrentUser,
-            templateUrl: speakerViewPrefix + '/submit_proposal.html',
+            templateUrl: speakerViewPrefix + '/proposal_form.html',
             controller: speakerCtrlPrefix + 'SubmitProposalCtrl'
-        }).when(speakerUrlPrefix + '/proposal/:eventId/:proposalId', {
+        }).when(speakerUrlPrefix + '/proposal/:proposalId', {
             resolve: resolveCurrentUser,
-            templateUrl: speakerViewPrefix + '/proposal.html',
-            controller: speakerCtrlPrefix + 'ProposalDetailsCtrl'
+            templateUrl: speakerViewPrefix + '/proposal_form.html',
+            controller: speakerCtrlPrefix + 'SubmitProposalCtrl'
         });
 });
 

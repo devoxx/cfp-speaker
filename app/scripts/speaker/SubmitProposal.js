@@ -1,10 +1,6 @@
 
-speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($scope, UserService, Tags, Talks, EventService, EventBus) {
+speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($scope, UserService, Tags, Talks, TalksService, EventService, $routeParams) {
     $scope.model = {
-        talk: {
-            tags: [],
-            speakers: []
-        },
         speakerDetails: {},
         addSpeakerDialogOpen: false,
         newTag: '',
@@ -12,18 +8,49 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
             backdropFade: true,
             dialogFade: true
         },
-        currentUser: null,
-        onBehalfOf: false
+        currentUser: null
     };
 
+    $scope.initializeForAdd = function() {
+        $scope.model.talk = {
+            state: 'DRAFT',
+            tags: [],
+            speakers: []
+        };
+    };
+
+    $scope.initializeForEdit = function(proposalId) {
+        TalksService.byId(proposalId).success(function(data, status, headers, config) {
+//            data.event = $scope.global.events()[0];
+            $scope.model.talk = data;
+            console.log('event', $scope.model.talk.event)
+        }).error(function(data, status, headers, config) {
+            console.log(data)
+        });
+    };
+
+    if ($routeParams.proposalId) {
+        $scope.isNew = false;
+        $scope.initializeForEdit($routeParams.proposalId);
+    } else {
+        $scope.isNew = true;
+        $scope.initializeForAdd();
+    }
+
     UserService.waitForCurrentUser().then(function(data) {
-        $scope.model.talk.speakers.push(data);
+        if ($scope.isNew) {
+            $scope.model.talk.speakers.push(data);
+        }
         $scope.model.currentUser = data;
     });
 
-    $scope.$watch(EventService.getEvents, function(){
-        if ($scope.global && $scope.global.events() && $scope.global.events().length == 1) {
-            $scope.model.talk.event = $scope.global.events()[0];
+    $scope.$watch(EventService.getEvents, function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            if ($scope.isNew) {
+                if ($scope.global && $scope.global.events() && $scope.global.events().length == 1) {
+                    $scope.model.talk.event = $scope.global.events()[0];
+                }
+            }
         }
     });
 
@@ -62,7 +89,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
         if (id && imageFile && imageFile.length) {
             return 'http://devoxxcfp.s3.amazonaws.com/images/' + id + '/' + imageFile;
         } else {
-            return '/angularcfp/images/no_avatar.gif';
+            return '/images/no_avatar.gif';
         }
     };
 
@@ -149,7 +176,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
         if (!this.isFormValid(talk, submitProposalForm)) {
             return;
         }
-        if (this.isNew(talk)) {
+        if ($scope.isNew) {
             Talks.post(talk)
                 .success(function() {
                     console.log('post success');
@@ -163,9 +190,6 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
                 console.log('put error');
             });
         }
-    };
-    $scope.isNew = function(talk) {
-        return typeof(talk.id) === 'undefined';
     };
     $scope.cancel = function(talk) {
         $scope.model.talk = {};
