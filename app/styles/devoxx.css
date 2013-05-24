@@ -180,3 +180,40 @@
 .ng-invalid {
     border-color: #e00;
 }
+
+.table {
+    background-color: #fff;
+    width: 100%;
+}
+
+.table th, .table td {
+    text-align: center;
+    padding: 5px;
+    height: 60px;
+}
+
+.table th {
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.table tr:nth-child(odd) td {
+    background-color: #eee;
+}
+
+.table .col1 {
+    width: 400px;
+}
+
+.table .col2 {
+    width: 110px;
+}
+
+.table .col3 {
+    width: 360px;
+    white-space: nowrap;
+}
+.table td.col3 a {
+    width: 60px;
+}

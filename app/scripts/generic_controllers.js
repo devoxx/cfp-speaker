@@ -5,8 +5,8 @@ angular.module('cfpSpeakerApp')
     .controller('AppCtrl',function ($rootScope, $route, $location) {
         $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
             console.log('$routeChangeError:', arguments);
-            if (rejection === 'No valid userToken') {
-                $location.path('/login');
+            if (rejection === 'No valid userToken' || rejection === 'No currentUser') {
+                $location.path('/');
             }
         });
         $rootScope.$on('$routeChangeStart', function (event, current, previous, rejection) {
@@ -18,45 +18,49 @@ angular.module('cfpSpeakerApp')
         $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
             console.log('$viewContentLoaded', arguments);
         });
-    }).controller('LoginCtrl',function ($scope, $location, $cookies, $http, $filter, UserService) {
-        $scope.model = {};
+    }).controller('LoginCtrl',function ($scope, $location, $cookies, $http, $filter, UserService, EventBus) {
+        $scope.model = {
+            loginDisabled: false,
+            loginError: null,
+            currentUser: null
+        };
+
         $scope.login = function () {
-            UserService.login($scope.model.email, $scope.model.password);
+            if (!$scope.model.loginDisabled) {
+                $scope.model.loginDisabled = true;
+                UserService.login($scope.model.email, $scope.model.password);
+            }
         };
-        UserService.waitLoggedIn().then(function (data) {
-            $scope.currentUser = data;
-        });
         $scope.logout = UserService.logout;
-    }).controller('NavigationCtrl',function ($scope, $cookies, $location) {
-        $scope.logout = function () {
+
+        EventBus.onLoginSuccess($scope, function(user, userToken, event) {
+            $scope.model.currentUser = user;
+            $cookies.userToken = userToken;
+            $scope.model.loginError = null;
+        });
+        EventBus.onLoginFailed($scope, function(reason, event) {
+            $scope.model.loginDisabled = false;
+            $scope.model.loginError = reason;
+        });
+        EventBus.onLoggedOut($scope, function(oldUser, oldUserToken, event) {
             $cookies.userToken = '';
-            $location.path('/');
-        };
+            $scope.model.currentUser = null;
+            $scope.model.loginDisabled = false;
+            $location.path('/logged_out');
+        });
     }).controller('ProfileCtrl',function ($scope, UserService) {
         $scope.model = {};
-        UserService.waitLoggedIn().then(function (data) {
-            $scope.model.speakerDetails = UserService.getCurrentUser();
-        });
+//        EventBus.onLoginSuccess($scope, function (user, userToken, event) {
+//            $scope.model.speakerDetails = user;
+//        });
         $scope.profileComplete = UserService.profileComplete;
 
         $scope.updateProfile = function () {
             UserService.updateProfile($scope.model.speakerDetails);
         };
     }).controller('HomeCtrl',function ($scope, $location) {
-        $scope.loginUser = {};
-        $scope.login = function (type) {
-            $location.path('/type');
-        };
     }).controller('ContactCtrl',function ($scope, $location) {
-        $scope.loginUser = {};
-        $scope.login = function (type) {
-            $location.path('/type');
-        };
     }).controller('AboutCtrl',function ($scope, $location) {
-        $scope.loginUser = {};
-        $scope.login = function (type) {
-            $location.path('/type');
-        };
     }).controller('TwitterCtrl', function ($scope, $location) {
         $scope.tweets = [
             {

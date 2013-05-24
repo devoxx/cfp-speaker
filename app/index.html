@@ -26,12 +26,12 @@
       <script src="components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-      <script src="components/jquery/jquery.js"></script>
-      <script src="components/modernizr/modernizr.js"></script>
-      <script src="components/unstable-angular-complete/angular.js"></script>
-      <script src="components/unstable-angular-complete/angular-resource.js"></script>
-      <script src="components/unstable-angular-complete/angular-cookies.js"></script>
-      <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="components/jquery/jquery.js"></script>
+    <script src="components/modernizr/modernizr.js"></script>
+    <script src="components/unstable-angular-complete/angular.js"></script>
+    <script src="components/unstable-angular-complete/angular-resource.js"></script>
+    <script src="components/unstable-angular-complete/angular-cookies.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="components/bxslider-4/jquery.bxslider.js"></script>
     <script src="components/meanMenu/jquery.meanmenu.js"></script>
     <script src="components/jquery.uniform/jquery.uniform.js"></script>
@@ -39,8 +39,8 @@
     <!-- build:js scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/config.js"></script>
-    <script src="scripts/not_in_karma/run.js"></script>
     <script src="scripts/services.js"></script>
+    <script src="scripts/eventbus.js"></script>
     <script src="scripts/directives.js"></script>
     <script src="scripts/filters.js"></script>
     <script src="scripts/generic_controllers.js"></script>
@@ -49,6 +49,7 @@
     <script src="scripts/speaker/Proposals.js"></script>
     <script src="scripts/speaker/SubmitProposal.js"></script>
     <script src="scripts/speaker/ProposalDetails.js"></script>
+    <script src="scripts/not_in_karma/run.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
 
@@ -94,22 +95,23 @@
                         <li class="btn hide_mobile">
                             <a href="#">Buy tickets</a>
                         </li>
-                        <li class="btn popup login btn_grey" ng-hide="currentUser">
+                        <li class="btn popup login btn_grey" ng-hide="model.currentUser">
                             <a>Login</a>
                             <ul>
                                 <li>
                                     <div class="popup">
-                                        <form>
-                                            <input type="text" name="login" value="" placeholder="E-mail" ng-model="model.email" />
-                                            <input type="password" name="pass" value="" placeholder="Password" ng-model="model.password" devoxx-on-return-key="login()"/>
+                                        <form ng-submit="login()">
+                                            <div class="alert alert-error" ng-show="model.loginError">{{model.loginError}}</div>
+                                            <input type="text" name="login" value="" placeholder="E-mail" ng-model="model.email" class="uniform-input text hover" />
+                                            <input type="password" name="pass" value="" placeholder="Password" ng-model="model.password" devoxx-on-return-key="login()" class="uniform-input text hover"/>
                                             <a href="#">Register</a>
-                                            <input type="submit" name="submit" value="Login" class="btn" ng-click="login()"/>
+                                            <input type="submit" name="submit" value="Login" class="btn" ng-disabled="model.loginDisabled"/>
                                         </form>
                                     </div>
                                 </li>
                             </ul>
                         </li>
-                        <li class="submenu subright" ng-show="currentUser">
+                        <li class="submenu subright" ng-show="model.currentUser">
                             <a>User (icon)</a>
                             <ul>
                                 <li><a href="#/speaker" ng-click="logout()">Logout</a></li>

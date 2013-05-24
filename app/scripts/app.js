@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('cfpSpeakerApp', [ 'GenericServices', 'Speaker', 'Config', 'ui.bootstrap' ])
-  .config(function ($routeProvider) {
+var cfpSpeakerApp = angular.module('cfpSpeakerApp', [ 'GenericServices', 'Speaker', 'Config', 'ui.bootstrap' ]);
+
+cfpSpeakerApp.config(function ($routeProvider) {
     console.log('generic config');
     // General routing
     $routeProvider
@@ -14,6 +15,8 @@ angular.module('cfpSpeakerApp', [ 'GenericServices', 'Speaker', 'Config', 'ui.bo
       }).when('/profile', {
         templateUrl: 'views/profile.html',
         controller: 'ProfileCtrl'
+      }).when('/logged_out', {
+        templateUrl: 'views/logged_out.html'
       }).otherwise({
         redirectTo: '/'
       });

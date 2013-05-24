@@ -30,5 +30,5 @@ speakerModule.config(function($routeProvider) {
 });
 
 speakerModule.resolveCurrentUser = function(UserService) {
-    return UserService.getCurrentUser();
+    return UserService.waitForCurrentUser();
 };

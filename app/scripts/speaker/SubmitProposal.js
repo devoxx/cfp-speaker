@@ -1,5 +1,5 @@
 
-speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($scope, UserService, Tags, Talks, EventService) {
+speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($scope, UserService, Tags, Talks, EventService, EventBus) {
     $scope.model = {
         talk: {
             tags: [],
@@ -16,7 +16,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
         onBehalfOf: false
     };
 
-    UserService.waitLoggedIn().then(function(data) {
+    UserService.waitForCurrentUser().then(function(data) {
         $scope.model.talk.speakers.push(data);
         $scope.model.currentUser = data;
     });
