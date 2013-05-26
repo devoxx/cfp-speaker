@@ -231,7 +231,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             }
         }
         ret.language = {
-            id: parseInt(talk.language.value)
+            id: '2' // TODO: 2 means English, which is the only option for Devoxx BE
         };
         ret.title = talk.title;
         ret.type = {

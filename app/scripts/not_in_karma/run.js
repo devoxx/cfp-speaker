@@ -7,8 +7,6 @@ cfpSpeakerApp.run(['$rootScope', '$cookies', '$window', 'UserService', 'EventSer
             console.log('href = ', $window.location.href)
             if ($window.location.href.indexOf('/logged_out') != -1) {
                 $window.location.href = '/index.html#/';
-            } else {
-                $window.location.refresh();
             }
         });
 

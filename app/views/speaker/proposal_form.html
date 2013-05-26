@@ -143,16 +143,6 @@
                             </li>
 
                             <li>
-                                <label for="talkLanguage">Language</label>
-                                <select name="language"
-                                        id="talkLanguage"
-                                        ng-model="model.talk.language"
-                                        ng-options="o.value as o.text for o in model.languageOptions"
-                                        required
-                                        devoxx-uniform></select>
-                            </li>
-
-                            <li>
                                 <label></label>
                                 <span>
                                     <label>
@@ -179,7 +169,6 @@
 
                             <li>
                                 <a ng-click="submit(model.talk, submitProposalForm)" class="btn btn-primary">Submit</a>
-                                <a ng-click="cancel(model.talk)" class="">Cancel</a>
                             </li>
                         </div>
                     </ul>

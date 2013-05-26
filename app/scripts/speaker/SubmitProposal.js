@@ -214,19 +214,16 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
         if (!this.isFormValid(talk, submitProposalForm)) {
             return;
         }
-        if ($scope.isNew) {
+        if (!$scope.isSubmitted) {
+            $scope.isSubmitted = true;
             Talks.post(talk)
                 .success(function() {
                     console.log('post success');
+                    $window.location.href = '/index.html#/speaker/proposal/new';
                 }).error(function(error) {
                     console.log('post error');
+                    $scope.isSubmitted = false;
                 });
-        } else {
-            Talks.put(talk).success(function(resource) {
-                console.log('put success');
-            }, function(error) {
-                console.log('put error');
-            });
         }
     };
     $scope.cancel = function(talk) {
