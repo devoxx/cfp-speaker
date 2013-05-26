@@ -231,5 +231,6 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
     };
     $scope.cancel = function(talk) {
         $scope.model.talk = {};
+        $location.url('/speaker/proposals')
     };
 });

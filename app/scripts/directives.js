@@ -45,43 +45,56 @@ angular.module('cfpSpeakerApp')
                     }
                 };
 
+                function watchWithNoParentElement() {
+                    scope.$watch(watchNgInvalid, function (newValue, oldValue) {
+                        applyInvalidCss($(element), newValue);
+                    });
+                }
+
+                function watchWithParentElement(parentSelector) {
+                    scope.$watch(watchNgInvalid, function (newValue, oldValue) {
+                        var element2 = $(element).parents(parentSelector);
+                        applyInvalidCss($(element2), newValue);
+                    });
+
+                    scope.$watch(attrs.ngModel, function (newValue, oldValue) {
+                        if (newValue !== oldValue) {
+                            setDisplayText();
+                        }
+                    });
+
+                    var showHideParent = function (newValue) {
+                        $(element).parent().css('display', newValue ? '' : 'none')
+                    };
+
+                    if (attrs.ngShow) {
+                        scope.$watch(attrs.ngShow, function (newValue, oldValue) {
+                            showHideParent(newValue);
+                        });
+                    }
+                    if (attrs.ngHide) {
+                        scope.$watch(attrs.ngHide, function (newValue, oldValue) {
+                            showHideParent(!newValue);
+                        });
+                    }
+                }
+
                 switch (tagName) {
+                    case 'input':
+                        if (element[0].type === 'checkbox') {
+                            watchWithParentElement('.checker');
+                            break;
+                        }
                     case 'input':
                     case 'textarea':
                         width = '319px';
 
-                        scope.$watch(watchNgInvalid, function(newValue, oldValue) {
-                            applyInvalidCss($(element), newValue);
-                        });
+                        watchWithNoParentElement();
                         break;
                     case 'select':
                         width = '300px';
 
-                        scope.$watch(watchNgInvalid, function(newValue, oldValue) {
-                            applyInvalidCss($(element).parent(), newValue);
-                        });
-
-                        scope.$watch(attrs.ngModel, function (newValue, oldValue) {
-                            if (newValue !== oldValue) {
-                                setDisplayText();
-                            }
-                        });
-
-                        var showHideParent = function(newValue) {
-                            $(element).parent().css('display', newValue ? '': 'none')
-                        }
-
-                        if (attrs.ngShow) {
-                            scope.$watch(attrs.ngShow, function(newValue, oldValue) {
-                                showHideParent(newValue);
-                            });
-                        }
-                        if (attrs.ngHide) {
-                            scope.$watch(attrs.ngHide, function(newValue, oldValue) {
-                                showHideParent(!newValue);
-                            });
-                        }
-
+                        watchWithParentElement('.selector');
                         break;
                 }
 

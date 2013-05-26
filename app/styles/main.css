@@ -162,7 +162,7 @@ a.btn:hover {
 .dotList li h4 {
 	color: #000;
 	text-align: center;
-}
+}
 .dotList li .popup {
 	display: none;
 }
@@ -338,6 +338,41 @@ header .login .popup a {
 	margin: 0;
 	padding: 9px 8px;
 }
+header .login .popup .connect {
+	padding: 15px 0;
+}
+header .login .popup .connect a {
+	background: #444142 url(../images/login_social_icons.png) no-repeat 0 0;
+	display: inline;
+	float: left;
+	height: 26px;
+	width: 26px;
+	margin: 0 14px 0 0;
+	text-indent: -9999px;
+}
+header .login .popup .connect a.btnFacebook {
+	background-position: -56px 0;
+}
+header .login .popup .connect a.btnLinkedin {
+	background-position: -112px 0;
+}
+header .login .popup .connect a.btnGoogle {
+	background-position: -168px 0;
+	margin: 0;
+}
+header .login .popup .connect a:hover {
+	background-color: #817f80;
+}
+header .login .popup .actionslinks {
+	text-align: center;
+}
+header .login .popup .actionslinks a {
+	color: #777777;
+	display: block;
+	float: none;
+	margin: 0 auto;
+}
+
 header .search .popup ol li {
 	border-bottom: 1px solid #3a3638;
 	display: block;
@@ -413,6 +448,9 @@ footer h4 {
 }
 footer a {
 	color: #838383;
+}
+footer a:hover {
+	color: #fff;
 }
 footer ul {
 	min-height: 100px;
@@ -595,8 +633,57 @@ footer .sponsors a {
 	display: block;
 	max-width: 337px;
 	margin: 0 0 -100px -60px;
+	position: relative;
 	width: 100%;
 }
+#about .map img {
+	display: block;
+	width: 100%;
+}
+
+#about .map a {
+	background: #F5AF33;
+	height: 12px;
+	position: absolute;
+	left: 59%;
+	top: 39%;
+	width: 12px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #fff;
+}
+#about .map a.btn_fr {
+	top: 50%;
+	left: 52%;
+}
+#about .map a.btn_uk {
+	left: 43%;
+	top: 35%;
+}
+#about .map a span {
+	background: #F5AF33;
+	height: 12px;
+	position: absolute;
+	left: 0;
+	text-indent: -9999px;
+	top: 0;
+	width: 12px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	opacity:0.3;
+	filter:alpha(opacity=30);
+	transition: all .15s linear 0s;
+	-webkit-transition: all .15s linear 0s;
+}
+#about .map a:hover span {
+	top: -25px;
+	left: -25px;
+	width: 62px;
+	height: 62px;
+}
+
+
+
 #about .counter {
 	color: #000;
 	margin: 0 0 0 -40px;
@@ -803,7 +890,7 @@ footer .sponsors a {
 }
 
 #googlemap {
-	/*background: url(../images_dummy/gmap_dummy.jpg) no-repeat center;*/
+	background: url(../images_dummy/gmap_dummy.jpg) no-repeat center;
 	height: 530px;
 }
 
