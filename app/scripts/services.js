@@ -161,27 +161,34 @@ genericServices.factory('TalksService',function ($http, UserService) {
             return defer.promise;
         }
     }
-}).factory('EventService',function ($http, $filter, UserService) {
-    var events;
-    return {
+}).factory('EventService',function ($http, $q, $filter, UserService) {
+    var eventService = {
+        eventsDefer: null,
         load: function () {
             var url = baseUri + '/event';
             return $http.get(url, {
                 params: {
                     userToken: UserService.getToken()
                 }
-            }).success(function (result) {
+            }).success(function (result, status, headers, config) {
                 var list = result;
                 list = $filter('orderBy')(list, function(o) {
                     return o.cfpTo;
                 });
-                events = list;
+                eventService.eventsDefer.resolve(list);
+            }).error(function(result, status, headers, config) {
+                eventService.eventsDefer.reject(result);
             });
         },
         getEvents: function () {
-            return events;
+            if (!eventService.eventsDefer) {
+                eventService.eventsDefer = $q.defer();
+                eventService.load();
+            }
+            return eventService.eventsDefer.promise;
         }
     };
+    return eventService;
 }).factory('Talks', function ($http, UserService) {
     var url = baseUri + '/event/{eventId}/presentation';
     var createUrl = function (url, talk) {
@@ -215,7 +222,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             }
         }
         ret.language = {
-            id: parseInt(talk.language.id)
+            id: parseInt(talk.language.value)
         };
         ret.title = talk.title;
         ret.type = {
@@ -229,7 +236,8 @@ genericServices.factory('TalksService',function ($http, UserService) {
         };
         ret.audienceExperience = talk.audienceExperience;
         ret.summary = talk.summary;
-        ret.sharedProposal = talk.shareWithJugsAllowed;
+        ret.extraInfo = talk.extraInfo;
+        ret.sharedProposal = talk.sharedProposal;
         return ret;
     };
     return {

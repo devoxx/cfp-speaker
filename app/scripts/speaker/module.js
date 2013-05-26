@@ -18,6 +18,8 @@ speakerModule.config(function($routeProvider) {
             resolve: resolveCurrentUser,
             templateUrl: speakerViewPrefix + '/proposals.html',
             controller: speakerCtrlPrefix + 'ProposalsCtrl'
+        }).when(speakerUrlPrefix + '/proposal/', {
+            redirectTo: '/proposals'
         }).when(speakerUrlPrefix + '/proposal/new', {
             resolve: resolveCurrentUser,
             templateUrl: speakerViewPrefix + '/proposal_form.html',

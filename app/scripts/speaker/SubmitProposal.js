@@ -1,6 +1,7 @@
 
-speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($scope, UserService, Tags, Talks, TalksService, EventService, $routeParams) {
+speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($scope, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location) {
     $scope.model = {
+        talk: {},
         speakerDetails: {},
         addSpeakerDialogOpen: false,
         newTag: '',
@@ -8,24 +9,70 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
             backdropFade: true,
             dialogFade: true
         },
-        currentUser: null
+        currentUser: null,
+        experienceOptions: [
+            { value: 'NOVICE', text: 'NOVICE' },
+            { value: 'SENIOR', text: 'SENIOR' },
+            { value: 'EXPERT', text: 'EXPERT' }
+        ],
+        languageOptions: [
+            { value: '2', text: 'US'}
+        ]
     };
+    EventService.getEvents().then(function(data) {
+        $scope.model.events = data;
+        if ($scope.isNew) {
+            if ($scope.model.events.length == 1) {
+                $scope.model.talk.event = $scope.model.events[0];
+            }
+        }
+    });
 
     $scope.initializeForAdd = function() {
+        console.log("1 ", $scope.model.talk)
         $scope.model.talk = {
             state: 'DRAFT',
             tags: [],
-            speakers: []
+            speakers: [],
+            language: '2'
         };
+        console.log("2 ", $scope.model.talk)
+    };
+
+    $scope.matchOnId = function(list, obj) {
+        if (obj) {
+            var objId = obj.id;
+
+            if (list) {
+                for (var i = 0; i < list.length; i++) {
+                    var listItem = list[i];
+                    if (listItem.id === objId) {
+                        return listItem;
+                    }
+                }
+            }
+        }
+
+        return null;
     };
 
     $scope.initializeForEdit = function(proposalId) {
         TalksService.byId(proposalId).success(function(data, status, headers, config) {
-//            data.event = $scope.global.events()[0];
             $scope.model.talk = data;
-            console.log('event', $scope.model.talk.event)
+            if (!$scope.model.speakers) {
+                $scope.model.speakers = [];
+            }
+            $scope.model.speakers.push(data.author);
+
+            console.log(data)
+            var event = $scope.matchOnId($scope.model.events, data.event);
+            $scope.model.talk.event = event;
+            $scope.model.talk.track = $scope.matchOnId(event.tracks, data.track);
+            $scope.model.talk.type = $scope.matchOnId(event.types, data.type);
+            $scope.model.talk.language = $scope.matchOnId($scope.languageOptions, data.language);
         }).error(function(data, status, headers, config) {
             console.log(data)
+            $location.path('/proposals');
         });
     };
 
@@ -44,15 +91,6 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
         $scope.model.currentUser = data;
     });
 
-    $scope.$watch(EventService.getEvents, function(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            if ($scope.isNew) {
-                if ($scope.global && $scope.global.events() && $scope.global.events().length == 1) {
-                    $scope.model.talk.event = $scope.global.events()[0];
-                }
-            }
-        }
-    });
 
     $scope.getTags = function(partialTagName) {
         return Tags.query(partialTagName);

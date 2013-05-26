@@ -3,7 +3,7 @@ speakerModule.controller(speakerCtrlPrefix + 'ProposalsCtrl', function($scope, $
     $scope.model = {
         event: null,
         myProposals: null,
-        events: EventService.getEvents
+        events: EventService.getEvents()
     };
 
     TalksService.allProposalsForUser().success(function(data, status, headers, config) {

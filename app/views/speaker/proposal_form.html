@@ -15,30 +15,30 @@
     </div>
 </div>
 
-<div id="paper_form" class="area lightgrey" ng-controller="Speaker_GlobalCtrl">
+<div id="paper_form" class="area lightgrey">
     <div class="grid">
 
         <div class="row">
             <div class="col20">
                 <h4>Submit Proposal</h4>
 
-                <form name="submitProposalForm" onsubmit="return false">
+                <form name="submitProposalForm" onsubmit="return false" ng-cloak>
                     <input type="hidden" ng-model="model.talk.id">
                     <ul>
                         <li>
                             <label for="talkEvent">Event</label>
                             <select name="event"
                                     id="talkEvent" ng-model="model.talk.event"
-                                    ng-options="e.name for e in global.events()"
+                                    ng-options="e.name for e in model.events"
                                     required
-                                    ng-hide="global.events().length == 1"
-                                    devoxx-unsiform>
+                                    ng-hide="model.events.length == 1 || !isNew"
+                                    devoxx-uniform>
                                 <option value="">Choose event</option>
                             </select>
                             <input type="text"
                                    ng-disabled="true"
                                    ng-model="model.talk.event.name"
-                                   ng-show="global.events().length == 1"
+                                   ng-show="model.events.length == 1 || !isNew"
                                    devoxx-uniform>
                             <div ng-show="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}}</div>
                             <div ng-hide="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}} until {{model.talk.event.eventTo|date:shortDate}}</div>
@@ -50,6 +50,7 @@
                             <li>
                                 <label for="talkTitle">Title</label>
                                 <input id="talkTitle" type="text" ng-model="model.talk.title" required devoxx-uniform>
+                                <span devoxx-errors expression="submitProposalForm.talkTitle"></span>
                             </li>
                             <li>
                                 <label>State</label>
@@ -128,8 +129,8 @@
                             </li>
 
                             <li>
-                                <label for="talkMessageToSteering">Message to steering committee (optional)</label>
-                                <textarea id="talkMessageToSteering" ng-model="model.talk.messageToSteering" devoxx-uniform></textarea>
+                                <label for="talkExtraInfo">Message to steering committee (optional)</label>
+                                <textarea id="talkExtraInfo" ng-model="model.talk.extraInfo" devoxx-uniform></textarea>
                             </li>
 
                             <li>
@@ -137,7 +138,7 @@
                                 <select name="audienceExperience"
                                         id="talkAudienceExperience"
                                         ng-model="model.talk.audienceExperience"
-                                        ng-options="option for option in global.experienceOptions"
+                                        ng-options="o.value as o.text for o in model.experienceOptions"
                                         required
                                         devoxx-uniform></select>
                             </li>
@@ -147,7 +148,7 @@
                                 <select name="language"
                                         id="talkLanguage"
                                         ng-model="model.talk.language"
-                                        ng-options="option.label for option in global.languageOptions"
+                                        ng-options="o.value as o.text for o in model.languageOptions"
                                         required
                                         devoxx-uniform></select>
                             </li>
@@ -157,7 +158,8 @@
                                 <span>
                                     <label>
                                         <input type="checkbox"
-                                               ng-model="model.talk.shareWithJugsAllowed">
+                                               devoxx-uniform
+                                               ng-model="model.talk.sharedProposal">
                                         I allow Devoxx to share my proposal with related User Groups
                                     </label>
                                 </span>
@@ -169,6 +171,7 @@
                                     <label>
                                         <input type="checkbox"
                                                ng-model="model.termsAndConditionsAgreed"
+                                               devoxx-uniform
                                                required>
                                         I agree to the terms and conditions
                                     </label>
