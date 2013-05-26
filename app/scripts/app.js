@@ -17,6 +17,16 @@ cfpSpeakerApp.config(function ($routeProvider) {
         controller: 'ProfileCtrl'
       }).when('/logged_out', {
         templateUrl: 'views/logged_out.html'
+      }).when('/about', {
+        templateUrl: 'views/about.html'
+      }).when('/contact', {
+        templateUrl: 'views/practical/contact.html'
+      }).when('/faq', {
+        templateUrl: 'views/practical/faq.html'
+      }).when('/team', {
+        templateUrl: 'views/practical/team.html'
+      }).when('/venue', {
+        templateUrl: 'views/practical/venue.html'
       }).otherwise({
         redirectTo: '/'
       });
