@@ -105,7 +105,6 @@ $(document).ready(function () {
                       .css({"width":this.width,"height":this.height})
                       .dequeue();
                 });
-            console.log('el', el[0])
             grayscale(el[0]);
         });
 
