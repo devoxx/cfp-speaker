@@ -18,7 +18,7 @@ angular.module('cfpSpeakerApp')
         $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
             console.log('$viewContentLoaded', arguments);
         });
-    }).controller('LoginCtrl',function ($scope, $location, $cookies, $http, $filter, UserService, EventBus) {
+    }).controller('LoginCtrl',function ($scope, $location, $window, $cookies, $http, $filter, UserService, EventBus) {
         $scope.model = {
             loginDisabled: false,
             loginError: null,
@@ -46,7 +46,7 @@ angular.module('cfpSpeakerApp')
             $cookies.userToken = '';
             $scope.model.currentUser = null;
             $scope.model.loginDisabled = false;
-            $location.path('/logged_out');
+            $window.location.href = '/index.html#/logged_out';
         });
     }).controller('ProfileCtrl',function ($scope, UserService) {
         $scope.model = {};

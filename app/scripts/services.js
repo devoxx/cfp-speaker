@@ -33,7 +33,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             });
         }
     };
-}).factory('UserService',function ($q, $filter, $http, $cookies, $location, EventBus) {
+}).factory('UserService',function ($q, $filter, $http, $timeout, $cookies, $location, EventBus) {
     var userService = {
         currentUser: null,
         currentUserToken: null,
@@ -95,7 +95,16 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 && profile.company && profile.speakerBio && profile.speakingReferences;
         },
         waitForCurrentUser: function () {
-            return userService.currentUserDefer.promise;
+            var defer = $q.defer();
+            var pollCurrentUser = function() {
+                if (userService.currentUser) {
+                    defer.resolve(userService.currentUser);
+                } else {
+                    $timeout(pollCurrentUser, 500);
+                }
+            };
+            pollCurrentUser();
+            return defer.promise;
         },
         getToken: function () {
             return userService.userToken;
@@ -166,6 +175,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
         eventsDefer: null,
         load: function () {
             var url = baseUri + '/event';
+            eventService.eventsDefer = $q.defer();
             return $http.get(url, {
                 params: {
                     userToken: UserService.getToken()
@@ -182,7 +192,6 @@ genericServices.factory('TalksService',function ($http, UserService) {
         },
         getEvents: function () {
             if (!eventService.eventsDefer) {
-                eventService.eventsDefer = $q.defer();
                 eventService.load();
             }
             return eventService.eventsDefer.promise;
