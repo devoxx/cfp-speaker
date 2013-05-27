@@ -159,10 +159,12 @@ a.btn:hover {
 	-ms-transform: scale(1.1);
 	transform: scale(1.1);
 }
+
 .dotList li h4 {
 	color: #000;
 	text-align: center;
 }
+
 .dotList li .popup {
 	display: none;
 }
