@@ -54,9 +54,13 @@ genericServices.factory('TalksService',function ($http, UserService) {
 
                 console.log('successful username/password login', data.userToken);
                 EventBus.loginSuccess(data.user, data.userToken);
+                userService.currentUserDefer.resolve(userService.currentUser);
+
             }).error(function (data, status, headers, config) {
                 console.log(data);
                 EventBus.loginFailed(data.msg);
+                userService.currentUserDefer.reject('No currentUser');
+
             });
         },
         loginByToken: function (userToken) {
