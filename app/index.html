@@ -94,7 +94,7 @@
                         <!--<li class="btn hide_mobile">-->
                             <!--<a href="#">Buy tickets</a>-->
                         <!--</li>-->
-                        <li class="btn popup login btn_grey" ng-hide="model.currentUser">
+                        <li class="btn popup login btn_grey" ng-hide="model.currentUser()">
                             <a>Login</a>
                             <ul>
                                 <li>
@@ -110,7 +110,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="submenu subright" ng-show="model.currentUser">
+                        <li class="submenu subright" ng-show="model.currentUser()">
                             <a>User <img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/512/Users-User-icon.png" height="12" width="12"></a>
                             <ul>
                                 <li><a href="#/speaker" ng-click="logout()">Logout</a></li>

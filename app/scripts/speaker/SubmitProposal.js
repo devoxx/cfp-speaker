@@ -1,5 +1,5 @@
 
-speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($scope, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location) {
+speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, $scope, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location) {
     $scope.model = {
         talk: {},
         speakerDetails: {},
@@ -19,13 +19,15 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
             { value: '2', text: 'US'}
         ]
     };
-    EventService.getEvents().then(function(data) {
+
+    EventService.getEvents().then(function (data) {
         $scope.model.events = data;
         if ($scope.isNew) {
             if ($scope.model.events.length == 1) {
                 $scope.model.talk.event = $scope.model.events[0];
             }
         }
+
     });
 
     $scope.initializeForAdd = function() {
@@ -90,7 +92,6 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($sco
         }
         $scope.model.currentUser = data;
     });
-
 
     $scope.getTags = function(partialTagName) {
         return Tags.query(partialTagName);

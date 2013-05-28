@@ -36,7 +36,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
 }).factory('UserService',function ($q, $filter, $http, $timeout, $cookies, $location, EventBus) {
     var userService = {
         currentUser: null,
-        currentUserToken: null,
+        currentUserToken: $cookies.userToken,
         loginValidationFinished: false,
         currentUserDefer: $q.defer(),
 
@@ -50,7 +50,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             }).success(function (data, status, headers, config) {
                 console.log('successful login with username/password');
                 userService.currentUser = data.user;
-                userService.userToken = data.userToken;
+                userService.currentUserToken = data.userToken;
 
                 console.log('successful username/password login', data.userToken);
                 EventBus.loginSuccess(data.user, data.userToken);
@@ -64,7 +64,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             });
         },
         loginByToken: function (userToken) {
-            userService.userToken = userToken;
+            userService.currentUserToken = userToken;
             var url = authBaseUri + '/token';
             $http.post(url, {}, {
                 params: {
@@ -82,10 +82,11 @@ genericServices.factory('TalksService',function ($http, UserService) {
             });
         },
         logout: function () {
-            var oldToken = userService.userToken;
+            var oldToken = userService.currentUserToken;
             var callback = function(data, status, headers, config) {
                 userService.currentUser = null;
-                userService.userToken = '';
+                userService.currentUserToken = '';
+                userService.currentUserDefer = $q.defer();
                 EventBus.loggedOut(userService.currentUser, oldToken);
             };
             if (oldToken && oldToken.length > 0) {
@@ -99,19 +100,24 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 && profile.company && profile.speakerBio && profile.speakingReferences;
         },
         waitForCurrentUser: function () {
-            var defer = $q.defer();
-            var pollCurrentUser = function() {
+            var defer = userService.currentUserDefer;
+            if (!userService.currentUserToken) {
+                defer.reject('No valid userToken');
+            } else {
                 if (userService.currentUser) {
                     defer.resolve(userService.currentUser);
                 } else {
-                    $timeout(pollCurrentUser, 500);
+                    userService.loginByToken(userService.currentUserToken);
                 }
-            };
-            pollCurrentUser();
+            }
+
             return defer.promise;
         },
+        getCurrentUser: function() {
+            return userService.currentUser;
+        },
         getToken: function () {
-            return userService.userToken;
+            return userService.currentUserToken;
         },
         getSpeakerByEmailAddress: function (email) {
             var url = baseUri + '/user';
@@ -119,17 +125,17 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 params: {
                     q: email,
                     filter: email,
-                    userToken: userService.userToken
+                    userToken: userService.currentUserToken
                 }
             });
         },
         updateProfile: function (user) {
             var defer = $q.defer();
-            if (userService.userToken) {
+            if (userService.currentUserToken) {
                 var url = authBaseUri + '/profile';
                 $http.put(url, user, {
                     params: {
-                        userToken: userService.userToken
+                        userToken: userService.currentUserToken
                     }
                 }).success(function(data, status, headers, config) {
                     defer.resolve(response);
@@ -176,10 +182,9 @@ genericServices.factory('TalksService',function ($http, UserService) {
     }
 }).factory('EventService',function ($http, $q, $filter, UserService) {
     var eventService = {
-        eventsDefer: null,
+        eventsDefer: $q.defer(),
         load: function () {
             var url = baseUri + '/event';
-            eventService.eventsDefer = $q.defer();
             return $http.get(url, {
                 params: {
                     userToken: UserService.getToken()
@@ -195,9 +200,9 @@ genericServices.factory('TalksService',function ($http, UserService) {
             });
         },
         getEvents: function () {
-            if (!eventService.eventsDefer) {
+            UserService.waitForCurrentUser().then(function() {
                 eventService.load();
-            }
+            });
             return eventService.eventsDefer.promise;
         }
     };
