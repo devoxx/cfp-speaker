@@ -115,7 +115,6 @@ a {
 	color: #f5af33;
 }
 a.btn {
-    cursor: pointer;
 	background: #f5af33 url(../images/btn_arrow.png) no-repeat 36px -65px;
 	color: #000;
 	display: inline-block;
@@ -137,6 +136,7 @@ a.btn:hover {
 	display: inline-block;
 	margin: 0 1px 20px;
     width: 230px;
+    position: relative;
 }
 .dotList li .icon {
 	background: #f8cb7a;
@@ -151,7 +151,82 @@ a.btn:hover {
 	transition: all 0.15s ease-out 0s;
 	-webkit-transition: all 0.15s ease-out 0s;
 }
-.dotList li:hover .icon {
+.dotList li h4 {
+	color: #000;
+	text-align: center;
+}
+.dotList li .popup {
+	display: none;
+}
+.dotList li .popup .links a {
+	background: url(../images/icons_shares.png) no-repeat 0 0;
+	display: inline-block;
+	height: 39px;
+	margin: 5px 0 0;
+	text-indent: -9999px;
+	width: 39px;
+}
+.dotList li .popup .links a.btn_twitter {
+	background-position: -48px 0;
+}
+.dotList li .popup .links a.btn_linkedin {
+	background-position: -146px 0;
+}
+.dotList li .popup .links a.btn_mail {
+	background-position: -98px 0;
+}
+.dotList li .popup .links a:hover {
+	background-position: 0 -42px;
+}
+.dotList li .popup .links a.btn_twitter:hover {
+	background-position: -48px -42px;
+}
+.dotList li .popup .links a.btn_linkedin:hover {
+	background-position: -146px -42px;
+}
+.dotList li .popup .links a.btn_mail:hover {
+	background-position: -98px -42px;
+}
+
+#contactList li .icon {
+	border: 2px solid #fff;
+}
+
+#trackList li .popup {
+	background: #df5d2b;
+	color: #fff;
+	display: block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	padding: 20px 30px;
+	width: 170px;
+	opacity:0;
+	filter:alpha(opacity=0); /* For IE8 and earlier */
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-box-shadow:  0px 0px 5px 0px rgba(0, 0, 0, .2);
+	box-shadow:  0px 0px 5px 0px rgba(0, 0, 0, .2);
+	
+	transition: all 0.15s ease-out 0s;
+	-webkit-transition: all 0.15s ease-out 0s;
+} 
+#trackList li:hover .popup {
+	bottom: 96%;
+	opacity: 1;
+	filter:alpha(opacity=1); /* For IE8 and earlier */
+}
+#trackList li .popup .textballoon {
+	background: url(../images/tracks_popup.png);
+	display: block;
+	bottom: -11px;
+	left: 50%;
+	height: 11px;
+	margin: 0 0 0 -15px;
+	position: absolute;
+	width: 34px;	
+}
+#trackList li:hover .icon {
 	background: #fbdda9;
 	-moz-transform: scale(1.1);
 	-webkit-transform: scale(1.1);
@@ -160,14 +235,29 @@ a.btn:hover {
 	transform: scale(1.1);
 }
 
-.dotList li h4 {
-	color: #000;
-	text-align: center;
-}
-
-.dotList li .popup {
-	display: none;
+#contactList li {
+	padding-top: 15px;
+	width: 290px;
+	overflow: hidden;
 }
+#contactList li .popup {
+	background: url(../images/lightgrey_hover_bg.jpg);
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	padding: 30px 45px 0;
+	width: 200px;
+	height: 85%;
+	overflow: hidden;
+	
+	transition: all 0.15s ease-out 0s;
+	-webkit-transition: all 0.15s ease-out 0s;
+}
+#contactList li:hover .popup {
+	top: 0;
+}
+
 
 .newsList {
 	width: 3000px;
@@ -422,9 +512,12 @@ header #submenu {
 	padding: 100px 0;
 }
 .orange {
-	background: #f5af33;
+	background: #f5af33 url(../images/lensflare.png) no-repeat center top;
 	-webkit-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
 	box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+}
+.orange a {
+	color: #000;
 }
 .blue {
 	background: #f0ebe4 url(../images/carousel_bg.jpg);
@@ -589,8 +682,8 @@ footer .sponsors a {
 	line-height: 52px;
 	margin: 0;
 }
-#carousel ul li h2 {
-	margin-top: 5px;
+#carousel ul li h3 {
+	margin: 5px 0;
 }
 #carousel ul li .btn {
 	background-color: #000;
@@ -892,6 +985,7 @@ footer .sponsors a {
 }
 
 #googlemap {
+	background: url(../images_dummy/gmap_dummy.jpg) no-repeat center;
 	height: 530px;
 }
 
@@ -903,7 +997,6 @@ footer .sponsors a {
 
 .callforpapers #topinfo {
 	padding: 70px 0 0 0;
-	
 }
 .callforpapers .col11 {
 	padding: 0;
@@ -912,6 +1005,74 @@ footer .sponsors a {
 /* @end */
 
 
+
+/* @group Page: FAQ */
+
+.faq #topinfo {
+	padding: 60px 0 70px 0;	
+}
+.banner {
+	background: #fff url(../images/banner_bg.jpg) no-repeat center bottom;
+	color: #858585;
+	font-style: italic;
+	padding: 40px 40px 100px;
+	margin: -110px auto 0;
+	max-width: 185px;
+}
+.faq #accordion .acco_title {
+	cursor: pointer;
+	margin: 30px 0 0 0;
+} 
+.faq #accordion .acco_content {
+	display: none;
+	padding: 1px;
+}
+
+/* @end */
+
+
+
+/* @group Page: FAQ */
+
+.contact #topinfo {
+	padding: 60px 0 70px 0;	
+}
+
+/* @end */
+
+
+
+/* @group Page: Team */
+
+.team #topinfo {
+	padding: 70px 0;
+}
+.team #filters {
+	padding: 7px 0 15px;
+}
+.team #filters li {
+	display: inline;
+	float: left;
+}
+.team #filters li a {
+	background: rgba(0, 0, 0, 0.15);
+	color: #fff;
+	display: inline-block;
+	font: normal 14px/14px "GothamBook","Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	margin: 10px 15px 0 0;
+	padding: 10px 20px;
+	text-transform: uppercase;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.team #filters li a.selected {
+	background: rgba(0, 0, 0, 0.30);
+}
+
+/* @end */
+	
 
 
 /* @group Helper classes */
@@ -1107,6 +1268,12 @@ footer .sponsors a {
 	.dotList li {
 		margin: 0 0 20px;
 		width: 210px;
+	}
+	
+	
+	
+	.faq .banner {
+		margin-top: 50px;
 	}
 }
 

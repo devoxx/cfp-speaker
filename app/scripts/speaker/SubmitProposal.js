@@ -31,14 +31,12 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
     });
 
     $scope.initializeForAdd = function() {
-        console.log("1 ", $scope.model.talk)
         $scope.model.talk = {
             state: 'DRAFT',
             tags: [],
             speakers: [],
             language: '2'
         };
-        console.log("2 ", $scope.model.talk)
     };
 
     $scope.matchOnId = function(list, obj) {

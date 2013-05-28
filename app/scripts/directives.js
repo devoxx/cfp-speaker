@@ -31,17 +31,19 @@ angular.module('cfpSpeakerApp')
                     }
 
                     if (invalid) {
-                        elem.css({
-                            'color': '#b94a48',
-                            'background-color': '#f2dede',
-                            'border-color': '#eed3d7'
-                        });
+                        elem.addClass('ng-invalid');
+//                        elem.css({
+//                            'color': '#b94a48',
+//                            'background-color': '#f2dede',
+//                            'border-color': '#eed3d7'
+//                        });
                     } else {
-                        elem.css({
-                            'color': elem.attr('data-original-color'),
-                            'background-color': elem.attr('data-original-background-color'),
-                            'border-color': elem.attr('data-original-border-color')
-                        });
+                        elem.removeClass('ng-invalid')
+//                        elem.css({
+//                            'color': elem.attr('data-original-color'),
+//                            'background-color': elem.attr('data-original-background-color'),
+//                            'border-color': elem.attr('data-original-border-color')
+//                        });
                     }
                 };
 
@@ -92,7 +94,7 @@ angular.module('cfpSpeakerApp')
                         watchWithNoParentElement();
                         break;
                     case 'select':
-                        width = '300px';
+                        width = '292px';
 
                         watchWithParentElement('.selector');
                         break;

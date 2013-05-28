@@ -213,3 +213,15 @@
 .table td.col3 a {
     width: 60px;
 }
+
+div.selector.ng-invalid,
+div.checker.ng-invalid,
+input.ng-invalid,
+textarea.ng-invalid {
+    box-shadow: 0 0 3px 1px #f00;
+    color: #f00;
+}
+
+div.selector.ng-invalid {
+    border-radius: 3px;
+}

@@ -1,14 +1,14 @@
 <div id="topinfo" class="area blue">
     <div class="grid">
         <div class="row">
-            <div class="col11">
-                <h1>Call For Papers</h1>
-
-                <h3>Thx for shaping Devoxx</h3>
+            <div class="col9">
+                <h1>last call for papers</h1>
+                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Vivamus sagittis.
+                    laoreet rutrum faucibus dolor auctor
+                    Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. </p>
             </div>
-
-            <div class="col6">
-                <img src="images/proposal_icon.png" class="visual" alt=""/>
+            <div class="col11">
+                <img src="images/topinfo_visual_call.png" class="visual" alt=""/>
             </div>
         </div>
     </div>
@@ -17,11 +17,10 @@
 <div id="paper_form" class="area lightgrey">
     <div class="grid">
 
-        <div class="row">
-            <div class="col20">
-                <h4>Submit Proposal</h4>
-
-                <form name="submitProposalForm" onsubmit="return false" ng-cloak>
+        <form name="submitProposalForm" onsubmit="return false" ng-cloak>
+            <div class="row">
+                <div class="col20">
+                    <h4>Submit Proposal</h4>
                     <input type="hidden" ng-model="model.talk.id">
                     <ul>
                         <li>
@@ -43,7 +42,7 @@
                             <div ng-hide="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}} until {{model.talk.event.eventTo|date:shortDate}}</div>
                         </li>
 
-                        <div ng-show="model.talk.event"
+                        <ul ng-show="model.talk.event"
                              devoxx-set-focus-on="model.talk.event"
                              devoxx-set-focus-field="talkTitle">
                             <li>
@@ -103,11 +102,11 @@
                                 <input id="talkAddSpeaker"
                                        type="email"
                                        ng-model="model.speakerDetails.email"
-                                       placeholder="Enter the speakers' email address"
+                                       placeholder="Add speaker by email and press return"
                                        devoxx-on-return-key="addSpeaker()"
                                        devoxx-uniform>
                                 <br>
-                                <a ng-click="addSpeaker()" style="cursor: pointer">Add speaker (or press return)</a>
+                                <a ng-click="addSpeaker()" style="cursor: pointer"></a>
                                 <ul>
                                     <dl ng-repeat="speaker in model.talk.speakers">
                                         <dt>
@@ -144,38 +143,42 @@
 
                             <li>
                                 <label></label>
-                                <span>
-                                    <label>
-                                        <input type="checkbox"
-                                               devoxx-uniform
-                                               ng-model="model.talk.sharedProposal">
-                                        I allow Devoxx to share my proposal with related User Groups
-                                    </label>
-                                </span>
+                                <ul class="checkradios clearfix">
+                                    <li>
+                                        <label>
+                                            <input type="checkbox"
+                                                   devoxx-uniform
+                                                   ng-model="model.talk.sharedProposal">
+                                            I allow Devoxx to share my proposal with related User Groups
+                                        </label>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li>
                                 <label></label>
-                                <span>
-                                    <label>
-                                        <input type="checkbox"
-                                               ng-model="model.termsAndConditionsAgreed"
-                                               devoxx-uniform
-                                               required>
-                                        I agree to the terms and conditions
-                                    </label>
-                                </span>
+                                <ul class="checkradios clearfix">
+                                    <li>
+                                        <label>
+                                            <input type="checkbox"
+                                                   ng-model="model.termsAndConditionsAgreed"
+                                                   devoxx-uniform
+                                                   required>
+                                            I agree to the terms and conditions
+                                        </label>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li>
-                                <a ng-click="submit(model.talk, submitProposalForm)" class="btn btn-primary">Submit</a>
+                                <input type="submit" ng-click="submit(model.talk, submitProposalForm)" class="btn btn-primary">Submit</a>
                             </li>
-                        </div>
+                        </ul>
                     </ul>
-                </form>
+
                 <br class="clear">
             </div>
-        </div>
+        </form>
     </div>
 
     <div modal="model.addSpeakerDialogOpen"
