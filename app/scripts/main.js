@@ -3,10 +3,6 @@ $(document).ready(function () {
 
     $(".selector select").css("width", "100%");
 
-//	$(window).resize(function() {
-//		updateFormElements();
-//	});
-
     $('header nav').meanmenu();
 
     $('#carousel ul').bxSlider({
@@ -135,11 +131,4 @@ function grayscale(src) {
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
     return canvas.toDataURL();
-}
-
-function updateFormElements() {
-//  This breaks the angular directive for uniform
-//	$(".selector select").css("width","85%");
-//	$.uniform.update();
-//	$(".selector select").css("width","100%");
 }
