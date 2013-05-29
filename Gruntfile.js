@@ -90,7 +90,13 @@ module.exports = function (grunt) {
         options: {
           port: 9002,
           hostname: 'localhost',
-          base: yeomanConfig.dist
+          base: yeomanConfig.dist,
+          middleware: function (connect) {
+            return [
+                mountFolder(connect, 'images_dummy'),
+                mountFolder(connect, yeomanConfig.dist)
+            ];
+          }
         }
       }
     },
@@ -196,7 +202,7 @@ module.exports = function (grunt) {
       }
     },
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%= yeoman.dist %>/{,*/}*.html', '<%= yeoman.dist %>/{,views/**/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         dirs: ['<%= yeoman.dist %>']
