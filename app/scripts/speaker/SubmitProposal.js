@@ -1,5 +1,6 @@
+'use strict';
 
-speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, $scope, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location) {
+speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q, $scope, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location) {
     $scope.model = {
         talk: {},
         speakerDetails: {},
@@ -30,7 +31,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
 
     });
 
-    $scope.initializeForAdd = function() {
+    $scope.initializeForAdd = function () {
         $scope.model.talk = {
             state: 'DRAFT',
             tags: [],
@@ -39,7 +40,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
         };
     };
 
-    $scope.matchOnId = function(list, obj) {
+    $scope.matchOnId = function (list, obj) {
         if (obj) {
             var objId = obj.id;
 
@@ -56,8 +57,8 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
         return null;
     };
 
-    $scope.initializeForEdit = function(proposalId) {
-        TalksService.byId(proposalId).success(function(data, status, headers, config) {
+    $scope.initializeForEdit = function (proposalId) {
+        TalksService.byId(proposalId).success(function (data, status, headers, config) {
             $scope.model.talk = data;
             if (!$scope.model.speakers) {
                 $scope.model.speakers = [];
@@ -70,10 +71,10 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
             $scope.model.talk.track = $scope.matchOnId(event.tracks, data.track);
             $scope.model.talk.type = $scope.matchOnId(event.types, data.type);
             $scope.model.talk.language = $scope.matchOnId($scope.languageOptions, data.language);
-        }).error(function(data, status, headers, config) {
-            console.log(data)
-            $location.path('/proposals');
-        });
+        }).error(function (data, status, headers, config) {
+                console.log(data)
+                $location.path('/proposals');
+            });
     };
 
     if ($routeParams.proposalId) {
@@ -84,32 +85,32 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
         $scope.initializeForAdd();
     }
 
-    UserService.waitForCurrentUser().then(function(data) {
+    UserService.waitForCurrentUser().then(function (data) {
         if ($scope.isNew) {
             $scope.model.talk.speakers.push(data);
         }
         $scope.model.currentUser = data;
     });
 
-    $scope.getTags = function(partialTagName) {
+    $scope.getTags = function (partialTagName) {
         return Tags.query(partialTagName);
     };
 
-    $scope.filterTagNames = function(tags) {
+    $scope.filterTagNames = function (tags) {
         if (tags) {
-            return $.map(tags, function(tag) {
+            return $.map(tags, function (tag) {
                 return tag && tag.name;
             });
         }
         return [];
     };
 
-    $scope.addTag = function() {
+    $scope.addTag = function () {
         var model = $scope.model;
         var tags = model.talk.tags;
         if (model.newTag
-         && this.filterTagNames(tags).indexOf(model.newTag) == -1) {
-            Tags.query(model.newTag).then(function(data) {
+            && this.filterTagNames(tags).indexOf(model.newTag) == -1) {
+            Tags.query(model.newTag).then(function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var tag = data[i];
                     if (tag.name === model.newTag) {
@@ -122,7 +123,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
         }
     };
 
-    $scope.createAvatarUrl = function(id, imageFile) {
+    $scope.createAvatarUrl = function (id, imageFile) {
         if (id && imageFile && imageFile.length) {
             return 'http://devoxxcfp.s3.amazonaws.com/images/' + id + '/' + imageFile;
         } else {
@@ -130,23 +131,23 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
         }
     };
 
-    $scope.addSpeaker = function() {
+    $scope.addSpeaker = function () {
         var model = $scope.model,
             email = model.speakerDetails.email;
-        var getSpeakerEmails = function(speakers) {
+        var getSpeakerEmails = function (speakers) {
             if (speakers) {
-                return $.map(speakers, function(speaker) {
+                return $.map(speakers, function (speaker) {
                     return speaker && speaker.email;
                 });
             }
             return [];
         };
-        var speakerDoesNotExist = function(speakers, email) {
+        var speakerDoesNotExist = function (speakers, email) {
             var speakerEmails = getSpeakerEmails(speakers);
             return speakerEmails.indexOf(email) == -1
         };
 
-        var filterByExactEmailAddress = function(results, email) {
+        var filterByExactEmailAddress = function (results, email) {
             var ret = [];
             for (var i = 0; i < results.length; i++) {
                 var result = results[i];
@@ -158,9 +159,9 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
         };
 
         if (email
-         && speakerDoesNotExist(model.talk.speakers, email)) {
+            && speakerDoesNotExist(model.talk.speakers, email)) {
             UserService.getSpeakerByEmailAddress(email)
-                .success(function(data, status, headers, config) {
+                .success(function (data, status, headers, config) {
                     // This service returns also returns users where the email address is a partial match.
                     // So we need to be prepared for unexpected/multiple results
                     var results = filterByExactEmailAddress(data.results, email);
@@ -176,24 +177,24 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
                             twitterHandle: '@'
                         };
                     }
-                }).error(function(data, status, headers, config) {
+                }).error(function (data, status, headers, config) {
                     console.log(data)
                 });
         }
     };
 
-    $scope.addNewSpeaker = function(speaker) {
+    $scope.addNewSpeaker = function (speaker) {
         speaker.unknown = true;
         $scope.model.talk.speakers.push(angular.copy(speaker));
         speaker.email = '';
         $scope.model.addSpeakerDialogOpen = false;
     };
 
-    $scope.closeNewSpeaker = function(speaker) {
+    $scope.closeNewSpeaker = function (speaker) {
         $scope.model.addSpeakerDialogOpen = false;
     };
 
-    $scope.isFormValid = function(talk, submitProposalForm) {
+    $scope.isFormValid = function (talk, submitProposalForm) {
         if (!submitProposalForm.$valid) {
             return false;
         } else {
@@ -209,23 +210,23 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function($q, 
         }
     };
 
-    $scope.submit = function(talk, submitProposalForm) {
+    $scope.submit = function (talk, submitProposalForm) {
         if (!this.isFormValid(talk, submitProposalForm)) {
             return;
         }
         if (!$scope.isSubmitted) {
             $scope.isSubmitted = true;
             Talks.post(talk)
-                .success(function() {
+                .success(function () {
                     console.log('post success');
                     $window.location.href = '/index.html#/speaker/proposal/new';
-                }).error(function(error) {
+                }).error(function (error) {
                     console.log('post error');
                     $scope.isSubmitted = false;
                 });
         }
     };
-    $scope.cancel = function(talk) {
+    $scope.cancel = function (talk) {
         $scope.model.talk = {};
         $location.url('/speaker/proposals')
     };

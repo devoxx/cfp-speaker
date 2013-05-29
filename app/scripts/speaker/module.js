@@ -3,12 +3,12 @@
 var speakerModuleId = 'Speaker',
     speakerUrlPrefix = '/speaker',
     speakerViewPrefix = 'views/speaker',
-    speakerCtrlPrefix = speakerModuleId  + '_',
+    speakerCtrlPrefix = speakerModuleId + '_',
     speakerModule = angular.module(speakerModuleId, [ 'GenericServices', 'ngCookies', 'ui.bootstrap' ]);
 
 speakerModule.value('appName', 'Speaker Module', []);
 
-speakerModule.config(function($routeProvider) {
+speakerModule.config(function ($routeProvider) {
     var resolveCurrentUser = {
         currentUser: speakerModule.resolveCurrentUser
     };
@@ -31,6 +31,6 @@ speakerModule.config(function($routeProvider) {
         });
 });
 
-speakerModule.resolveCurrentUser = function(UserService) {
+speakerModule.resolveCurrentUser = function (UserService) {
     return UserService.waitForCurrentUser();
 };

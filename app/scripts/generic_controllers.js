@@ -35,16 +35,16 @@ angular.module('cfpSpeakerApp')
         };
         $scope.logout = UserService.logout;
 
-        EventBus.onLoginSuccess($scope, function(user, userToken, event) {
+        EventBus.onLoginSuccess($scope, function (user, userToken, event) {
 //            $scope.model.currentUser = user;
             $cookies.userToken = userToken;
             $scope.model.loginError = null;
         });
-        EventBus.onLoginFailed($scope, function(reason, event) {
+        EventBus.onLoginFailed($scope, function (reason, event) {
             $scope.model.loginDisabled = false;
             $scope.model.loginError = reason;
         });
-        EventBus.onLoggedOut($scope, function(oldUser, oldUserToken, event) {
+        EventBus.onLoggedOut($scope, function (oldUser, oldUserToken, event) {
             $cookies.userToken = '';
 //            $scope.model.currentUser = null;
             $scope.model.loginDisabled = false;

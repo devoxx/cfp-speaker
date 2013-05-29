@@ -5,9 +5,6 @@ angular.module('cfpSpeakerApp')
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                var width = null;
-                var tagName = element[0].tagName.toLowerCase();
-
                 var setDisplayText = function () {
                     var text = $(element).children('option:selected').text();
                     $(element).parent().children('span').each(function () {
@@ -15,10 +12,10 @@ angular.module('cfpSpeakerApp')
                     });
                 };
 
-                var watchNgInvalid = function() {
+                var watchNgInvalid = function () {
                     return $(element).hasClass('ng-invalid');
                 };
-                var applyInvalidCss = function(element, invalid) {
+                var applyInvalidCss = function (element, invalid) {
                     var elem = element;
                     if (!elem.attr('data-original-color')) {
                         elem.attr('data-original-color', elem.css('color'));
@@ -32,18 +29,8 @@ angular.module('cfpSpeakerApp')
 
                     if (invalid) {
                         elem.addClass('ng-invalid');
-//                        elem.css({
-//                            'color': '#b94a48',
-//                            'background-color': '#f2dede',
-//                            'border-color': '#eed3d7'
-//                        });
                     } else {
                         elem.removeClass('ng-invalid')
-//                        elem.css({
-//                            'color': elem.attr('data-original-color'),
-//                            'background-color': elem.attr('data-original-background-color'),
-//                            'border-color': elem.attr('data-original-border-color')
-//                        });
                     }
                 };
 
@@ -55,8 +42,8 @@ angular.module('cfpSpeakerApp')
 
                 function watchWithParentElement(parentSelector) {
                     scope.$watch(watchNgInvalid, function (newValue, oldValue) {
-                        var element2 = $(element).parents(parentSelector);
-                        applyInvalidCss($(element2), newValue);
+                        var elem = $(element).parents(parentSelector);
+                        applyInvalidCss($(elem), newValue);
                     });
 
                     scope.$watch(attrs.ngModel, function (newValue, oldValue) {
@@ -81,21 +68,26 @@ angular.module('cfpSpeakerApp')
                     }
                 }
 
+                var width = null;
+                var tagName = element[0].tagName.toLowerCase();
+                if (tagName === 'input') {
+                    tagName = tagName + type;
+                }
+
                 switch (tagName) {
-                    case 'input':
-                        if (element[0].type === 'checkbox') {
-                            watchWithParentElement('.checker');
-                            break;
-                        }
+                    case 'inputtext':
+                    case 'inputpassword':
+                    case 'inputemail':
                     case 'input':
                     case 'textarea':
                         width = '319px';
-
                         watchWithNoParentElement();
                         break;
-                    case 'select':
+                    case 'inputcheckbox':
+                        watchWithParentElement('.checker');
                         width = '292px';
-
+                        break;
+                    case 'select':
                         watchWithParentElement('.selector');
                         break;
                 }
@@ -106,7 +98,7 @@ angular.module('cfpSpeakerApp')
                     });
                 }
                 $(element).uniform();
-                setTimeout(function() {
+                setTimeout(function () {
                     setDisplayText();
                 }, 0)
             }
