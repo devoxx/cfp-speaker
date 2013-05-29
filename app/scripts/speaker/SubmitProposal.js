@@ -127,7 +127,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
         if (id && imageFile && imageFile.length) {
             return 'http://devoxxcfp.s3.amazonaws.com/images/' + id + '/' + imageFile;
         } else {
-            return '/images/no_avatar.gif';
+            return '/images_dummy/no_avatar.gif';
         }
     };
 
