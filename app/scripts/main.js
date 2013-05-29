@@ -75,9 +75,7 @@ $(document).ready(function() {
 		$(this).removeClass("open");
 		$(this).find('ul').stop().fadeOut(200);
 		$("header #submenu").animate({height: 0}, 200);
-	}).click(function(e) {
-        return false;
-    });
+	});
 
 	$("header nav ul li.popup").mouseover(function(){
 		$(this).addClass("open");
