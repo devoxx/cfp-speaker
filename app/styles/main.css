@@ -1202,19 +1202,16 @@ footer .sponsors a {
 }
 
 @media only screen and (max-width: 600px) {
-	
+
 	.menuSpacer {
 		height: 65px;
 	}
-		
+
 	header .col6 img {
 		display: block;
 		margin: 0;
 	}
-	
-	
-	
-		
+
 	#splash h1,
 	#splash .btn {
 		margin: 0;
@@ -1237,8 +1234,7 @@ footer .sponsors a {
 		margin: 0;
 		width: 100%;
 	}
-	
-	
+
 	#tweetwall ul li {
 		min-height: 0;
 		padding: 1px 0;
@@ -1262,16 +1258,13 @@ footer .sponsors a {
 		-o-transform: translateX(0px);
 		-ms-transform: translateX(0px);
 		transform: translateX(0px);
-		
 	}
 	
 	.dotList li {
 		margin: 0 0 20px;
 		width: 210px;
 	}
-	
-	
-	
+
 	.faq .banner {
 		margin-top: 50px;
 	}
