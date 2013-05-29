@@ -71,6 +71,7 @@ angular.module('cfpSpeakerApp')
                 var width = null;
                 var tagName = element[0].tagName.toLowerCase();
                 if (tagName === 'input') {
+                    var type = element[0].type;
                     tagName = tagName + type;
                 }
 
@@ -85,9 +86,9 @@ angular.module('cfpSpeakerApp')
                         break;
                     case 'inputcheckbox':
                         watchWithParentElement('.checker');
-                        width = '292px';
                         break;
                     case 'select':
+                        width = '292px';
                         watchWithParentElement('.selector');
                         break;
                 }
