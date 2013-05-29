@@ -82,17 +82,16 @@
                                        name="addTag"
                                        type="text"
                                        ng-model="model.newTag"
-                                       placeholder="Tags"
+                                       placeholder="Add tag and press return"
                                        typeahead="t.name for t in getTags($viewValue)"
                                        devoxx-on-return-key="addTag()"
                                        devoxx-uniform>
-                                <a ng-click="addTag()" style="cursor: pointer">Add tag (or press return)</a>
                             </li>
                             <li>
-                                <ul>
-                                    <li ng-repeat="tag in model.talk.tags">
+                                <ul style="width: 370px">
+                                    <li ng-repeat="tag in model.talk.tags" style="display: inline-block; margin: 0 5px 12px 5px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;font-size: 14px;">
                                         {{tag.name}}
-                                        <a style="cursor: pointer"
+                                        <a style="cursor: pointer; font-size: 20px; padding: 5px;"
                                            ng-click="model.talk.tags.splice($index, 1)">&times;</a></li>
                                 </ul>
                             </li>
