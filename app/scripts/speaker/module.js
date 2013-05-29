@@ -10,7 +10,7 @@ speakerModule.value('appName', 'Speaker Module', []);
 
 speakerModule.config(function ($routeProvider) {
     var resolveCurrentUser = {
-        currentUser: speakerModule.resolveCurrentUser
+        currentUser: 'ResolverService'
     };
     // Proposal routing
     $routeProvider
@@ -29,8 +29,6 @@ speakerModule.config(function ($routeProvider) {
             templateUrl: speakerViewPrefix + '/proposal_form.html',
             controller: speakerCtrlPrefix + 'SubmitProposalCtrl'
         });
-});
-
-speakerModule.resolveCurrentUser = function (UserService) {
-    return UserService.waitForCurrentUser();
-};
+}).factory('ResolverService', ['UserService', function (UserService) {
+        return UserService.waitForCurrentUser();
+}]);
