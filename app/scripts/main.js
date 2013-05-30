@@ -110,6 +110,13 @@ $(document).ready(function () {
     });
 });
 
+// FAQ accordeon
+$('#accordion .acco_title').click(function() {
+    $('#accordion .acco_content').slideUp('normal');
+    $(this).next().slideDown('normal');
+});
+
+
 // Grayscale w canvas method
 function grayscale(src) {
     var canvas = document.createElement('canvas');
@@ -131,4 +138,12 @@ function grayscale(src) {
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
     return canvas.toDataURL();
+}
+
+function updateFormElements() {
+
+    $(".selector select").css("width","85%");
+    $.uniform.update();
+    $(".selector select").css("width","100%");
+
 }

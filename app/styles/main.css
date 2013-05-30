@@ -188,8 +188,28 @@ a.btn:hover {
 	background-position: -98px -42px;
 }
 
-#contactList li .icon {
-	border: 2px solid #fff;
+
+#contactList li {
+    padding-top: 15px;
+    width: 290px;
+    overflow: hidden;
+}
+#contactList li .popup {
+    background: url(../images/lightgrey_hover_bg.jpg);
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    padding: 30px 45px 0;
+    width: 200px;
+    height: 85%;
+    overflow: hidden;
+
+    transition: all 0.15s ease-out 0s;
+    -webkit-transition: all 0.15s ease-out 0s;
+}
+#contactList li:hover .popup {
+    top: 0;
 }
 
 #trackList li .popup {
@@ -985,7 +1005,6 @@ footer .sponsors a {
 }
 
 #googlemap {
-	background: url(../images_dummy/gmap_dummy.jpg) no-repeat center;
 	height: 530px;
 }
 
