@@ -1,6 +1,6 @@
 'use strict';
 
-speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q, $scope, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location) {
+speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q, $scope, $filter, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location) {
     $scope.model = {
         talk: {},
         speakerDetails: {},
@@ -59,22 +59,27 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
 
     $scope.initializeForEdit = function (proposalId) {
         TalksService.byId(proposalId).success(function (data, status, headers, config) {
-            $scope.model.talk = data;
-            if (!$scope.model.speakers) {
-                $scope.model.speakers = [];
+            var model = $scope.model;
+            model.talk = data;
+            if (!model.speakers) {
+                model.speakers = [];
             }
-            $scope.model.speakers.push(data.author);
+            console.log(data.author.firstname)
+            console.log(data.author.lastname)
+            if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, data.author)) {
+                model.talk.speakers.push(data.author);
+            }
 
-            console.log(data)
-            var event = $scope.matchOnId($scope.model.events, data.event);
-            $scope.model.talk.event = event;
-            $scope.model.talk.track = $scope.matchOnId(event.tracks, data.track);
-            $scope.model.talk.type = $scope.matchOnId(event.types, data.type);
-            $scope.model.talk.language = $scope.matchOnId($scope.languageOptions, data.language);
+            var event = $scope.matchOnId(model.events, data.event);
+            model.talk.event = event;
+            model.talk.track = $scope.matchOnId(event.tracks, data.track);
+            model.talk.type = $scope.matchOnId(event.types, data.type);
+            model.talk.language = $scope.matchOnId($scope.languageOptions, data.language);
+            console.log('$scope.model', $scope.model);
         }).error(function (data, status, headers, config) {
-                console.log(data)
-                $location.path('/proposals');
-            });
+            console.log(data)
+            $location.path('/proposals');
+        });
     };
 
     if ($routeParams.proposalId) {
@@ -131,49 +136,55 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
         }
     };
 
+    $scope.createSearchName = function(speaker) {
+        return speaker.firstname + ' ' + speaker.lastname;
+    };
+
+    $scope.getSpeakerBySearchName = function(speakers, searchName) {
+        searchName = searchName && searchName.toLowerCase()
+        if (!speakers) {
+            return [];
+        }
+        return $filter('filter')(speakers, function (speaker) {
+            var firstname = speaker.firstname && speaker.firstname.toLowerCase();
+            var lastname = speaker.lastname && speaker.lastname.toLowerCase();
+            return searchName.indexOf(firstname) !== -1
+                && searchName.indexOf(lastname) !== -1
+                && searchName === $scope.createSearchName(speaker).toLowerCase();
+        });
+    };
+
+    $scope.speakerWithSearchNameDoesNotExist = function (speakers, search) {
+        if (search.firstname && search.lastname) {
+            search = $scope.createSearchName(search);
+        }
+
+        return $scope.getSpeakerBySearchName(speakers, search).length == 0;
+    };
+
     $scope.addSpeaker = function () {
         var model = $scope.model,
-            email = model.speakerDetails.email;
-        var getSpeakerEmails = function (speakers) {
-            if (speakers) {
-                return $.map(speakers, function (speaker) {
-                    return speaker && speaker.email;
-                });
-            }
-            return [];
-        };
-        var speakerDoesNotExist = function (speakers, email) {
-            var speakerEmails = getSpeakerEmails(speakers);
-            return speakerEmails.indexOf(email) == -1
-        };
+            searchName = model.searchSpeakerName;
 
-        var filterByExactEmailAddress = function (results, email) {
-            var ret = [];
-            for (var i = 0; i < results.length; i++) {
-                var result = results[i];
-                if (result.email && result.email === email) {
-                    ret.push(result);
-                }
-            }
-            return ret;
-        };
-
-        if (email
-            && speakerDoesNotExist(model.talk.speakers, email)) {
-            UserService.getSpeakerByEmailAddress(email)
+        if (searchName && $scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, searchName)) {
+            UserService.getSpeakerBySearchName(searchName)
                 .success(function (data, status, headers, config) {
-                    // This service returns also returns users where the email address is a partial match.
+                    // This service returns also returns users where the searchName is a partial match.
                     // So we need to be prepared for unexpected/multiple results
-                    var results = filterByExactEmailAddress(data.results, email);
-                    if (results.length != 0) {
-                        if (speakerDoesNotExist(model.talk.speakers, results[0].email)) {
-                            model.talk.speakers.push(results[0]);
-                            model.speakerDetails.email = '';
+                    var results = data.results;
+                    var speakersFromServer = $scope.getSpeakerBySearchName(results, searchName);
+                    if (speakersFromServer.length == 1) {
+                        var speakerFromServer = speakersFromServer[0];
+                        var searchNameFromServer = $scope.createSearchName(speakerFromServer);
+
+                        // Double check because of asynchronous call (prevents double tap on return key)
+                        if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, searchNameFromServer)) {
+                            model.talk.speakers.push(speakerFromServer);
+                            model.searchSpeakerName = '';
                         }
                     } else {
                         model.addSpeakerDialogOpen = true;
                         model.speakerDetails = {
-                            email: email,
                             twitterHandle: '@'
                         };
                     }
@@ -219,7 +230,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
             Talks.post(talk)
                 .success(function () {
                     console.log('post success');
-                    $window.location.href = '/index.html#/speaker/proposal/new';
+                    $location.path('/speaker/proposals');
                 }).error(function (error) {
                     console.log('post error');
                     $scope.isSubmitted = false;

@@ -119,12 +119,13 @@ genericServices.factory('TalksService',function ($http, UserService) {
             getToken: function () {
                 return userService.currentUserToken;
             },
-            getSpeakerByEmailAddress: function (email) {
+            getSpeakerBySearchName: function (searchName) {
                 var url = baseUri + '/user';
+                var namesSplitted = searchName.split(' ');
                 return $http.get(url, {
                     params: {
-                        q: email,
-                        filter: email,
+                        q: namesSplitted,
+                        filter: searchName,
                         userToken: userService.currentUserToken
                     }
                 });
