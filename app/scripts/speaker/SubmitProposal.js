@@ -184,7 +184,14 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
                         }
                     } else {
                         model.addSpeakerDialogOpen = true;
+                        var firstname = '', lastname = '';
+                        if (searchName.split(' ').length > 1) {
+                            firstname = searchName.split(' ')[0];
+                            lastname = searchName.substring(firstname.length + 1);
+                        }
                         model.speakerDetails = {
+                            firstname: firstname,
+                            lastname: lastname,
                             twitterHandle: '@'
                         };
                     }
