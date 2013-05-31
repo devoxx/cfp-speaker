@@ -36,7 +36,8 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
             state: 'DRAFT',
             tags: [],
             speakers: [],
-            language: '2'
+            language: '2',
+            id: null // Probably useless, but this is explicit
         };
     };
 
@@ -64,8 +65,6 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
             if (!model.speakers) {
                 model.speakers = [];
             }
-            console.log(data.author.firstname)
-            console.log(data.author.lastname)
             if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, data.author)) {
                 model.talk.speakers.push(data.author);
             }
@@ -204,7 +203,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
     $scope.addNewSpeaker = function (speaker) {
         speaker.unknown = true;
         $scope.model.talk.speakers.push(angular.copy(speaker));
-        speaker.email = '';
+        $scope.model.searchSpeakerName = '';
         $scope.model.addSpeakerDialogOpen = false;
     };
 
