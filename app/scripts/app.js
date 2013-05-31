@@ -1,14 +1,19 @@
 'use strict';
 
-var cfpSpeakerApp = angular.module('cfpSpeakerApp', [ 'GenericServices', 'Speaker', 'Config', 'ui.bootstrap' ]);
+var cfpSpeakerApp = angular.module('cfpSpeakerApp', [ 'GenericServices', 'Speaker', 'ui.bootstrap' ]);
 
 cfpSpeakerApp.config(function ($routeProvider) {
-    console.log('generic config');
     // General routing
     $routeProvider
         .when('/', {
             templateUrl: 'views/home.html',
             controller: 'HomeCtrl'
+        }).when('/register', {
+            templateUrl: 'views/register.html',
+            controller: 'RegisterCtrl'
+        }).when('/lost_password', {
+            templateUrl: 'views/lost_password.html',
+            controller: 'LostPasswordCtrl'
         }).when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl'

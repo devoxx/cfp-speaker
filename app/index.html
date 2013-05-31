@@ -57,6 +57,8 @@
     <script src="scripts/directives.js"></script>
     <script src="scripts/filters.js"></script>
     <script src="scripts/generic_controllers.js"></script>
+    <script src="scripts/LostPassword.js"></script>
+    <script src="scripts/Register.js"></script>
     <script src="scripts/speaker/module.js"></script>
     <script src="scripts/speaker/EditProfile.js"></script>
     <script src="scripts/speaker/Proposals.js"></script>
@@ -127,7 +129,7 @@
                                                ng-model="model.email"/>
                                         <input type="password" name="pass" value="" placeholder="Password"
                                                ng-model="model.password" devoxx-on-return-key="login()"/>
-                                        <a href="#" class="btnRegister">Register</a>
+                                        <a href="#/register" class="btnRegister">Register</a>
                                         <input type="submit" name="submit" value="Login" class="btn"
                                                ng-disabled="model.loginDisabled"/>
                                     </form>
@@ -140,7 +142,7 @@
                                     </div>
 
                                     <div class="actionslinks clearfix">
-                                        <a href="#" class="btnForgot">Forgot password</a>
+                                        <a href="#/lost_password" class="btnForgot">Forgot password</a>
                                     </div>
                                 </div>
                             </li>

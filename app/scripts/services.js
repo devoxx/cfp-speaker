@@ -3,7 +3,7 @@
 var baseUri = 'https://staging-cfp.devoxx.com/v2/proposal';
 var authBaseUri = 'https://staging-cfp.devoxx.com/v2/auth';
 
-var genericServices = angular.module('GenericServices', ['ngCookies', 'Config'])
+var genericServices = angular.module('GenericServices', ['ngCookies'])
 
 genericServices.factory('TalksService',function ($http, UserService) {
     return {
