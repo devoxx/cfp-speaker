@@ -39,7 +39,7 @@ form ul li ul.checkradios li {
 form ul li ul.checkradios li label {
 	margin: 0;
 	padding: 10px 0 0 0;
-	width: 100%;
+	width: 180px;
 }
 
 
@@ -75,6 +75,7 @@ input[type="search"]:active {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 }
+
 
 
 
@@ -167,7 +168,6 @@ div.checker {
 	border-radius: 4px;
 	-webkit-box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.4);
 	box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.4);
-    float: left;
 }
 div.checker, div.checker span, div.checker input {
 	width: 26px;

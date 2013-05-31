@@ -19,11 +19,21 @@
         <form>
             <div class="grid">
                 <ng-include src="'views/speaker/speaker_details.html'"></ng-include>
-                </br>
-                <input type="submit"
-                       class="btn"
-                       ng-click="updateProfile()"
-                       value="Update">
+
+                <div class="row">
+
+                    <div class="col6 push9">
+
+                        <ul>
+                            <li class="btn">
+                                <input type="submit" ng-click="updateProfile()" value="Update">
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>    
+               
             </div>
         </form>
     </div>

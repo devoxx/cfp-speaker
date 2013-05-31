@@ -1,4 +1,4 @@
-<div id="carousel" style="display:none"><!--TODO: enable when done, this is annoying-->
+<!-- <div id="carousel">
     <ul carousel>
         <li>
             <div class="grid">
@@ -47,9 +47,9 @@
             </div>
         </li>
     </ul>
-</div>
+</div> -->
 
-<div id="about" class="area lightgrey">
+ <div id="about" class="area lightgrey">
     <div class="grid">
         <div class="row">
             <div class="col12">
@@ -70,12 +70,12 @@
             </div>
             <div class="col7 push1 content">
                 <h2>Belgium expects 3450 Devoxxians</h2>
-                <p>The biggest Java community conference (5500 attendees combined) has opened the Call for Papers for the Devoxx Belgium edition, help us shape another crazy geek gathering!</p>
-                <!--<a href="#" class="btn">Buy tickets</a>-->
+                <p>The biggest developer community conference has opened the Call for Papers for the Devoxx Belgium edition, help us shape another crazy geek gathering!</p>
+                <a href="#" class="btn hidden">Buy tickets</a>
             </div>
         </div>
     </div>
-</div>
+</div> 
 
 <div id="news" class="area white">
     <h2>Latest news</h2>
@@ -88,7 +88,7 @@
                     <div class="date">3 June '13</div>
                     <h4>New site</h4>
                     <p>Hope you like our brand new website?</br>The CFP part has also been redeveloped using AngularJS and is open sourced on GitHub/devoxx.
-                       Yes we welcome pull requests with any king of improvements!</br>Click here fore more info about our team</p>
+                       Yes we welcome pull requests with any kind of improvements!</br>Click here fore more info about our team</p>
                 </a>
             </li>
             <li>
@@ -132,4 +132,167 @@
     </div>
 
 </div>
+
+        <div id="tracks" class="area orange">
+            <div class="grid">
+            
+                <div class="row">           
+                    <div class="col20">
+                        
+                        <h2>Tracks <span>2013</span></h2>
+
+                        <ul class="dotList" id="trackList">
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_web.png" alt="Web and HTML5" />
+                                </div>
+                                <h4>Web &amp; HTML5</h4>
+                                <div class="popup">
+                                    <p>Web frameworks, HTML5, CSS3, the next JavaScript ES6, libraries and tools that help you build the next generation of web apps</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_cloud.png" alt="Cloud and Big Data" />
+                                </div>
+                                <h4>Cloud &amp; Big Data</h4>
+                                <div class="popup">
+                                    <p>Cloud computing, Platforms as a Service, Big Data and NoSQL</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_javaee.png" alt="JaveEE" />
+                                </div>
+                                <h4>JavaEE</h4>
+                                <div class="popup">
+                                    <p>Java Enterprise Edition, appservers, databases, MOM, batch processing and related JSRs</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_future.png" alt="Future at Devoxx" />
+                                </div>
+                                <h4>Future&lt;Devoxx&gt;</h4>
+                                <div class="popup">
+                                    <p>Developing for embedded devices, the internet of things, arduino, raspberry pi, quadcopters, robots and related</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_mobile.png" alt="Mobile" />
+                                </div>
+                                <h4>Mobile</h4>
+                                <div class="popup">
+                                    <p>Tools frameworks and libraries for building mobile apps, both as MobileWeb or native Android and iOS app</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_alternative.png" alt="Alternative Languages on the JVM" />
+                                </div>
+                                <h4>JVM Languages</h4>
+                                <div class="popup">
+                                    <p>Anything related to other languages than Java running on the JVM, the languages, tools, libraries and best practices</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_javase.png" alt="JavaSE" />
+                                </div>
+                                <h4>JavaSE</h4>
+                                <div class="popup">
+                                    <p>Java Standard Edition, anything non-related to JaveEE, like the language, JDK, performance tuning, modularity, etc...</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_methology.png" alt="Methodology" />
+                                </div>
+                                <h4>Methodology</h4>
+                                <div class="popup">
+                                    <p>Software development methodologies and related subjects</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <img src="../images/tracks/icon_architecture.png" alt="Architecture and Security" />
+                                </div>
+                                <h4>Arch. &amp; Security</h4>
+                                <div class="popup">
+                                    <p>Software architecture, encryption and best practices to develop secure software</p>
+                                    <span class="textballoon"></span>
+                                </div>
+                            </li>
+
+                        </ul>
+
+
+                        <br><br>
+
+                        <h2>
+                             <a href="#/proposal" class="btn">Submit your proposal</a>
+                        </h2>
+                            
+
+                    </div>          
+
+                </div>
+                
+
+            </div>
+        </div>
+        
+        
+        
+        <div id="tweetwall" class="area lightgrey" ng-controller="TwitterCtrl">
+            <div class="grid">
+            
+                <div class="row">           
+                    <div class="col10">
+                        
+                        <h2>What’s up? <span>#DEVOXX</span></h2>
+                        
+                    </div>  
+                    <div class="col10 apps">
+                        
+                        <h4>Schedule and interact!</h4>
+                        <a href="#" class="btn googleStore"></a>
+                        <a href="#" class="btn appStore"></a>
+                    
+                    </div>              
+                </div>
+                
+                <div class="row">           
+                    <div class="col20">
+                        
+                        <div class="carousel">
+                            <ul>
+                                <li ng-repeat="tweet in tweets">
+                                    <div class="visual" style="background-image: url({{tweet.image}});"></div>
+                                    <div class="tweet">
+                                        <p>{{tweet.tweet}}</p>
+                                        <div class="info">
+                                            <a href="#">@{{tweet.author}}</a> , {{tweet.time}} on Twitter
+                                        </div>
+                                        <span class="ballon"></span>
+                                    </div>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                        
+                    </div>                  
+                </div>
+                
+            </div>
+        </div>
 

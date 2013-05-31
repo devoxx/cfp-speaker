@@ -214,7 +214,7 @@
     width: 60px;
 }
 
-div.selector.ng-invalid,
+/*div.selector.ng-invalid,
 div.checker.ng-invalid,
 input.ng-invalid,
 textarea.ng-invalid {
@@ -224,4 +224,48 @@ textarea.ng-invalid {
 
 div.selector.ng-invalid {
     border-radius: 3px;
+}
+*/
+
+
+/* 360 CSS Overrides */
+
+#tracks.area {
+    padding: 0;
+    padding-top: 100px;
+}
+
+#tracks .btn {
+    background-color: #000;
+    background-position: 36px 15px;
+    color: #fff;
+}
+
+#tracks .btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+#tweetwall .visual {
+    background-size: 156px;
+}
+
+#tweetwall ul li:nth-child(even) .visual {
+    float: right;
+}
+#tweetwall ul li:nth-child(even) .tweet {
+    margin: 0 220px 0 90px;
+}
+#tweetwall ul li:nth-child(even) .tweet:hover {
+    -moz-transform: translateX(20px);
+    -webkit-transform: translateX(20px);
+    -o-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+    
+}
+#tweetwall ul li:nth-child(even) .tweet .ballon {
+    background-position: 0 0;
+    left: auto;
+    right: -23px;
 }

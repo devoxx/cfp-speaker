@@ -10,6 +10,7 @@
     "jquery": "~1.9.1",
     "modernizr": "~2.6.2",
     "angular-bootstrap": "~0.3.0",
-    "meanMenu": "weare2ndfloor/meanMenu"
+    "meanMenu": "weare2ndfloor/meanMenu",
+    "isotope": "~1.5.25"
   }
 }
