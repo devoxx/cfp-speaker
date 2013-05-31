@@ -26,7 +26,7 @@ Used technologies:
 - cd path/to/project
 - npm install && bower install
  - *npm install* is configured with **package.json** and generates the directory **node_modules**
- - *bower* is configured with **component.json** or **bower.json** and generates the directory **app/components**
+ - *bower* is configured with **bower.json** or **bower.json** and generates the directory **app/components**
 
 ##Starts your application##
 
