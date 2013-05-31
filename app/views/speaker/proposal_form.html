@@ -97,26 +97,26 @@
                             </li>
 
                             <li>
-                                <label for="talkAddSpeaker">Speakers</label>
-                                <input id="talkAddSpeaker"
-                                       type="email"
-                                       ng-model="model.speakerDetails.email"
-                                       placeholder="Add speaker by email and press return"
-                                       devoxx-on-return-key="addSpeaker()"
-                                       devoxx-uniform>
-                                <br>
-                                <a ng-click="addSpeaker()" style="cursor: pointer"></a>
+                                <label for="talkAddSpeakerSearchName">Speakers</label>
+                                <span ng-form="AddSpeakerForm">
+                                    <input id="talkAddSpeakerSearchName"
+                                           type="text"
+                                           ng-model="model.searchSpeakerName"
+                                           placeholder="Add speaker by full name and press return"
+                                           devoxx-on-return-key="addSpeaker()"
+                                           devoxx-uniform>
+                                </span>
                                 <ul>
-                                    <dl ng-repeat="speaker in model.talk.speakers">
-                                        <dt>
+                                    <ul ng-repeat="speaker in model.talk.speakers">
+                                        <li>
                                             <img ng-src="{{createAvatarUrl(speaker.id, speaker.imageFile)}}">
                                             {{speaker.firstname}} {{speaker.lastname}} |
                                             <span ng-show="speaker.unknown" class="alert-info">will be invited by email | </span>
                                             <span ng-show="speaker.id == model.currentUser.id" class="alert-info">This is you | </span>
                                             <a ng-click="model.talk.speakers.splice($index, 1)"
                                                style="cursor: pointer">&times;</a>
-                                        </dt>
-                                    </dl>
+                                        </li>
+                                    </ul>
                                 </ul>
                             </li>
 
@@ -182,7 +182,7 @@
 
     <div modal="model.addSpeakerDialogOpen"
          devoxx-set-focus-on="model.addSpeakerDialogOpen"
-         devoxx-set-focus-field="speakerDetailsFirstname"
+         devoxx-set-focus-field="speakerDetailsEmail"
          close="closeNewSpeaker()">
         <div class="modal-header">
             <h1>Add new speaker</h1>
@@ -194,7 +194,7 @@
                        class="btn"
                        value="Add new speaker (speaker will be invited by email)"
                        devoxx-set-focus-on="!model.addSpeakerDialogOpen"
-                       devoxx-set-focus-field="talkAddSpeaker">
+                       devoxx-set-focus-field="talkAddSpeakerSearchName">
             </form>
         </div>
         <div class="modal-footer">
