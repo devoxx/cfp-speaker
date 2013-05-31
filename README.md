@@ -49,3 +49,7 @@ Used technologies:
 - [Best practices] [4]
 
 [![Built on CloudBees](http://www.cloudbees.com/sites/default/files/Button-Built-on-CB-1.png)](https://devoxx.ci.cloudbees.com/job/cfp-speaker/)
+
+TODO: Temporary switched to unstable version because of bug in $http
+See: https://github.com/angular/angular.js/commit/79af2badcb087881e3fd600f6ae5bf3f86a2daf8#commitcomment-2367611
+"angular": "~1.0.7",
