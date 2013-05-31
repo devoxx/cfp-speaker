@@ -1,82 +1,82 @@
 <div class="row">
-  <div class="col12">
+    <div class="col12">
 
-    <h4>Please update</h4>
-    <ul>
-        <li>
-            <label for="speakerDetailsEmail">Email address</label>
-            <input id="speakerDetailsEmail"
-                   type="email"
-                   ng-model="model.speakerDetails.email"
-                   devoxx-uniform
-                   ng-required="true">
+        <h4>Please update</h4>
+        <ul>
+            <li>
+                <label for="speakerDetailsEmail">Email address</label>
+                <input id="speakerDetailsEmail"
+                       type="email"
+                       ng-model="model.speakerDetails.email"
+                       devoxx-uniform
+                       ng-required="true">
+            </li>
 
+            <li>
+                <label for="speakerDetailsFirstname">First name</label>
+                <input id="speakerDetailsFirstname"
+                       type="text"
+                       ng-model="model.speakerDetails.firstname"
+                       devoxx-uniform
+                       ng-required="true">
+            </li>
 
-        <li>
-            <label for="speakerDetailsFirstname">First name</label>
-            <input id="speakerDetailsFirstname"
-                   type="text"
-                   ng-model="model.speakerDetails.firstname"
-                   devoxx-uniform
-                   ng-required="true">
-        </li>
+            <li>
+                <label for="speakerDetailsLastname">Last name</label>
+                <input id="speakerDetailsLastname"
+                       type="text"
+                       ng-model="model.speakerDetails.lastname"
+                       devoxx-uniform
+                       ng-required="true">
+            </li>
 
-        <li>
-            <label for="speakerDetailsLastname">Last name</label>
-            <input id="speakerDetailsLastname"
-                   type="text"
-                   ng-model="model.speakerDetails.lastname"
-                   devoxx-uniform
-                   ng-required="true">
-        </li>
+            <li>
+                <label for="speakerDetailsCountry">Country</label>
+                <input id="speakerDetailsCountry"
+                       type="text"
+                       ng-model="model.speakerDetails.country"
+                       devoxx-uniform
+                       ng-required="true">
+            </li>
 
-        <li>
-            <label for="speakerDetailsCountry">Country</label>
-            <input id="speakerDetailsCountry"
-                   type="text"
-                   ng-model="model.speakerDetails.country"
-                   devoxx-uniform
-                   ng-required="true">
-        </li>
+            <li>
+                <label for="speakerDetailsCompany">Company</label>
+                <input id="speakerDetailsCompany"
+                       type="text"
+                       ng-model="model.speakerDetails.company"
+                       devoxx-uniform
+                       ng-required="true">
+            </li>
 
-        <li>
-            <label for="speakerDetailsCompany">Company</label>
-            <input id="speakerDetailsCompany"
-                   type="text"
-                   ng-model="model.speakerDetails.company"
-                   devoxx-uniform
-                   ng-required="true">
-        </li>
+            <li>
+                <label for="speakerDetailsBio">Bio</label>
+                <textarea id="speakerDetailsBio"
+                          type="text"
+                          ng-model="model.speakerDetails.speakerBio"
+                          rows="7"
+                          devoxx-uniform
+                          ng-required="true"></textarea>
+            </li>
 
-        <li>
-            <label for="speakerDetailsBio">Bio</label>
-            <textarea id="speakerDetailsBio"
-                      type="text"
-                      ng-model="model.speakerDetails.speakerBio"
-                      rows="7"
-                      devoxx-uniform
-                      ng-required="true"></textarea>
-        </li>
+            <li>
+                <label for="speakerDetailsReferences">References</label>
+                <textarea id="speakerDetailsReferences"
+                          type="text"
+                          ng-model="model.speakerDetails.speakingReferences"
+                          devoxx-uniform
+                          ng-required="true"></textarea>
+            </li>
 
-        <li>
-            <label for="speakerDetailsReferences">References</label>
-            <textarea id="speakerDetailsReferences"
-                      type="text"
-                      ng-model="model.speakerDetails.speakingReferences"
-                      devoxx-uniform
-                      ng-required="true"></textarea>
-        </li>
+            <li>
+                <label for="speakerDetailsTwitterHandle">Twitter handle</label>
+                <input id="speakerDetailsTwitterHandle"
+                       type="text"
+                       ng-model="model.speakerDetails.twitterHandle"
+                       placeholder="@devoxx"
+                       devoxx-uniform
+                       devoxx-validate-twitter-handle>
+            </li>
+        </ul>
 
-        <li>
-            <label for="speakerDetailsTwitterHandle">Twitter handle</label>
-            <input id="speakerDetailsTwitterHandle"
-                   type="text"
-                   ng-model="model.speakerDetails.twitterHandle"
-                   devoxx-uniform
-                   devoxx-validate-twitter-handle>
-        </li>
-    </ul>
-
-
-  </div>
+    </div>
 </div>
