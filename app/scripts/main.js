@@ -4,12 +4,11 @@ $(document).ready(function() {
 
 	$(".selector select").css("width","100%");
 	
+//Jan-Kees: Disabled because this is replaced by an Angular directive
+//	$(window).resize(function() {
+//		updateFormElements();
+//	});
 
-	$(window).resize(function() {
-		updateFormElements();
-	}); 
-	
-	
 	$('header nav').meanmenu();
 
 
@@ -156,10 +155,10 @@ function grayscale(src){
 }
 
 
-function updateFormElements() {
-	
-	$(".selector select").css("width","85%");
-	$.uniform.update();
-	$(".selector select").css("width","100%");
-
-}
+//function updateFormElements() {
+//
+//	$(".selector select").css("width","85%");
+//	$.uniform.update();
+//	$(".selector select").css("width","100%");
+//
+//}
