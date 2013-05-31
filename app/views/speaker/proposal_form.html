@@ -17,11 +17,18 @@
 <div id="paper_form" class="area lightgrey">
     <div class="grid">
 
-        <form name="submitProposalForm" onsubmit="return false" ng-cloak>
+        <h4 ng-show="isSubmitted"
+            devoxx-set-focus-on="isSubmitted"
+            devoxx-set-focus-field="sendingProposalMessage">
+            <!-- an anchor is required for setting focus. Focus is used to scroll to the message -->
+            <a href="" id="sendingProposalMessage">Sending your proposal...</a>
+        </h4>
+
+        <form name="submitProposalForm" onsubmit="return false" ng-cloak ng-hide="isSubmitted">
             <div class="row">
                 <div class="col12">
                     <h4>Submit Proposal</h4>
-                    <input type="hidden" ng-model="model.talk.id">
+                    <input type="text" ng-model="model.talk.id" style="display: none">
                     <ul>
                         <li>
                             <label for="talkEvent">Event</label>
