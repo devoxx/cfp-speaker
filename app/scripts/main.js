@@ -1,106 +1,103 @@
 $(document).ready(function() {
 
-	$("select, input[type=file], input[type=text], input[type=checkbox], input[type=radio], textarea").uniform();
+    $("select, input[type=file], input[type=password], input[type=text], input[type=checkbox], input[type=radio], textarea").uniform();
+
 	$(".selector select").css("width","100%");
 	
+
 	$(window).resize(function() {
 		updateFormElements();
 	}); 
 	
 	
 	$('header nav').meanmenu();
-	
-
-	$('#carousel ul').bxSlider({
-		mode: 'fade',		/* */
-		speed: 500,			/* */
-		auto: true,			/* */
-		minSlides: 1,		/* */
-		maxSlides: 1,		/* */
-		slideMargin: 0,		/* */
-		pause: 4000,		/* timeout between animation */
-		moveSlides: 1,		/* number slides to move */
-		controls: false, 	/* show prev/next */
-		pager: true, 		/* show pager */
-		touchEnabled: false,
-		swipeThreshold: 5,
-		oneToOneTouch: false,
-		tickerHover: true,
-		adaptiveHeight: true
-	});
-	
-	
-	
-	$('#news .carousel ul').bxSlider({
-		mode: 'horizontal',	/* */
-		speed: 500,			/* */
-		auto: false,			/* */
-		minSlides: 1,		/* */
-		maxSlides: 40,		/* */
-		slideMargin: 2,		/* */
-		pause: 4000,		/* timeout between animation */
-		moveSlides: 1,		/* number slides to move */
-		controls: true, 	/* show prev/next */
-		pager: false, 		/* show pager */
-		touchEnabled: false,
-		swipeThreshold: 5,
-		oneToOneTouch: false,
-		slideWidth: 266,
-		tickerHover: true,
-		adaptiveHeight: true
-	});
 
 
+	// Angular directive	
+
+	// $('#carousel ul').bxSlider({
+	// 	mode: 'fade',		/* */
+	// 	speed: 500,			/* */
+	// 	auto: true,			/* */
+	// 	minSlides: 1,		/* */
+	// 	maxSlides: 1,		/* */
+	// 	slideMargin: 0,		/* */
+	// 	pause: 4000,		/* timeout between animation */
+	// 	moveSlides: 1,		/* number slides to move */
+	// 	controls: false, 	/* show prev/next */
+	// 	pager: true, 		/* show pager */
+	// 	touchEnabled: false,
+	// 	swipeThreshold: 5,
+	// 	oneToOneTouch: false,
+	// 	tickerHover: true,
+	// 	adaptiveHeight: true
+	// });
+	
+
+	// Angular directive
+	
+	// $('#news .carousel ul').bxSlider({
+	// 	mode: 'horizontal',	/* */
+	// 	speed: 500,			/* */
+	// 	auto: false,			/* */
+	// 	minSlides: 1,		/* */
+	// 	maxSlides: 40,		/* */
+	// 	slideMargin: 2,		/* */
+	// 	pause: 4000,		/* timeout between animation */
+	// 	moveSlides: 1,		/* number slides to move */
+	// 	controls: true, 	/* show prev/next */
+	// 	pager: false, 		/* show pager */
+	// 	touchEnabled: false,
+	// 	swipeThreshold: 5,
+	// 	oneToOneTouch: false,
+	// 	slideWidth: 266,
+	// 	tickerHover: true,
+	// 	adaptiveHeight: true
+	// });
 
 
-	$("#tweetwall .carousel ul li:even").addClass("even");
+	// Angular Directive 
+
+	// $("#tweetwall .carousel ul li:even").addClass("even");
 	
-	$('#tweetwall .carousel ul').bxSlider({
-		mode: 'vertical',	/* */
-		speed: 500,			/* */
-		auto: true,			/* */
-		minSlides: 3,		/* */
-		maxSlides: 3,		/* */
-		slideMargin: 0,		/* */
-		pause: 4000,		/* timeout between animation */
-		moveSlides: 1,		/* number slides to move */
-		controls: false, 	/* show prev/next */
-		pager: false, 		/* show pager */
-		touchEnabled: false,
-		swipeThreshold: 50,
-		oneToOneTouch: false,
-		easing: 'ease',
-		tickerHover: true,
-		adaptiveHeight: true
-	});
-	
-	
-	
-	
+	// $('#tweetwall .carousel ul').bxSlider({
+	// 	mode: 'vertical',	/* */
+	// 	speed: 500,			/* */
+	// 	auto: true,			/* */
+	// 	minSlides: 3,		/* */
+	// 	maxSlides: 3,		/* */
+	// 	slideMargin: 0,		/* */
+	// 	pause: 4000,		 timeout between animation 
+	// 	moveSlides: 1,		/* number slides to move */
+	// 	controls: false, 	/* show prev/next */
+	// 	pager: false, 		/* show pager */
+	// 	touchEnabled: false,
+	// 	swipeThreshold: 50,
+	// 	oneToOneTouch: false,
+	// 	easing: 'ease',
+	// 	tickerHover: true,
+	// 	adaptiveHeight: true
+	// });
 	
 	$("header nav ul li.submenu").mouseover(function(){
 		$(this).addClass("open");
-		$("header #submenu").stop().animate({height: 45}, 200);
-		$(this).find('ul').stop().fadeIn();
+		$("header #submenu").stop(true,true).animate({height: 45}, 200);
+		$(this).find('ul').stop(true,true).fadeIn();
 		
 	}).mouseleave(function() {		
 		$(this).removeClass("open");
-		$(this).find('ul').stop().fadeOut(200);
-		$("header #submenu").animate({height: 0}, 200);		
+		$(this).find('ul').stop(true,true).fadeOut(200);
+		$("header #submenu").stop(true,true).animate({height: 0}, 200);		
 	});
-	
 	
 	$("header nav ul li.popup").mouseover(function(){
 		$(this).addClass("open");
-		$(this).find('ul').fadeIn(200);
+		$(this).find('ul').stop(true,true).fadeIn(200);
 		
 	}).mouseleave(function() {		
 		$(this).removeClass("open");
-		$(this).find('ul').fadeOut(200);	
+		$(this).find('ul').stop(true,true).fadeOut(200);	
 	});
-	
-	
-	
 	
 		
 	// Fade in images so there isn't a color "pop" document load and then on window load
@@ -125,19 +122,13 @@ $(document).ready(function() {
 		$(this).stop().animate({opacity:0}, 500);
 	});
 	
-	
-	
-	
-		
+
 	// FAQ accordeon
 	$('#accordion .acco_title').click(function() {
 		$('#accordion .acco_content').slideUp('normal');	
 		$(this).next().slideDown('normal');
 	});
-		
-		
-		
-
+			
 });
 
 

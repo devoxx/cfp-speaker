@@ -253,3 +253,8 @@ div.selector.ng-invalid {
 #tweetwall .tweet {
     cursor: pointer;
 }
+
+#news li p a {
+    color: #52b5bb;
+    display: inline;
+}

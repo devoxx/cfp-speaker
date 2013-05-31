@@ -173,26 +173,32 @@ angular.module('cfpSpeakerApp')
             }
         }
     })
-    .directive('carousel',function () {
+    .directive('carousel',function ($timeout) {
         return {
             link: function (scope, element, attrs) {
-                $(element).bxSlider({
-                    mode: 'fade', /* */
-                    speed: 500, /* */
-                    auto: true, /* */
-                    minSlides: 1, /* */
-                    maxSlides: 1, /* */
-                    slideMargin: 0, /* */
-                    pause: 4000, /* timeout between animation */
-                    moveSlides: 1, /* number slides to move */
-                    controls: false, /* show prev/next */
-                    pager: true, /* show pager */
-                    touchEnabled: true,
-                    swipeThreshold: 5,
-                    oneToOneTouch: true,
-                    tickerHover: true,
-                    adaptiveHeight: true
-                });
+
+                $timeout(function(){
+
+                    $(element).find('ul').bxSlider({
+                        mode: 'fade',       /* */
+                        speed: 500,         /* */
+                        auto: true,         /* */
+                        minSlides: 1,       /* */
+                        maxSlides: 1,       /* */
+                        slideMargin: 0,     /* */
+                        pause: 4000,        /* timeout between animation */
+                        moveSlides: 1,      /* number slides to move */
+                        controls: false,    /* show prev/next */
+                        pager: true,        /* show pager */
+                        touchEnabled: false,
+                        swipeThreshold: 5,
+                        oneToOneTouch: false,
+                        tickerHover: true,
+                        adaptiveHeight: true
+                    });
+
+                },0);
+
             }
         };
     }).directive('news',function () {
