@@ -12,8 +12,11 @@ angular.module('cfpSpeakerApp')
                     e.preventDefault();
                     console.log("CLiecked scrolling")
                     e.stopPropagation();
-                    var top = $('a[name=' + attrs.scroll + ']').offset().top - MENU_BAR;
-                    $('body').animate({scrollTop: top}, 800);    
+                    var anchorElem = $('a[name=' + attrs.scroll + ']');
+                    if (anchorElem.length) {
+                        var top = anchorElem.offset().top - MENU_BAR;
+                        $('body').animate({scrollTop: top}, 800);
+                    }
                 }); 
 
             }
@@ -97,16 +100,17 @@ angular.module('cfpSpeakerApp')
                     case 'inputtext':
                     case 'inputpassword':
                     case 'inputemail':
+                    case 'inputsubmit':
                     case 'input':
                     case 'textarea':
-                        width = '319px';
+                        width = '339px';
                         watchWithNoParentElement();
                         break;
                     case 'inputcheckbox':
                         watchWithParentElement('.checker');
                         break;
                     case 'select':
-                        width = '292px';
+                        width = '302px';
                         watchWithParentElement('.selector');
                         break;
                 }
