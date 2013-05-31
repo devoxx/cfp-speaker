@@ -258,3 +258,7 @@ div.selector.ng-invalid {
     color: #52b5bb;
     display: inline;
 }
+
+#carousel .content p {
+    font-size: 18px;
+}

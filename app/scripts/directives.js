@@ -1,6 +1,24 @@
 'use strict';
 
 angular.module('cfpSpeakerApp')
+    .directive('scroll', function(){
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+
+                var MENU_BAR = 64 + 30; // always on top, menu height + margin
+
+                $(element).click(function (e) {
+                    e.preventDefault();
+                    console.log("CLiecked scrolling")
+                    e.stopPropagation();
+                    var top = $('a[name=' + attrs.scroll + ']').offset().top - MENU_BAR;
+                    $('body').animate({scrollTop: top}, 800);    
+                }); 
+
+            }
+        }
+    })
     .directive('devoxxUniform', function () {
         return {
             restrict: 'A',
@@ -186,7 +204,7 @@ angular.module('cfpSpeakerApp')
                         minSlides: 1,       /* */
                         maxSlides: 1,       /* */
                         slideMargin: 0,     /* */
-                        pause: 4000,        /* timeout between animation */
+                        pause: 6000,        /* timeout between animation */
                         moveSlides: 1,      /* number slides to move */
                         controls: false,    /* show prev/next */
                         pager: true,        /* show pager */
