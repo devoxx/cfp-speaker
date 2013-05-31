@@ -40,6 +40,8 @@ speakerModule.config(function ($routeProvider) {
         } else {
             defer.reject('Profile incomplete');
         }
+    }, function(data) {
+        defer.reject(data);
     });
     return defer.promise;
 }]);

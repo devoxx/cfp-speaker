@@ -2,15 +2,17 @@
 
 // Injecting rootScope only allowed in AppCtrl, because of handling routing errors
 angular.module('cfpSpeakerApp')
-    .controller('AppCtrl',function ($rootScope, $route, $location) {
+    .controller('AppCtrl',function ($rootScope, $route, $location, $window) {
         $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
             console.log('$routeChangeError:', arguments);
-            if (rejection === 'No valid userToken' || rejection === 'No currentUser') {
-                $location.path('/');
+
+            // These redirects must be done using full page refresh, otherwise it messes up the CurrentUser Promise
+            if (rejection == 'No valid userToken' || rejection == 'No currentUser') {
+                $window.location.href = '/';
                 return;
             }
-            if (rejection === 'Profile incomplete') {
-                $location.path(speakerUrlPrefix + '/profile');
+            if (rejection == 'Profile incomplete') {
+                $window.location.href = speakerUrlPrefix + '/profile';
                 return;
             }
         });
@@ -72,7 +74,7 @@ angular.module('cfpSpeakerApp')
 
         $scope.openStatus = function (tweet) {
             $window.location.href = "http://twitter.com/" + tweet.author + "/status/" + tweet.statusId;
-        }
+        };
 
         this.refreshRemoteData = function() {
 
@@ -95,17 +97,17 @@ angular.module('cfpSpeakerApp')
                 maxTweetId = data.max_id;
 
             });
-        }    
+        };
 
         function Tweet(tweet) {
 
             this.toString = function() {
                 return this.author + " " + this.id;
-            }
+            };
 
             this.unEscape = function (html) {
                 return html.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"");
-            }
+            };
 
             this.id = tweet.id;
             this.statusId = tweet.id_str;

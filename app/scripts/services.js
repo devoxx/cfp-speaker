@@ -34,60 +34,55 @@ genericServices.factory('TalksService',function ($http, UserService) {
         }
     };
 }).factory('UserService',function ($q, $filter, $http, $timeout, $cookies, $location, EventBus) {
-        var userService = {
+        var self = {
             currentUser: null,
             currentUserToken: $cookies.userToken,
             loginValidationFinished: false,
             currentUserDefer: $q.defer(),
 
             login: function (username, pass) {
-                var url = authBaseUri;
-                return $http.post(url, {}, {
+                return $http.post(authBaseUri, {}, {
                     params: {
                         login: username,
                         password: pass
                     }
                 }).success(function (data, status, headers, config) {
-                        console.log('successful login with username/password');
-                        userService.currentUser = data.user;
-                        userService.currentUserToken = data.userToken;
+                    console.log('successful login with username/password');
+                    self.currentUser = data.user;
+                    self.currentUserToken = data.userToken;
 
-                        console.log('successful username/password login', data.userToken);
-                        EventBus.loginSuccess(data.user, data.userToken);
-                        userService.currentUserDefer.resolve(userService.currentUser);
-
-                    }).error(function (data, status, headers, config) {
-                        console.log(data);
-                        EventBus.loginFailed(data.msg);
-                        userService.currentUserDefer.reject('No currentUser');
-
-                    });
+                    EventBus.loginSuccess(data.user, data.userToken);
+                    self.currentUserDefer.resolve(self.currentUser);
+                }).error(function (data, status, headers, config) {
+                    console.log(data);
+                    EventBus.loginFailed(data.msg);
+                    self.currentUserDefer.reject('No currentUser');
+                });
             },
             loginByToken: function (userToken) {
-                userService.currentUserToken = userToken;
-                var url = authBaseUri + '/token';
-                $http.post(url, {}, {
+                self.currentUserToken = userToken;
+                $http.post(authBaseUri + '/token', {}, {
                     params: {
                         userToken: userToken
                     }
                 }).success(function (data, status, headers, config) {
-                        console.log('successful login with token')
-                        userService.currentUser = data;
-                        EventBus.loginSuccess(data, userToken);
-                        userService.currentUserDefer.resolve(userService.currentUser);
-                    }).error(function (data, status, headers, config) {
-                        EventBus.loginFailed(data.msg);
-                        userService.currentUser = null;
-                        userService.currentUserDefer.reject('No currentUser');
-                    });
+                    console.log('successful login with token')
+                    self.currentUser = data;
+                    EventBus.loginSuccess(data, userToken);
+                    self.currentUserDefer.resolve(self.currentUser);
+                }).error(function (data, status, headers, config) {
+                    EventBus.loginFailed(data.msg);
+                    self.currentUser = null;
+                    self.currentUserDefer.reject('No currentUser');
+                });
             },
             logout: function () {
-                var oldToken = userService.currentUserToken;
+                var oldToken = self.currentUserToken;
                 var callback = function (data, status, headers, config) {
-                    userService.currentUser = null;
-                    userService.currentUserToken = '';
-                    userService.currentUserDefer = $q.defer();
-                    EventBus.loggedOut(userService.currentUser, oldToken);
+                    self.currentUser = null;
+                    self.currentUserToken = '';
+                    self.currentUserDefer = $q.defer();
+                    EventBus.loggedOut(self.currentUser, oldToken);
                 };
                 if (oldToken && oldToken.length > 0) {
                     var url = authBaseUri + '/logout/' + oldToken;
@@ -99,24 +94,23 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     && speaker.company && speaker.speakerBio && speaker.speakingReferences;
             },
             waitForCurrentUser: function () {
-                var defer = userService.currentUserDefer;
-                if (!userService.currentUserToken) {
-                    defer.reject('No valid userToken');
-                } else {
-                    if (userService.currentUser) {
-                        defer.resolve(userService.currentUser);
+                var currentUserToken = self.currentUserToken;
+                if (currentUserToken) {
+                    var currentUser = self.currentUser;
+                    if (currentUser) {
+                        self.currentUserDefer.resolve(currentUser);
                     } else {
-                        userService.loginByToken(userService.currentUserToken);
+                        self.loginByToken(currentUserToken);
                     }
                 }
 
-                return defer.promise;
+                return self.currentUserDefer.promise;
             },
             getCurrentUser: function () {
-                return userService.currentUser;
+                return self.currentUser;
             },
             getToken: function () {
-                return userService.currentUserToken;
+                return self.currentUserToken;
             },
             getSpeakerBySearchName: function (searchName) {
                 var url = baseUri + '/user';
@@ -125,30 +119,26 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     params: {
                         q: namesSplitted,
                         filter: searchName,
-                        userToken: userService.currentUserToken
+                        userToken: self.currentUserToken
                     }
                 });
             },
             updateProfile: function (user) {
                 var defer = $q.defer();
-                if (userService.currentUserToken) {
-                    var url = authBaseUri + '/profile';
-                    $http.put(url, user, {
-                        params: {
-                            userToken: userService.currentUserToken
-                        }
-                    }).success(function (data, status, headers, config) {
-                        defer.resolve(data);
-                    }).error(function (data, status, headers, config) {
-                        defer.reject('No valid userToken');
-                    });
-                } else {
-                    defer.reject('No valid userToken');
-                }
+                var url = authBaseUri + '/profile';
+                $http.put(url, user, {
+                    params: {
+                        userToken: self.currentUserToken
+                    }
+                }).success(function (data, status, headers, config) {
+                    defer.resolve(data);
+                }).error(function (data, status, headers, config) {
+                    defer.reject(data);
+                });
                 return defer.promise;
             }
         };
-        return userService;
+        return self;
     }).factory('Tags',function ($http, $q, $filter, UserService) {
         var cached;
         var filter = function (list, partialTagName) {
