@@ -1,41 +1,40 @@
 <div id="topinfo" class="area orange">
     <div class="grid">
-
         <div class="row">
             <div class="col16">
-
                 <h1>Profile</h1>
                 <h3>Your Devoxxian profile</h3>
-
             </div>
         </div>
-
     </div>
 </div>
 
-<div ng-controller="ProfileCtrl" class="area lightgrey">
+<div class="area lightgrey">
     <div>
-        <p ng-hide="profileComplete()">Your profile is not yet complete. To continue, please fill in the missing values in the form below</p>
         <form>
             <div class="grid">
+                <div class="row" ng-hide="profileComplete()">
+                    <div class="col12">
+                        <p class="label label-danger">
+                            <h4>Your profile is not yet complete.</h4>
+                            To continue, please fill in the missing values in the form below.
+                        </p>
+                        <hr>
+                    </div>
+                </div>
+
                 <ng-include src="'views/speaker/speaker_details.html'"></ng-include>
 
                 <div class="row">
-
-                    <div class="col6 push9">
-
+                    <div class="col6 push6">
                         <ul>
                             <li class="btn">
                                 <input type="submit" ng-click="updateProfile()" value="Update">
                             </li>
                         </ul>
-
                     </div>
-
-                </div>    
-               
+                </div>
             </div>
         </form>
     </div>
 </div>
-

@@ -12,9 +12,6 @@ cfpSpeakerApp.config(function ($routeProvider) {
         }).when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl'
-        }).when('/profile', {
-            templateUrl: 'views/profile.html',
-            controller: 'ProfileCtrl'
         }).when('/logged_out', {
             templateUrl: 'views/logged_out.html'
         }).when('/about', {

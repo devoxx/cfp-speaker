@@ -14,7 +14,10 @@ speakerModule.config(function ($routeProvider) {
     };
     // Proposal routing
     $routeProvider
-        .when(speakerUrlPrefix + '/proposals', {
+        .when(speakerUrlPrefix + '/profile', {
+            templateUrl: speakerViewPrefix + '/profile.html',
+            controller: speakerCtrlPrefix + 'EditProfileCtrl'
+        }).when(speakerUrlPrefix + '/proposals', {
             resolve: resolveCurrentUser,
             templateUrl: speakerViewPrefix + '/proposals.html',
             controller: speakerCtrlPrefix + 'ProposalsCtrl'
@@ -29,6 +32,14 @@ speakerModule.config(function ($routeProvider) {
             templateUrl: speakerViewPrefix + '/proposal_form.html',
             controller: speakerCtrlPrefix + 'SubmitProposalCtrl'
         });
-}).factory('ResolverService', ['UserService', function (UserService) {
-        return UserService.waitForCurrentUser();
+}).factory('ResolverService', ['$q', 'UserService', function ($q, UserService) {
+    var defer = $q.defer();
+    UserService.waitForCurrentUser().then(function(data) {
+        if (UserService.isProfileComplete(data)) {
+            defer.resolve(data);
+        } else {
+            defer.reject('Profile incomplete');
+        }
+    });
+    return defer.promise;
 }]);

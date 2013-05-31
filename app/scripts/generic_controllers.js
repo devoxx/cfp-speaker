@@ -7,6 +7,11 @@ angular.module('cfpSpeakerApp')
             console.log('$routeChangeError:', arguments);
             if (rejection === 'No valid userToken' || rejection === 'No currentUser') {
                 $location.path('/');
+                return;
+            }
+            if (rejection === 'Profile incomplete') {
+                $location.path(speakerUrlPrefix + '/profile');
+                return;
             }
         });
         $rootScope.$on('$routeChangeStart', function (event, current, previous, rejection) {
@@ -50,18 +55,6 @@ angular.module('cfpSpeakerApp')
             $scope.model.loginDisabled = false;
             $window.location.href = '/index.html#/logged_out';
         });
-    }).controller('ProfileCtrl',function ($scope, UserService) {
-        $scope.model = {};
-
-        UserService.waitForCurrentUser().then(function(){
-                $scope.model.speakerDetails = UserService.currentUser;
-        });
-
-        $scope.profileComplete = UserService.profileComplete;
-
-        $scope.updateProfile = function () {
-            UserService.updateProfile($scope.model.speakerDetails);
-        };
     }).controller('HomeCtrl',function ($scope, $location) {
 
     }).controller('ContactCtrl',function ($scope, $location) {

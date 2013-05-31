@@ -94,10 +94,9 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     $http.delete(url).success(callback).error(callback);
                 }
             },
-            profileComplete: function () {
-                var profile = userService.currentUser;
-                return profile && profile.email && profile.firstname && profile.lastname
-                    && profile.company && profile.speakerBio && profile.speakingReferences;
+            isProfileComplete: function (speaker) {
+                return speaker && speaker.email && speaker.firstname && speaker.lastname
+                    && speaker.company && speaker.speakerBio && speaker.speakingReferences;
             },
             waitForCurrentUser: function () {
                 var defer = userService.currentUserDefer;
@@ -139,7 +138,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
                             userToken: userService.currentUserToken
                         }
                     }).success(function (data, status, headers, config) {
-                        defer.resolve(response);
+                        defer.resolve(data);
                     }).error(function (data, status, headers, config) {
                         defer.reject('No valid userToken');
                     });
