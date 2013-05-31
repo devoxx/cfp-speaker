@@ -214,7 +214,7 @@
     width: 60px;
 }
 
-/*div.selector.ng-invalid,
+div.selector.ng-invalid,
 div.checker.ng-invalid,
 input.ng-invalid,
 textarea.ng-invalid {
@@ -225,7 +225,6 @@ textarea.ng-invalid {
 div.selector.ng-invalid {
     border-radius: 3px;
 }
-*/
 
 
 /* 360 CSS Overrides */
