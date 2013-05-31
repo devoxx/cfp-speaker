@@ -218,31 +218,40 @@ angular.module('cfpSpeakerApp')
                 });
             }
         };
-    }).directive('tweetwall', function () {
+    }).directive('tweetwall', function ($timeout) {
         return {
-            link: function (scope, element, attrs) {
-                scope.$watch('scope.tweets', function () {
-                    $(element).bxSlider({
-                        mode: 'vertical', /* */
-                        speed: 500, /* */
-                        auto: true, /* */
-                        minSlides: 1, /* */
-                        maxSlides: 3, /* */
-                        slideMargin: 0, /* */
-                        pause: 4000, /* timeout between animation */
-                        moveSlides: 1, /* number slides to move */
-                        controls: false, /* show prev/next */
-                        pager: false, /* show pager */
-                        touchEnabled: true,
-                        swipeThreshold: 50,
-                        oneToOneTouch: true,
-                        easing: 'ease',
-                        tickerHover: true,
-                        adaptiveHeight: true
-                    });
+            restrict: 'A',
+            replace: true,
+            link: function ($scope, element, attrs) {
 
-                });
+                if ($scope.$last && element.ready) {
 
+                    $timeout(function(){ // Schedule after Angular rendering
+
+                        var slider = $(element).parent().bxSlider({
+                            mode: 'vertical',   /* */
+                            speed: 500,         /* */
+                            auto: true,         /* */
+                            minSlides: 3,       /* */
+                            maxSlides: 3,       /* */
+                            slideMargin: 0,     /* */
+                            pause: 2000,        /* timeout between animation */
+                            moveSlides: 1,      /* number slides to move */
+                            controls: false,    /* show prev/next */
+                            pager: false,       /* show pager */
+                            touchEnabled: false,
+                            swipeThreshold: 50,
+                            oneToOneTouch: false,
+                            easing: 'ease',
+                            tickerHover: true,
+                            adaptiveHeight: true
+                        });
+
+
+                    },0);    
+
+                }
+                    
             }
         };
     });

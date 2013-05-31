@@ -66,21 +66,25 @@ angular.module('cfpSpeakerApp')
 
     }).controller('ContactCtrl',function ($scope, $location) {
     }).controller('AboutCtrl',function ($scope, $location) {
-    }).controller('TwitterCtrl', function ($scope, $location, $http, $timeout) {
+    }).controller('TwitterCtrl', function ($scope, $location, $http, $timeout, $window) {
         
         var self = this;
 
-        var MAX = 4;
+        var MAX = 3;
         var maxTweetId = 0;
 
-        var tweetQueue = [];
         $scope.tweets = [];
         $scope.scrollClass = "";
+        var count = 0;
+
+        $scope.openStatus = function (tweet) {
+            $window.location.href = "http://twitter.com/" + tweet.author + "/status/" + tweet.statusId;
+        }
 
         this.refreshRemoteData = function() {
 
-            $http.jsonp("http://search.twitter.com/search.json?q=%23devoxx&rpp=10&since_id=" + maxTweetId  
-                + "&include_entities=false&with_twitter_user_id=true&result_type=mixed&callback=JSON_CALLBACK")
+            $http.jsonp("http://search.twitter.com/search.json?q=%23devoxx&count=40&since_id=" + maxTweetId  
+                + "&include_entities=false&result_type=recent&callback=JSON_CALLBACK")
             .success(function(data, status) {
                     
                 //console.log('HTTP Code: ' + code + ' Data: ' + JSON.stringify(data));
@@ -89,57 +93,35 @@ angular.module('cfpSpeakerApp')
                     var tweet = new Tweet(result);
                     // Prevent the latest search result from popping up multiple times in our queue if there aren't any new tweets
                     if (maxTweetId != tweet.id) {
-                        tweetQueue.unshift(tweet);
+                        tweet.class = count % 2 == 0 ? "even" : "";
+                        count++;
+                        $scope.tweets.push(tweet);
                     }
                 });
 
                 maxTweetId = data.max_id;
 
-                if ($scope.tweets.length == 0) {
-                    self.tweetQueueProcessor(); // Populate on init
-                }
-
             });
-
-            $timeout(self.refreshRemoteData, 10000);
-        }
-
-        this.tweetQueueProcessor = function() {
-            
-            // Initialisation
-            if ($scope.tweets.length < MAX) {
-                while ($scope.tweets.length < MAX && tweetQueue.length > 0) {
-                    $scope.tweets.push(tweetQueue.shift());
-                }
-
-            }
-
-            // Regular operation
-            else if (tweetQueue.length > 0) {
-                $scope.tweets.push(tweetQueue.shift());
-                $scope.scrollClass = "scrollup";
-                $timeout(shiftTweets, 1900);
-            }
-
-            function shiftTweets() {
-                $scope.tweets.shift();
-                $scope.scrollClass = "";
-            }
-
-            $timeout(self.tweetQueueProcessor, 3000);
-        }
+        }    
 
         function Tweet(tweet) {
-
-            this.id = tweet.id;
-            this.author = tweet.from_user;
-            this.image = tweet.profile_image_url;
-            this.tweet = tweet.text;
-            this.time = moment(tweet.created_at, "ddd, DD MMM YYYY HH:mm:ss ZZ").fromNow(); //Thu, 30 May 2013 15:02:41 +0000
 
             this.toString = function() {
                 return this.author + " " + this.id;
             }
+
+            this.unEscape = function (html) {
+                return html.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"");
+            }
+
+            this.id = tweet.id;
+            this.statusId = tweet.id_str;
+            this.author = tweet.from_user;
+            this.image = "url(" + tweet.profile_image_url + ")";
+            this.tweet = tweet.text;
+            this.time = moment(tweet.created_at, "ddd, DD MMM YYYY HH:mm:ss ZZ").fromNow(); //Thu, 30 May 2013 15:02:41 +0000
+            this.source = this.unEscape(tweet.source);
+            this.class = "";
         }
 
         $timeout(self.refreshRemoteData, 0);
