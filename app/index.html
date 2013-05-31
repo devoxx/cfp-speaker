@@ -58,6 +58,7 @@
     <script src="scripts/filters.js"></script>
     <script src="scripts/generic_controllers.js"></script>
     <script src="scripts/speaker/module.js"></script>
+    <script src="scripts/speaker/EditProfile.js"></script>
     <script src="scripts/speaker/Proposals.js"></script>
     <script src="scripts/speaker/SubmitProposal.js"></script>
     <script src="scripts/speaker/ProposalDetails.js"></script>
@@ -103,7 +104,7 @@
                     <!--</ul>-->
                     <!--</li>-->
                     <li class="submenu subright">
-                        <a href="#">Practical</a>
+                        <a>Practical</a>
                         <ul>
                             <li><a href="#/faq">FAQ</a></li>
                             <li><a href="#/team">Team</a></li>
@@ -115,7 +116,7 @@
                     <!--<a href="#">Buy tickets</a>-->
                     <!--</li>-->
                     <li class="btn popup login btn_grey" ng-hide="model.currentUser()">
-                                <a href="">Login</a>
+                        <a>Login</a>
                         <ul>
                             <li>
                                 <div class="popup">
@@ -146,13 +147,13 @@
                         </ul>
                     </li>
                     <li class="submenu subright" ng-show="model.currentUser()">
-                                <a href="#">User <img src="images/User-icon.png" height="12" width="12" style="margin-top: -1px;"></a>
-                                <ul>
-                                    <li><a href="#/speaker" ng-click="logout()">Logout</a></li>
-                                    <li><a href="#/speaker/proposals">Proposals</a></li>
-                                    <li><a href="#/profile">Profile</a></li>
-                                </ul>
-                            </li>
+                        <a>User <img src="images/User-icon.png" height="10" width="10" style="margin-top: -1px;"></a>
+                        <ul>
+                            <li><a href="#/speaker" ng-click="logout()">Logout</a></li>
+                            <li><a href="#/speaker/proposals">Proposals</a></li>
+                            <li><a href="#/speaker/profile">Profile</a></li>
+                        </ul>
+                    </li>
 
                     <!--<li class="popup search">-->
                         <!--<a href="#">Search</a>-->
