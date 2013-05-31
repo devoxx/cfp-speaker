@@ -3,7 +3,7 @@
 var baseUri = 'https://staging-cfp.devoxx.com/v2/proposal';
 var authBaseUri = 'https://staging-cfp.devoxx.com/v2/auth';
 
-var genericServices = angular.module('GenericServices', ['ngResource', 'ngCookies', 'Config'])
+var genericServices = angular.module('GenericServices', ['ngCookies', 'Config'])
 
 genericServices.factory('TalksService',function ($http, UserService) {
     return {
@@ -139,10 +139,10 @@ genericServices.factory('TalksService',function ($http, UserService) {
                             userToken: userService.currentUserToken
                         }
                     }).success(function (data, status, headers, config) {
-                            defer.resolve(response);
-                        }).error(function (data, status, headers, config) {
-                            defer.reject('No valid userToken');
-                        });
+                        defer.resolve(response);
+                    }).error(function (data, status, headers, config) {
+                        defer.reject('No valid userToken');
+                    });
                 } else {
                     defer.reject('No valid userToken');
                 }
@@ -150,7 +150,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             }
         };
         return userService;
-    }).factory('Tags',function ($resource, $q, $filter, UserService) {
+    }).factory('Tags',function ($http, $q, $filter, UserService) {
         var cached;
         var filter = function (list, partialTagName) {
             var ret = angular.copy(list);
@@ -166,13 +166,11 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 var defer = $q.defer();
                 if (!cached) {
                     var url = baseUri + '/event/1/tag?size=1000&userToken=' + UserService.getToken();
-                    var res = $resource(url, { }, {
-                        query: { method: 'get', isArray: false }
-                    });
-                    res.query({ }, function (data) {
+                    $http.get(url, {
+                    }).success(function (data, status, headers, config) {
                         cached = data.results;
                         defer.resolve(filter(cached, partialTagName));
-                    }, function (response) {
+                    }).error(function (data, status, headers, config) {
                         defer.reject('Error loading tags');
                     });
                 } else {
