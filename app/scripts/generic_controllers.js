@@ -66,7 +66,42 @@ cfpSpeakerAppModule.controller('HomeCtrl', function ($scope, $location) {
 
 });
 
-cfpSpeakerAppModule.controller('ContactCtrl', function ($scope, $location) {
+cfpSpeakerAppModule.controller('ContactCtrl', function ($scope, $location, $http, ContactService) {
+
+    $scope.model = {
+        name: null,
+        email: null,
+        company: null,
+        category: {
+            sponsoring: false,
+            exhibition: false,
+            presentations: false,
+            practical: false
+        },
+        question: null
+    };
+
+    $scope.feedback = null;
+
+    $scope.send = function() {
+
+        $scope.feedback = null;
+
+        ContactService.send($scope.model)
+            .success(function () {
+                $scope.feedback = {
+                    type: 'info',
+                    message: 'Message sent, we\'ll contact you as soon as possible'
+                }
+            })
+            .error(function () {
+                $scope.feedback = {
+                    type: 'error',
+                    message: 'Failed to send your message, please try again'
+                }
+            });
+    }
+
 });
 
 cfpSpeakerAppModule.controller('AboutCtrl', function ($scope, $location) {

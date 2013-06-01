@@ -1,14 +1,16 @@
 'use strict';
 
-var baseUri = 'https://staging-cfp.devoxx.com/v2/proposal';
-var authBaseUri = 'https://staging-cfp.devoxx.com/v2/auth';
+var baseUri = 'https://staging-cfp.devoxx.com/v2/';
+var proposalUri = baseUri + 'proposal';
+var authUri = baseUri + 'auth';
+var contactUri = baseUri + 'contact'
 
 var genericServices = angular.module('GenericServices', ['ngCookies'])
 
 genericServices.factory('TalksService',function ($http, UserService) {
     return {
         allProposalsForUser: function () {
-            var url = baseUri;
+            var url = proposalUri;
             return $http.get(url, {
                 params: {
                     userToken: UserService.getToken()
@@ -16,7 +18,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             });
         },
         byId: function (proposalId) {
-            var url = baseUri + '/{proposalId}'
+            var url = proposalUri + '/{proposalId}'
                 .replace('{proposalId}', proposalId);
             return $http.get(url, {
                 params: {
@@ -25,7 +27,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             });
         },
         deleteProposal: function (proposal) {
-            var url = baseUri + '/' + proposal.id;
+            var url = proposalUri + '/' + proposal.id;
             return $http.delete(url, {
                 params: {
                     userToken: UserService.getToken()
@@ -41,7 +43,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             currentUserDefer: $q.defer(),
 
             login: function (username, pass) {
-                return $http.post(authBaseUri, {}, {
+                return $http.post(authUri, {}, {
                     params: {
                         login: username,
                         password: pass
@@ -61,7 +63,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             },
             loginByToken: function (userToken) {
                 self.currentUserToken = userToken;
-                $http.post(authBaseUri + '/token', {}, {
+                $http.post(authUri + '/token', {}, {
                     params: {
                         userToken: userToken
                     }
@@ -85,7 +87,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     EventBus.loggedOut(self.currentUser, oldToken);
                 };
                 if (oldToken && oldToken.length > 0) {
-                    var url = authBaseUri + '/logout/' + oldToken;
+                    var url = authUri + '/logout/' + oldToken;
                     $http.delete(url).success(callback).error(callback);
                 }
             },
@@ -113,7 +115,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 return self.currentUserToken;
             },
             getSpeakerBySearchName: function (searchName) {
-                var url = baseUri + '/user';
+                var url = proposalUri + '/user';
                 var namesSplitted = searchName.split(' ');
                 return $http.get(url, {
                     params: {
@@ -125,7 +127,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             },
             updateProfile: function (user) {
                 var defer = $q.defer();
-                var url = authBaseUri + '/profile';
+                var url = authUri + '/profile';
                 $http.put(url, user, {
                     params: {
                         userToken: self.currentUserToken
@@ -154,7 +156,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             query: function (partialTagName) {
                 var defer = $q.defer();
                 if (!cached) {
-                    var url = baseUri + '/event/1/tag?size=1000&userToken=' + UserService.getToken();
+                    var url = proposalUri + '/event/1/tag?size=1000&userToken=' + UserService.getToken();
                     $http.get(url, {
                     }).success(function (data, status, headers, config) {
                         cached = data.results;
@@ -172,7 +174,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
         var eventService = {
             eventsDefer: $q.defer(),
             load: function () {
-                var url = baseUri + '/event';
+                var url = proposalUri + '/event';
                 return $http.get(url, {
                     params: {
                         userToken: UserService.getToken()
@@ -196,7 +198,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
         };
         return eventService;
     }).factory('Talks', function ($http, UserService) {
-        var url = baseUri + '/event/{eventId}/presentation';
+        var url = proposalUri + '/event/{eventId}/presentation';
         var createUrl = function (url, talk) {
             return url.replace('{eventId}', talk.event.id)
         };
@@ -254,5 +256,12 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 return $http.put(createUrl(url, talk), transform(talk), config);
             }
         }
-    });
+    })
+.factory('ContactService',function ($http) {
+    return {
+        send: function (contactInfo) {;
+            return $http.post(contactUri, contactInfo);
+        }
+    };
+});
 

@@ -22,6 +22,7 @@ cfpSpeakerApp.config(function ($routeProvider) {
         }).when('/about', {
             templateUrl: 'views/about.html'
         }).when('/contact', {
+            controller: 'ContactCtrl',
             templateUrl: 'views/practical/contact.html'
         }).when('/faq', {
             templateUrl: 'views/practical/faq.html'
