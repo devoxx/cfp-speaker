@@ -9,7 +9,6 @@
         "bxslider-4": "latest",
         "modernizr": "~2.6.2",
         "unstable-angular-complete": "~1.1.5",
-        "angular-cookies": "~1.0.7",
         "angular-bootstrap": "~0.3.0",
         "meanMenu": "weare2ndfloor/meanMenu",
         "isotope": "~1.5.25",
