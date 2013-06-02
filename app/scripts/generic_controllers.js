@@ -72,12 +72,6 @@ cfpSpeakerAppModule.controller('ContactCtrl', function ($scope, $location, $http
         name: null,
         email: null,
         company: null,
-        category: {
-            sponsoring: false,
-            exhibition: false,
-            presentations: false,
-            practical: false
-        },
         question: null
     };
 
