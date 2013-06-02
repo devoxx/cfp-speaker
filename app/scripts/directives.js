@@ -241,6 +241,36 @@ angular.module('cfpSpeakerApp')
             }
         };
     })
+    .directive('isotope',function ($timeout) {
+        return {
+            link: function (scope, element, attrs) {
+
+                $timeout(function(){
+
+                    var $container = $(element).find("#contactList");
+
+                    var $filters = $(element).find("#filters");
+
+                    $container.isotope({
+                        itemSelector : 'li',
+                        layoutMode : 'fitRows'
+                    });
+
+                    $filters.find('a').click(function(e){
+                        e.preventDefault();
+                        e.stopPropagation();
+                        $filters.find('a').removeClass('selected');
+                        $(this).addClass('selected');
+                        var selector = $(this).attr('data-filter');
+                        $container.isotope({ filter: selector });
+                        return false;
+                    });
+
+                },0);
+
+            }
+        };
+    })
     .directive('news',function () {
         return {
             link: function (scope, element, attrs) {
