@@ -223,7 +223,25 @@ angular.module('cfpSpeakerApp')
 
             }
         };
-    }).directive('news',function () {
+    })
+    .directive('accordeon',function ($timeout) {
+        return {
+            link: function (scope, element, attrs) {
+
+                $timeout(function(){
+
+                    $(element).find('.acco_title').click(function() {
+
+                        $(element).find('.acco_content').slideUp('normal');    
+                        $(this).next().slideDown('normal');
+                    });
+
+                },0);
+
+            }
+        };
+    })
+    .directive('news',function () {
         return {
             link: function (scope, element, attrs) {
                 $(element).bxSlider({

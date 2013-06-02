@@ -121,12 +121,13 @@ $(document).ready(function() {
 		$(this).stop().animate({opacity:0}, 500);
 	});
 	
-
-	// FAQ accordeon
-	$('#accordion .acco_title').click(function() {
-		$('#accordion .acco_content').slideUp('normal');	
-		$(this).next().slideDown('normal');
-	});
+	// Angular Directive
+	
+	// // FAQ accordeon
+	// $('#accordion .acco_title').click(function() {
+	// 	$('#accordion .acco_content').slideUp('normal');	
+	// 	$(this).next().slideDown('normal');
+	// });
 			
 });
 
