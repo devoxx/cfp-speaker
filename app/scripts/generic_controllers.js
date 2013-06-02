@@ -158,39 +158,3 @@ cfpSpeakerAppModule.controller('TwitterCtrl', function ($scope, $location, $http
 });
 
 
-cfpSpeakerAppModule.factory('AnonymousService', ['$http', '$q' ,function($http, $q) {
-    var self = {
-        registerUser: function(user) {
-            var defer = $q.defer();
-            var url = authBaseUri + '/register'
-                    + '?firstname={firstname}&lastname={lastname}'
-                    + '&username={username}&password={password}&email={email}';
-            url = url.replace('{firstname}', user.firstname);
-            url = url.replace('{lastname}', user.lastname);
-            url = url.replace('{username}', user.username);
-            url = url.replace('{password}', user.password);
-            url = url.replace('{email}', user.email);
-
-            $http.post(url, {
-            }).success(function(data, status, headers, config) {
-                defer.resolve(data);
-            }).error(function(data, status, headers, config) {
-                defer.reject(data);
-            });
-            return defer.promise;
-        },
-        lostPassword: function(email) {
-            var defer = $q.defer();
-            var url = authBaseUri + '/reset/' + email;
-
-            $http.post(url, {
-            }).success(function(data, status, headers, config) {
-                defer.resolve(data);
-            }).error(function(data, status, headers, config) {
-                defer.reject(data);
-            });
-            return defer.promise;
-        }
-    };
-    return self;
-}]);

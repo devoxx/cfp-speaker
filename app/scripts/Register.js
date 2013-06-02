@@ -1,26 +1,54 @@
 "use strict";
 
-cfpSpeakerAppModule.controller('RegisterCtrl', ['$scope', 'AnonymousService', function($scope, AnonymousService) {
+cfpSpeakerAppModule.controller('RegisterCtrl', ['$scope', 'AnonymousService', 'UserService', '$location', 
+                                        function($scope, AnonymousService, UserService, $location) {
+
     $scope.model = {};
 
-    $scope.initRegisterForm = function() {
-        $scope.model.newUser = {};
-        $scope.isSubmitting = false;
-        $scope.isSubmitted = false;
-        $scope.error = null;
-    };
+    $scope.model.newUser = {};
 
-    $scope.initRegisterForm();
+    $scope.feedback = null;
+
+    $scope.hasNoTypo = function() {
+        return $scope.emailsMatch && $scope.passwordsMatch;
+    }
+
+    $scope.emailsMatch = function(){
+        return ($scope.model.newUser.email && $scope.model.newUser.email.length > 3 && $scope.model.newUser.email == $scope.model.newUser.email2) || false;
+    }
+
+    $scope.passwordsMatch = function(){
+        return ($scope.model.newUser.password && $scope.model.newUser.password.length > 3 && $scope.model.newUser.password == $scope.model.newUser.password2) || false;
+    }
 
     $scope.register = function() {
-        $scope.isSubmitting = true;
-        AnonymousService.registerUser($scope.model.newUser).then(function(data) {
-            $scope.initRegisterForm();
-            $scope.isSubmitted = true;
-        }, function(data) {
-            $scope.isSubmitting = false;
-            console.log('Error registering user', data);
-            $scope.error = 'There was an error. Please check the information you entered and try again';
-        });
-    };
+
+            $scope.feedback = null;
+
+            AnonymousService.registerUser({
+                firstname:  $scope.model.newUser.firstname,
+                lastname:   $scope.model.newUser.lastname,
+                username:   $scope.model.newUser.username,
+                email:      $scope.model.newUser.email,
+                password:   $scope.model.newUser.password
+            })
+                .success(function () {
+                    $scope.feedback = {
+                        type: 'info',
+                        message: 'Your account was created'
+                    }
+                    UserService.login($scope.model.newUser.username, $scope.model.newUser.password)
+                        .then(function(){
+                            $location.path('/speaker/profile');
+                        })
+                })
+                .error(function () {
+                    $scope.feedback = {
+                        type: 'error',
+                        message: 'Failed to register, please try again'
+                    }
+                });
+        }
+
+
 }]);

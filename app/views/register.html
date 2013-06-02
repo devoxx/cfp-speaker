@@ -13,22 +13,9 @@
 <div id="paper_form" class="area lightgrey">
     <div class="grid">
 
-        <h4 ng-show="isSubmitting"
-            devoxx-set-focus-on="isSubmitting"
-            devoxx-set-focus-field="submittingMessage">
-            <!-- an anchor is required for setting focus. Focus is used to scroll to the message -->
-            <a href="" id="submittingMessage">Registering...</a>
-        </h4>
-
-        <h4 ng-show="isSubmitted">
-            Registered a new user for Devoxx. A verification email has been sent. Please verify using this email.<br>
-            <a ng-click="initRegisterForm()">Add another user</a>
-        </h4>
-
-        <form ng-submit="register()" ng-hide="isSubmitting || isSubmitted" name="registerForm">
+        <form ng-hide="feedback.type == 'info'" name="registerForm" ng-submit="register()">
             <div class="row">
-                <div class="col12">
-                    <h4>{{error}}</h4>
+                <div class="col12">                
                     <h4>Register new user</h4>
                     <ul>
                         <li>
@@ -45,6 +32,14 @@
                             <label for="registerEmail">Email address</label>
                             <input id="registerEmail" type="email" ng-model="model.newUser.email" required devoxx-uniform>
                         </li>
+                        <li>
+                            <label for="registerEmail">Email address again</label>
+                            <input id="registerEmail" type="email" ng-model="model.newUser.email2" required devoxx-uniform>
+                        </li>
+                        <li>
+                            <label></label>
+                            <div class="alert alert-danger" ng-hide='emailsMatch()'>Email addresses must match!</div>
+                        </li>
 
                         <li>
                             <label for="registerUsername">Username</label>
@@ -55,19 +50,35 @@
                             <label for="registerPassword">Password</label>
                             <input id="registerPassword" type="password" ng-model="model.newUser.password" required devoxx-uniform>
                         </li>
+                        <li>
+                            <label for="registerPassword">Password again</label>
+                            <input id="registerPassword" type="password" ng-model="model.newUser.password2" required devoxx-uniform>
+                        </li>                        
+                        <li>
+                            <label></label>
+                            <div class="alert alert-danger" ng-hide='passwordsMatch()'>Passwords must match!</div>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="row">
+                <div class="col9 push3">
+                    <div class="alert alert-{{feedback.type}}" ng-show="feedback">{{feedback.message}}</div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col6 push6">
                     <ul>
                         <li class="btn">
-                            <input type="submit" name="" value="Register">
+                            <input type="submit" name="" value="Register" ng-disabled="!hasNoTypo()">
                         </li>
                     </ul>
                 </div>
             </div>
+
+            
+
         </form>
     </div>
 </div>
