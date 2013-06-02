@@ -1,26 +1,25 @@
 "use strict";
 
 cfpSpeakerAppModule.controller('LostPasswordCtrl', ['$scope', 'AnonymousService', function($scope, AnonymousService) {
-    $scope.model = {};
-
-    $scope.initLostPasswordForm = function() {
-        $scope.model.email = '';
-        $scope.error = '';
-        $scope.isSubmitting = false;
-        $scope.isSubmitted = false;
-    };
-
-    $scope.initLostPasswordForm();
+    $scope.model = { email : null };
 
     $scope.lostPassword = function() {
-        $scope.isSubmitting = true;
-        AnonymousService.lostPassword($scope.model.newUser).then(function(data) {
-            $scope.initLostPasswordForm();
-            $scope.isSubmitted = true;
-        }, function(data) {
-            $scope.isSubmitting = false;
-            console.log('Error resetting password', data);
-            $scope.error = 'There was an error. Please check the information you entered and try again';
-        });
+        
+        AnonymousService.lostPassword($scope.model.email)
+
+            .success(function () {
+                $scope.feedback = {
+                    type: 'info',
+                    message: 'An email with instructions on how to reset your password has been sent to the provided email address.'
+                }
+
+            })
+            .error(function () {
+                $scope.feedback = {
+                    type: 'error',
+                    message: 'We couldn\'t find your email address in our systems. Please your input and try again'
+                }
+            });
+
     };
 }]);
