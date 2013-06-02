@@ -245,13 +245,7 @@ div.selector.ng-invalid {
     color: #000;
 }
 
-#tweetwall .visual {
-    background-size: 156px;
-}
 
-#tweetwall .tweet {
-    cursor: pointer;
-}
 
 #news li p a {
     color: #52b5bb;
@@ -261,6 +255,31 @@ div.selector.ng-invalid {
 #carousel .content p {
     font-size: 18px;
 }
+
+
+#tweetwall ul li .visual {
+    height: 120px !important;
+    width: 120px !important;    
+    -webkit-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+#tweetwall .visual {
+    background-size: 120px !important; 
+}
+
+#tweetwall .tweet {
+    cursor: pointer;
+}
+
+#tweetwall ul li .tweet {
+    margin: 0 60px 0 200px !important;
+}
+
+#tweetwall ul li.even .tweet {
+    margin: 0 200px 0 60px !important;
+}
+
 
 /* Flexible iFrame for Google Maps */
 
