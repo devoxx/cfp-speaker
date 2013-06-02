@@ -331,7 +331,6 @@ module.exports = function (grunt) {
     'clean:server',
     'coffee:dist',
     'compass:server',
-    //'livereload-start',
     'connect:e2eDist',
     'open:serverDist',
     'watch'
