@@ -311,7 +311,7 @@ angular.module('cfpSpeakerApp')
                             minSlides: 3,       /* */
                             maxSlides: 3,       /* */
                             slideMargin: 0,     /* */
-                            pause: 2000,        /* timeout between animation */
+                            pause: 4000,        /* timeout between animation */
                             moveSlides: 1,      /* number slides to move */
                             controls: false,    /* show prev/next */
                             pager: false,       /* show pager */
