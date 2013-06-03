@@ -965,7 +965,7 @@ footer .sponsors a {
 /* @group Page: Venue */
 
 #topinfo {
-	padding: 140px 0 0;
+	padding: 140px 0 70px;
 }
 #topinfo h1 {
 	color: #fff;
@@ -985,6 +985,7 @@ footer .sponsors a {
 }
 
 #googlemap {
+	background: url(../images_dummy/gmap_dummy.jpg) no-repeat center;
 	height: 530px;
 }
 
