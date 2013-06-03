@@ -4,7 +4,7 @@
 .grid {
 	margin: 0 auto;
 	max-width: 900px;
-	padding: 0 30px;
+	padding: 0 0px;
 }
 
 .row {
@@ -23,9 +23,6 @@
 .row {
     *zoom: 1;
 }
-
-
-
 
 
 /* Common columns definitions */

@@ -178,19 +178,16 @@
 /** END CSS from bootstrap */
 
 .table {
-    background-color: #fff;
     width: 100%;
 }
 
 .table th, .table td {
     text-align: center;
     padding: 5px;
-    height: 60px;
+    height: 70px;
 }
 
 .table th {
-    background-color: #000;
-    color: #fff;
     text-transform: uppercase;
 }
 
@@ -199,7 +196,7 @@
 }
 
 .table .col1 {
-    width: 215px;
+    width: 23%;
 }
 
 .table .col2 {
@@ -368,7 +365,7 @@ a.btn_edit {
     background: url(../images/btn_edit.png) no-repeat 10px;
     color: #000;
     display: inline-block;
-    padding: 40px 25px 25px 30px;
+    padding: 40px 25px 25px 25px;
 }
 a.btn_edit:hover {
     background-color: #f5af33;
@@ -377,7 +374,7 @@ a.btn_delete {
     background: url(../images/btn_delete.png) no-repeat 10px;
     color: #000;
     display: inline-block;
-    padding: 40px 25px 25px 30px;
+    padding: 40px 20px 25px 35px;
 }
 a.btn_delete:hover {
     background-color: #f5af33;
