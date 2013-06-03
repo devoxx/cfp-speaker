@@ -8,12 +8,8 @@ cfpSpeakerAppModule.controller('AppCtrl',function ($rootScope, $route, $location
         console.log('$routeChangeError:', arguments);
 
         // These redirects must be done using full page refresh, otherwise it messes up the CurrentUser Promise
-        if (rejection == 'No valid userToken' || rejection == 'No currentUser') {
-            $window.location.href = '/';
-            return;
-        }
-        if (rejection == 'Profile incomplete') {
-            $window.location.href = speakerUrlPrefix + '/profile';
+        if (rejection == 'emptyprofile') {
+            $location.path(speakerUrlPrefix + '/profile');
             return;
         }
     });

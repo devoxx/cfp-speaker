@@ -134,6 +134,10 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     params: {
                         userToken: self.currentUserToken
                     }
+                }).success(function(data){
+                    self.currentUser = user;
+                    self.currentUserDefer = $q.defer();
+                    self.currentUserDefer.resolve(self.currentUser);
                 });
             }
         };
