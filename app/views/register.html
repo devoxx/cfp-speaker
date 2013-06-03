@@ -4,7 +4,6 @@
             <div class="col16">
                 <h1>New to Devoxx?</h1>
                 <h3>Register yourself here</h3>
-                <p>Want to be part of the great Java community? Then you can register yourself here.</p>
             </div>
         </div>
     </div>
@@ -16,7 +15,7 @@
         <form ng-hide="feedback.type == 'info'" name="registerForm" ng-submit="register()">
             <div class="row">
                 <div class="col12">                
-                    <h4>Register new user</h4>
+                    <h4>Enter your details, all fields are mandatory</h4>
                     <ul>
                         <li>
                             <label for="registerFirstname">First name</label>
@@ -38,7 +37,7 @@
                         </li>
                         <li>
                             <label></label>
-                            <div class="alert alert-danger" ng-hide='emailsMatch()'>Email addresses must match!</div>
+                            <div class="alert alert-danger" ng-hide='registerForm.$pristine || emailsMatch()'>Email addresses must match!</div>
                         </li>
 
                         <li>
@@ -56,7 +55,7 @@
                         </li>                        
                         <li>
                             <label></label>
-                            <div class="alert alert-danger" ng-hide='passwordsMatch()'>Passwords must match!</div>
+                            <div class="alert alert-danger" ng-hide='registerForm.$pristine || passwordsMatch()'>Passwords must match!</div>
                         </li>
                     </ul>
                 </div>
