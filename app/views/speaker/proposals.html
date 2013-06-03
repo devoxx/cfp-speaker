@@ -46,15 +46,17 @@
                     <table class="table" ng-show="model.myProposals.length > 0">
                         <thead>
                             <tr>
+                                <th class="col1">Event</th>
                                 <th class="col1">Title</th>
-                                <th class="col2">Status</th>
+                                <th class="col1">Status</th>
                                 <th class="col3"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="proposal in model.myProposals">
+                                <td class="col1">{{proposal.event.name}}</td>
                                 <td class="col1">{{proposal.title}}</td>
-                                <td class="col2">{{proposal.state}}</td>
+                                <td class="col1">{{proposal.state}}</td>
                                 <td class="col3">
                                     <a ng-click="editProposal(proposal)" class="btn">Edit</a>
                                     <a ng-click="deleteProposal(proposal)" class="btn">Delete</a>

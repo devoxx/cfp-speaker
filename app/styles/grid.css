@@ -3,7 +3,7 @@
 
 .grid {
 	margin: 0 auto;
-	max-width: 900px;
+	max-width: 1000px;
 	padding: 0 30px;
 }
 
@@ -29,6 +29,7 @@
 
 
 /* Common columns definitions */
+.col0 { float: left; width: 2%; }
 .col1 { float: left; width: 5%; }
 .col2 { float: left; width: 10%; }
 .col3 { float: left; width: 15%; }
