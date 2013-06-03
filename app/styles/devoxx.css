@@ -279,6 +279,9 @@ div.selector.ng-invalid {
     margin: 0 200px 0 60px !important;
 }
 
+.visible {
+    display: block !important;
+}
 
 /* Flexible iFrame for Google Maps */
 

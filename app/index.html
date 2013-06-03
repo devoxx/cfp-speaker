@@ -111,10 +111,11 @@
                     <!--<li class="btn hide_mobile">-->
                     <!--<a href="#">Buy tickets</a>-->
                     <!--</li>-->
-                    <li class="btn popup login btn_grey" ng-hide="model.currentUser()">
+                    <li class="btn popup login btn_grey" ng-hide="model.currentUser()" ng-class="{'open':model.loginRequested}">
                         <a>Login</a>
-                        <ul>
-                            <li>
+                        
+                        <ul ng-class="{'visible':model.loginRequested}">
+                            <li> 
                                 <div class="popup">
                                     <form ng-submit="login()" class="clearfix" autocomplete="off">
                                         <div class="alert alert-error" ng-show="model.loginError">{{model.loginError}}

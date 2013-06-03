@@ -31,19 +31,33 @@ cfpSpeakerAppModule.controller('AppCtrl',function ($rootScope, $route, $location
 cfpSpeakerAppModule.controller('LoginCtrl',function ($scope, $location, $window, $cookies, $http, $filter, UserService, EventBus) {
     $scope.model = {
         loginDisabled: false,
-        loginError: null
+        loginError: null,
+        loginRequested: false
     };
     $scope.model.currentUser = UserService.getCurrentUser;
-
-    UserService.waitForCurrentUser();
 
     $scope.login = function () {
         if (!$scope.model.loginDisabled) {
             $scope.model.loginDisabled = true;
-            UserService.login($scope.model.email, $scope.model.password);
+            UserService.login($scope.model.email, $scope.model.password)
+            .then(function(){
+                $scope.model.loginRequested = false;
+                hookLoginRequest();
+            });
         }
     };
-    $scope.logout = UserService.logout;
+
+    $scope.logout = function () {
+        UserService.logout();
+    }
+
+    function hookLoginRequest() {
+        UserService.waitForLoginRequest().then(function() {
+            $scope.model.loginRequested = true;
+        });
+    }
+    
+    hookLoginRequest();
 
     EventBus.onLoginSuccess($scope, function (user, userToken, event) {
 //            $scope.model.currentUser = user;

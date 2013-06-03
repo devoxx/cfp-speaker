@@ -10,7 +10,7 @@ speakerModule.value('appName', 'Speaker Module', []);
 
 speakerModule.config(function ($routeProvider) {
     var resolveCurrentUser = {
-        currentUser: 'ResolverService'
+        currentUser: 'ResolverService'        
     };
     // Proposal routing
     $routeProvider
@@ -24,7 +24,7 @@ speakerModule.config(function ($routeProvider) {
         }).when(speakerUrlPrefix + '/proposal/', {
             redirectTo: '/proposals'
         }).when(speakerUrlPrefix + '/proposal/new', {
-            resolve: resolveCurrentUser,
+        resolve: resolveCurrentUser,
             templateUrl: speakerViewPrefix + '/proposal_form.html',
             controller: speakerCtrlPrefix + 'SubmitProposalCtrl'
         }).when(speakerUrlPrefix + '/proposal/:proposalId', {
@@ -34,14 +34,15 @@ speakerModule.config(function ($routeProvider) {
         });
 }).factory('ResolverService', ['$q', 'UserService', function ($q, UserService) {
     var defer = $q.defer();
-    UserService.waitForCurrentUser().then(function(data) {
-        if (UserService.isProfileComplete(data)) {
-            defer.resolve(data);
-        } else {
-            defer.reject('Profile incomplete');
-        }
-    }, function(data) {
-        defer.reject(data);
-    });
+    UserService.waitForCurrentUserAndRequestLogin()
+        .then(function(data) {
+            if (UserService.isProfileComplete(data)) {
+                defer.resolve(data);
+            } else {
+                defer.reject('Profile incomplete');
+            }
+        }, function(data) {
+            defer.reject(data);
+        });
     return defer.promise;
 }]);

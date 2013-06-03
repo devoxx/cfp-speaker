@@ -36,11 +36,12 @@ genericServices.factory('TalksService',function ($http, UserService) {
         }
     };
 }).factory('UserService',function ($q, $filter, $http, $timeout, $cookies, $location, EventBus) {
+            
         var self = {
             currentUser: null,
             currentUserToken: $cookies.userToken,
-            loginValidationFinished: false,
             currentUserDefer: $q.defer(),
+            loginRequestedDefer: $q.defer(),
 
             login: function (username, pass) {
                 return $http.post(authUri, {}, {
@@ -61,22 +62,23 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     self.currentUserDefer.reject('No currentUser');
                 });
             },
-            loginByToken: function (userToken) {
-                self.currentUserToken = userToken;
-                $http.post(authUri + '/token', {}, {
-                    params: {
-                        userToken: userToken
-                    }
-                }).success(function (data, status, headers, config) {
-                    console.log('successful login with token')
-                    self.currentUser = data;
-                    EventBus.loginSuccess(data, userToken);
-                    self.currentUserDefer.resolve(self.currentUser);
-                }).error(function (data, status, headers, config) {
-                    EventBus.loginFailed(data.msg);
-                    self.currentUser = null;
-                    self.currentUserDefer.reject('No currentUser');
-                });
+            loginByToken: function () {
+                if (self.currentUserToken) {
+                    $http.post(authUri + '/token', {}, {
+                        params: {
+                            userToken: self.currentUserToken
+                        }
+                    }).success(function (data, status, headers, config) {
+                        console.log('successful login with token')
+                        self.currentUser = data;
+                        EventBus.loginSuccess(data, self.currentUserToken);
+                        self.currentUserDefer.resolve(self.currentUser);
+                    }).error(function (data, status, headers, config) {
+                        EventBus.loginFailed(data.msg);
+                        self.currentUser = null;
+                        self.currentUserDefer.reject('No currentUser');
+                    });                    
+                }
             },
             logout: function () {
                 var oldToken = self.currentUserToken;
@@ -84,6 +86,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     self.currentUser = null;
                     self.currentUserToken = '';
                     self.currentUserDefer = $q.defer();
+                    self.loginRequestedDefer = $q.defer();
                     EventBus.loggedOut(self.currentUser, oldToken);
                 };
                 if (oldToken && oldToken.length > 0) {
@@ -96,17 +99,17 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     && speaker.company && speaker.speakerBio && speaker.speakingReferences;
             },
             waitForCurrentUser: function () {
-                var currentUserToken = self.currentUserToken;
-                if (currentUserToken) {
-                    var currentUser = self.currentUser;
-                    if (currentUser) {
-                        self.currentUserDefer.resolve(currentUser);
-                    } else {
-                        self.loginByToken(currentUserToken);
-                    }
-                }
-
                 return self.currentUserDefer.promise;
+            },
+            waitForCurrentUserAndRequestLogin: function () {
+                self.requestLogin();
+                return self.currentUserDefer.promise;
+            },
+            waitForLoginRequest: function() {
+                return self.loginRequestedDefer.promise;                    
+            },
+            requestLogin: function() {
+                self.loginRequestedDefer.resolve();
             },
             getCurrentUser: function () {
                 return self.currentUser;
