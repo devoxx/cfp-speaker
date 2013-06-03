@@ -22,6 +22,15 @@
                         <hr>
                     </div>
                 </div>
+                <div class="row" ng-show="profileComplete">
+                    <div class="col12">
+                        <p class="label label-danger">
+                            <h4>Your profile is complete.</h4>
+                            Go to the <a href="#/speaker/proposals">proposals section</a> to submit or review a previously submitted talk.
+                        </p>
+                        <hr>
+                    </div>
+                </div>
 
                 <ng-include src="'views/speaker/speaker_details.html'"></ng-include>
 
@@ -33,6 +42,13 @@
                             </li>
                         </ul>
                     </div>
+
+                    <div class="col12" ng-show="feedback">
+                        <div class="alert alert-{{feedback.type}}" ng-show="feedback">{{feedback.message}}</div>
+                        <p class="label label-danger" ng-show="profileComplete">                            
+                            Go to the <a href="#/speaker/proposals">proposals section</a> to submit or review a previously submitted talk.
+                        </p>
+                    </div>                    
                 </div>
             </div>
         </form>

@@ -23,31 +23,35 @@ cfpSpeakerAppModule.controller('RegisterCtrl', ['$scope', 'AnonymousService', 'U
 
     $scope.register = function() {
 
-            $scope.feedback = null;
+            if ($scope.hasNoTypo()) {
+                
+                $scope.feedback = null;
 
-            AnonymousService.registerUser({
-                firstname:  $scope.model.newUser.firstname,
-                lastname:   $scope.model.newUser.lastname,
-                username:   $scope.model.newUser.username,
-                email:      $scope.model.newUser.email,
-                password:   $scope.model.newUser.password
-            })
-                .success(function () {
-                    $scope.feedback = {
-                        type: 'info',
-                        message: 'Your account was created'
-                    }
-                    UserService.login($scope.model.newUser.username, $scope.model.newUser.password)
-                        .then(function(){
-                            $location.path('/speaker/profile');
-                        })
+                AnonymousService.registerUser({
+                    firstname:  $scope.model.newUser.firstname,
+                    lastname:   $scope.model.newUser.lastname,
+                    username:   $scope.model.newUser.username,
+                    email:      $scope.model.newUser.email,
+                    password:   $scope.model.newUser.password
                 })
-                .error(function () {
-                    $scope.feedback = {
-                        type: 'error',
-                        message: 'Failed to register, please try again'
-                    }
-                });
+                    .success(function () {
+                        $scope.feedback = {
+                            type: 'info',
+                            message: 'Your account was created'
+                        }
+                        UserService.login($scope.model.newUser.username, $scope.model.newUser.password)
+                            .then(function(){
+                                $location.path('/speaker/profile');
+                            })
+                    })
+                    .error(function () {
+                        $scope.feedback = {
+                            type: 'error',
+                            message: 'Failed to register, please try again'
+                        }
+                    });
+            }
+
         }
 
 

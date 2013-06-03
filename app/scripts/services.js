@@ -126,18 +126,12 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 });
             },
             updateProfile: function (user) {
-                var defer = $q.defer();
                 var url = authUri + '/profile';
-                $http.put(url, user, {
+                return $http.put(url, user, {
                     params: {
                         userToken: self.currentUserToken
                     }
-                }).success(function (data, status, headers, config) {
-                    defer.resolve(data);
-                }).error(function (data, status, headers, config) {
-                    defer.reject(data);
                 });
-                return defer.promise;
             }
         };
         return self;

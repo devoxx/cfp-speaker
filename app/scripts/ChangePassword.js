@@ -14,21 +14,25 @@ cfpSpeakerAppModule.controller('ChangePasswordCtrl', ['$scope', 'AnonymousServic
 
     $scope.changePassword = function() {
         
-        AnonymousService.changePassword($routeParams.token, $scope.model.newUser.password)
+        if ($scope.passwordsMatch) {
 
-            .success(function () {
-                $scope.feedback = {
-                    type: 'info',
-                    message: 'Your password was changed successfully, please login again.'
-                }
+            AnonymousService.changePassword($routeParams.token, $scope.model.newUser.password)
 
-            })
-            .error(function () {
-                $scope.feedback = {
-                    type: 'error',
-                    message: 'Failed to change your password, please try to reset your password again.'
-                }
-            });
+                .success(function () {
+                    $scope.feedback = {
+                        type: 'info',
+                        message: 'Your password was changed successfully, please login again.'
+                    }
+
+                })
+                .error(function () {
+                    $scope.feedback = {
+                        type: 'error',
+                        message: 'Failed to change your password, please try to reset your password again.'
+                    }
+                });
+
+        }
 
     };
 }]);
