@@ -10,7 +10,7 @@ cfpSpeakerAppModule.controller('RegisterCtrl', ['$scope', 'AnonymousService', 'U
     $scope.feedback = null;
 
     $scope.hasNoTypo = function() {
-        return $scope.emailsMatch && $scope.passwordsMatch;
+        return $scope.emailsMatch() && $scope.passwordsMatch();
     }
 
     $scope.emailsMatch = function(){
