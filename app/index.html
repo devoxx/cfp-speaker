@@ -52,6 +52,7 @@
     <script src="scripts/directives.js"></script>
     <script src="scripts/filters.js"></script>
     <script src="scripts/generic_controllers.js"></script>
+    <script src="scripts/ChangePassword.js"></script>
     <script src="scripts/LostPassword.js"></script>
     <script src="scripts/Register.js"></script>
     <script src="scripts/speaker/module.js"></script>
@@ -90,7 +91,7 @@
                 <a href="#"><img src="images/devoxx_logo.gif"></a>
             </div>
 
-            <nav class="col14" ng-controller="LoginCtrl">
+            <nav class="" ng-controller="LoginCtrl">
                 <ul>
                     <li><a href="#/">Home</a></li>
                     <!--<li class="submenu subleft">-->
@@ -144,7 +145,7 @@
                         </ul>
                     </li>
                     <li class="submenu subright" ng-show="model.currentUser()">
-                        <a>User <img src="images/User-icon.png" height="10" width="10" style="margin-top: -1px;"></a>
+                        <a>{{model.currentUser().firstname}} {{model.currentUser().lastname}} <img src="images/User-icon.png" height="10" width="10" style="margin-top: -1px;"></a>
                         <ul>
                             <li><a href="#/speaker" ng-click="logout()">Logout</a></li>
                             <li><a href="#/speaker/proposals">Proposals</a></li>

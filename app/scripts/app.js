@@ -14,6 +14,9 @@ cfpSpeakerApp.config(function ($routeProvider) {
         }).when('/lost_password', {
             templateUrl: 'views/lost_password.html',
             controller: 'LostPasswordCtrl'
+        }).when('/reset/:token', {
+            templateUrl: 'views/change_password.html',
+            controller: 'ChangePasswordCtrl'
         }).when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl'

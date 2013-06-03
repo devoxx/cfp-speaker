@@ -282,7 +282,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
 
             var url = authUri + '/change';
 
-            return $http.post(url, { tokens: token, password: password });
+            return $http.post(url, { uuid: token, password: password });
         }
     };
     return self;
