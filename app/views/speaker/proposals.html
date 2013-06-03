@@ -49,7 +49,7 @@
                                 <th class="col1">Event</th>
                                 <th class="col1">Title</th>
                                 <th class="col1">Status</th>
-                                <th class="col3"></th>
+                                <th class="col1"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,9 +57,9 @@
                                 <td class="col1">{{proposal.event.name}}</td>
                                 <td class="col1">{{proposal.title}}</td>
                                 <td class="col1">{{proposal.state}}</td>
-                                <td class="col3">
-                                    <a ng-click="editProposal(proposal)" class="btn">Edit</a>
-                                    <a ng-click="deleteProposal(proposal)" class="btn">Delete</a>
+                                <td class="col1">
+                                    <a ng-click="editProposal(proposal)" class="btn_edit"></a>
+                                    <a ng-click="deleteProposal(proposal)" class="btn_delete"></a>
                                 </td>
                             </tr>
                         </tbody>
