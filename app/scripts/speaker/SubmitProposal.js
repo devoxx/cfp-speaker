@@ -31,6 +31,11 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
 
     });
 
+    $scope.$watch('model.talk.event', function(){
+        $scope.model.talk.track = null;
+        $scope.model.talk.type = null;    
+    });
+
     $scope.initializeForAdd = function () {
         $scope.model.talk = {
             state: 'DRAFT',

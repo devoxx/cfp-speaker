@@ -103,14 +103,13 @@ angular.module('cfpSpeakerApp')
                     case 'inputsubmit':
                     case 'input':
                     case 'textarea':
-                        width = '339px';
+                        // width = '339px';
                         watchWithNoParentElement();
                         break;
                     case 'inputcheckbox':
                         watchWithParentElement('.checker');
                         break;
                     case 'select':
-                        width = '302px';
                         watchWithParentElement('.selector');
                         break;
                 }
@@ -120,9 +119,22 @@ angular.module('cfpSpeakerApp')
                         'width': width
                     });
                 }
+                
                 $(element).uniform();
+
+                scope.$watch(attrs.ngModel, function(){
+                    $.uniform.update(); // Updates all uniform controls
+
+                    // Fix widths on all dropdowns
+                    $('.selector').css('width', '100%')
+                    $('.selector span').css('width', '80%')
+                    $('.selector select').css('width', '100%')
+                });
+
+
                 setTimeout(function () {
                     setDisplayText();
+
                 }, 0)
             }
         };
