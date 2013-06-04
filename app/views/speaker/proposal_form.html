@@ -145,11 +145,11 @@
 
 
 
-                        <li>
+                        <li style="clear: both; padding-top: 30px;">
                             <label></label>
                             <ul class="checkradios clearfix">
                                 <li>
-                                    <label style="width: 370px">
+                                    <label style="width: 535px">
                                         <input type="checkbox"
                                                devoxx-uniform
                                                ng-model="model.talk.sharedProposal">
@@ -163,7 +163,7 @@
                             <label></label>
                             <ul class="checkradios clearfix">
                                 <li>
-                                    <label style="width: 370px">
+                                    <label style="width: 535px">
                                         <input type="checkbox"
                                                ng-model="model.termsAndConditionsAgreed"
                                                devoxx-uniform
@@ -178,8 +178,8 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col6 push6">
+            <div class="row" ng-show="model.talk.event">
+                <div class="col6 push9">
                     <ul>
                         <li class="btn" ng-hide="model.editable" >
                             <a class="btn" ng-click="cancel()">Back</a>
