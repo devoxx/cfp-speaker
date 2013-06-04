@@ -293,6 +293,10 @@ div.selector.ng-invalid {
     width: 800px;
 }
 
+.modal.speaker {
+    width: 800px;
+}
+
 a {
     cursor: pointer;
 }

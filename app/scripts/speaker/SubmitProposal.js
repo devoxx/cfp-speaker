@@ -1,16 +1,15 @@
 'use strict';
 
-speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q, $scope, $filter, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location) {
+speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', 
+    [ '$q', '$scope', '$filter', 'UserService', 'Tags', 'Talks', 'TalksService', 'EventService', '$routeParams', '$location', 'currentUser',
+ function ($q, $scope, $filter, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location, currentUser) {
+
     $scope.model = {
         talk: {},
         speakerDetails: {},
         addSpeakerDialogOpen: false,
         newTag: '',
-        opts: {
-            backdropFade: true,
-            dialogFade: true
-        },
-        currentUser: UserService.currentUser,
+        currentUser: currentUser,
         experienceOptions: [
             { value: 'NOVICE', text: 'NOVICE' },
             { value: 'SENIOR', text: 'SENIOR' },
@@ -48,7 +47,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
             language: '2',
             id: null // Probably useless, but this is explicit
         };
-        $scope.model.talk.speakers.push($scope.currentUser);
+        $scope.model.talk.speakers.push($scope.model.currentUser);
         if ($scope.model.events.length == 1) {
             $scope.model.talk.event = $scope.model.events[0];
         }
@@ -75,11 +74,11 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
         TalksService.byId(proposalId).success(function (data, status, headers, config) {
             var model = $scope.model;
             model.talk = data;
-            if (!model.speakers) {
-                model.speakers = [];
+            if (!model.talk.speakers) {
+                model.talk.speakers = [];
             }
             if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, data.author)) {
-                model.talk.speakers.push($scope.model.waitForCurrentUser);
+                model.talk.speakers.push($scope.model.currentUser);
             }
 
             var event = $scope.matchOnId(model.events, data.event);
@@ -243,6 +242,8 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
     };
     $scope.cancel = function (talk) {
         $scope.model.talk = {};
-        $location.url('/speaker/proposals')
+        $location.path('/speaker/proposals')
     };
-});
+}
+]
+);

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col9">
                 <h1>Call for Papers</h1>
-                <h3>Submit your passion and make a difference @ Devoxx</h3>
+                <h3>make a difference @ Devoxx</h3>
             </div>
             <div class="col11">
                 <img src="../../images/topinfo_visual_call.png" class="visual" alt=""/>
@@ -185,7 +185,7 @@
                 <div class="col6 push6">
                     <ul>
                         <li class="btn">
-                            <input type="submit" ng-click="submit(model.talk, submitProposalForm)" name="" value="Submit">
+                            <input type="submit" ng-disabled="!model.termsAndConditionsAgreed" ng-click="submit(model.talk, submitProposalForm)" name="" value="Submit">
                         </li>
                     </ul>
 
@@ -197,18 +197,26 @@
     <div modal="model.addSpeakerDialogOpen"
          devoxx-set-focus-on="model.addSpeakerDialogOpen"
          devoxx-set-focus-field="speakerDetailsEmail"
-         close="closeNewSpeaker()">
+         close="closeNewSpeaker()"
+         options="{dialogClass: 'modal speaker'}">
         <div class="modal-header">
             <h1>Add new speaker</h1>
         </div>
         <div class="modal-body">
             <form name="addSpeakerForm" ng-submit="addNewSpeaker(model.speakerDetails)">
                 <ng-include src="'views/speaker/speaker_details.html'"></ng-include>
-                <input type="submit"
-                       class="btn"
-                       value="Add new speaker (speaker will be invited by email)"
-                       devoxx-set-focus-on="!model.addSpeakerDialogOpen"
-                       devoxx-set-focus-field="talkAddSpeakerSearchName">
+                
+                <div class="col12">
+                    <ul>
+                        <li class="btn">
+                            <input type="submit"
+                            class="btn"
+                            value="Invite speaker by email"
+                            devoxx-set-focus-on="!model.addSpeakerDialogOpen"
+                            devoxx-set-focus-field="talkAddSpeakerSearchName">
+                        </li>
+                    </ul>
+                </div>
             </form>
         </div>
         <div class="modal-footer">
