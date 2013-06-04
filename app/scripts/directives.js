@@ -10,7 +10,6 @@ angular.module('cfpSpeakerApp')
 
                 $(element).click(function (e) {
                     e.preventDefault();
-                    console.log("CLiecked scrolling")
                     e.stopPropagation();
                     var anchorElem = $('a[name=' + attrs.scroll + ']');
                     if (anchorElem.length) {
@@ -119,7 +118,7 @@ angular.module('cfpSpeakerApp')
                         'width': width
                     });
                 }
-                
+
                 $(element).uniform();
 
                 scope.$watch(attrs.ngModel, function(){
@@ -131,21 +130,22 @@ angular.module('cfpSpeakerApp')
                     $('.selector select').css('width', '100%')
                 });
 
-
                 setTimeout(function () {
                     setDisplayText();
-
                 }, 0)
             }
         };
     })
-    .directive('devoxxOnReturnKey',function () {
+    .directive('devoxxOnReturnKey', function ($timeout) {
         return {
+            priority: 200,
             restrict: 'A',
             link: function (scope, element, attrs) {
-                $(element).keypress(function (e) {
+                $(element).keydown(function (e) {
                     if (e.which === 13) {
-                        scope.$apply(attrs.devoxxOnReturnKey);
+                        $timeout(function() {
+                            scope.$apply(attrs.devoxxOnReturnKey);
+                        }, 0);
                         return false;
                     }
                 });
