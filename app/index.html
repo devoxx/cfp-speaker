@@ -26,6 +26,12 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
+    <style type="text/css">
+        [ng-cloak] {
+            display: none;
+        }
+    </style>
+
     <!-- build:js scripts/scripts-ie.js -->
     <!-- TODO: scripts to bottom of the page (performance) -->
     <!--[if lt IE 9]>
@@ -89,7 +95,7 @@
                 <a href="#"><img src="images/devoxx_logo.gif"></a>
             </div>
 
-            <nav class="" ng-controller="LoginCtrl">
+            <nav class="" ng-controller="LoginCtrl" ng-cloak="ng-cloak">
                 <ul>
                     <li><a href="#/">Home</a></li>
                     <!--<li class="submenu subleft">-->

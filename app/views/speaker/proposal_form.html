@@ -137,8 +137,8 @@
                                     <li style="padding: 15px 0 0 0">
                                         <img ng-src="{{createAvatarUrl(speaker.id, speaker.imageFile)}}">
                                         {{speaker.firstname}} {{speaker.lastname}} |
-                                        <span ng-show="speaker.unknown" class="alert-info">will be invited by email | </span>
-                                        <span ng-show="speaker.id == model.currentUser.id" class="alert-info">This is you | </span>
+                                        <span ng-show="speaker.unknown"><span class="alert-info">will be invited by email</span> | </span>
+                                        <span ng-show="speaker.id == model.currentUser.id"><span class="alert-info">this is you</span> | </span>
                                         <a ng-click="model.talk.speakers.splice($index, 1)"
                                            style="cursor: pointer">&times;</a>
                                     </li>
