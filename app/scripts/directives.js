@@ -136,7 +136,7 @@ angular.module('cfpSpeakerApp')
             }
         };
     })
-    .directive('devoxxOnReturnKey', function ($timeout) {
+    .directive('devoxxOnReturnKey',function ($timeout) {
         return {
             priority: 200,
             restrict: 'A',

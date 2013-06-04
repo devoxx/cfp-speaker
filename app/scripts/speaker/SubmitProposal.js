@@ -73,10 +73,10 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         var res = [];
         events.forEach(function(event) { if ($scope.isOpen(event)) { res.push(event); } });
         return res;
-    }
+    };
 
     $scope.initializeForEdit = function (proposalId) {
-        TalksService.byId(proposalId).success(function (data, status, headers, config) {
+        TalksService.byId(proposalId).success(function (data) {
             var model = $scope.model;
             model.talk = data;
 
@@ -100,14 +100,14 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
             model.talk.track = $scope.matchOnId(event.tracks, data.track);
             model.talk.type = $scope.matchOnId(event.types, data.type);
             model.talk.language = $scope.matchOnId($scope.languageOptions, data.language);
-        }).error(function (data, status, headers, config) {
+        }).error(function (data) {
             $location.path('/speaker/proposals');
         });
     };
 
     $scope.isOpen = function (event) {
         return moment().isAfter(event.cfpFrom) && moment().isBefore(moment(event.cfpTo).add({days:1}));
-    }
+    };
 
     $scope.getTags = function (partialTagName) {
         return Tags.query(partialTagName);
@@ -144,27 +144,40 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         return UserService.thumbnailUrl(speaker);
     };
 
-    $scope.createSearchName = function(speaker) {
-        return speaker.firstname + ' ' + speaker.lastname;
+    $scope.getSpeakers = function (partialSpeakerName) {
+        return UserService.getSpeakerBySearchName(partialSpeakerName).then(function(data) {
+            return $scope.getSpeakerBySearchName(data, partialSpeakerName, true);
+        });
     };
 
-    $scope.getSpeakerBySearchName = function(speakers, searchName) {
-        searchName = searchName && searchName.toLowerCase()
-        if (!speakers) {
-            return [];
+    $scope.createFullName = function(speaker) {
+        return speaker && speaker.firstname + ' ' + speaker.lastname;
+    };
+
+    $scope.getSpeakerBySearchName = function(speakers, searchName, acceptPartialMatches) {
+        var ret = speakers;
+        acceptPartialMatches = acceptPartialMatches === true;
+        searchName = searchName.toLowerCase();
+        if (!ret) {
+            return ret;
         }
-        return $filter('filter')(speakers, function (speaker) {
-            var firstname = speaker.firstname && speaker.firstname.toLowerCase();
-            var lastname = speaker.lastname && speaker.lastname.toLowerCase();
-            return searchName.indexOf(firstname) !== -1
-                && searchName.indexOf(lastname) !== -1
-                && searchName === $scope.createSearchName(speaker).toLowerCase();
+        ret = $filter('filter')(ret, function (speaker) {
+            var speakerName = $scope.createFullName(speaker).toLowerCase();
+            if (acceptPartialMatches) {
+                return speakerName.indexOf(searchName) != -1;
+            } else {
+                return speakerName === searchName;
+            }
         });
+        ret = $filter('orderBy')(ret, function(speaker) {
+            return $scope.createFullName(speaker).toLowerCase();
+        });
+        return ret;
     };
 
     $scope.speakerWithSearchNameDoesNotExist = function (speakers, search) {
         if (search.firstname && search.lastname) {
-            search = $scope.createSearchName(search);
+            search = $scope.createFullName(search);
         }
 
         return $scope.getSpeakerBySearchName(speakers, search).length == 0;
@@ -175,37 +188,35 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
             searchName = model.searchSpeakerName;
 
         if (searchName && $scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, searchName)) {
-            UserService.getSpeakerBySearchName(searchName)
-                .success(function (data, status, headers, config) {
-                    // This service returns also returns users where the searchName is a partial match.
-                    // So we need to be prepared for unexpected/multiple results
-                    var results = data.results;
-                    var speakersFromServer = $scope.getSpeakerBySearchName(results, searchName);
-                    if (speakersFromServer.length == 1) {
-                        var speakerFromServer = speakersFromServer[0];
-                        var searchNameFromServer = $scope.createSearchName(speakerFromServer);
+            UserService.getSpeakerBySearchName(searchName).then(function (data) {
+                // This service returns also returns users where the searchName is a partial match.
+                // So we need to be prepared for unexpected/multiple results
+                var speakersFromServer = $scope.getSpeakerBySearchName(data, searchName);
+                if (speakersFromServer.length == 1) {
+                    var speakerFromServer = speakersFromServer[0];
+                    var searchNameFromServer = $scope.createFullName(speakerFromServer);
 
-                        // Double check because of asynchronous call (prevents double tap on return key)
-                        if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, searchNameFromServer)) {
-                            model.talk.speakers.push(speakerFromServer);
-                            model.searchSpeakerName = '';
-                        }
-                    } else {
-                        model.addSpeakerDialogOpen = true;
-                        var firstname = '', lastname = '';
-                        if (searchName.split(' ').length > 1) {
-                            firstname = searchName.split(' ')[0];
-                            lastname = searchName.substring(firstname.length + 1);
-                        }
-                        model.speakerDetails = {
-                            firstname: firstname,
-                            lastname: lastname,
-                            twitterHandle: '@'
-                        };
+                    // Double check because of asynchronous call (prevents double tap on return key)
+                    if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, searchNameFromServer)) {
+                        model.talk.speakers.push(speakerFromServer);
+                        model.searchSpeakerName = '';
                     }
-                }).error(function (data, status, headers, config) {
-                    console.log(data)
-                });
+                } else {
+                    model.addSpeakerDialogOpen = true;
+                    var firstname = '', lastname = '';
+                    if (searchName.split(' ').length > 1) {
+                        firstname = searchName.split(' ')[0];
+                        lastname = searchName.substring(firstname.length + 1);
+                    }
+                    model.speakerDetails = {
+                        firstname: firstname,
+                        lastname: lastname,
+                        twitterHandle: '@'
+                    };
+                }
+            }, function (data) {
+                console.log(data)
+            });
         }
     };
 

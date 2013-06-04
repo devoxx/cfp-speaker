@@ -43,8 +43,9 @@
                                    ng-model="model.talk.event.name"
                                    ng-show="model.events.length == 1"
                                    devoxx-uniform>
-                            <div ng-show="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}}</div>
-                            <div ng-hide="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}} until {{model.talk.event.eventTo|date:shortDate}}</div>
+                            <!--Disabled because of performance penalty and they are not needed-->
+                            <!--<div ng-show="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}}</div>-->
+                            <!--<div ng-hide="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}} until {{model.talk.event.eventTo|date:shortDate}}</div>-->
                         </li>
                     </ul>
                 </div>
@@ -129,6 +130,8 @@
                                        type="text"
                                        ng-model="model.searchSpeakerName"
                                        placeholder="Add speaker by full name and press return"
+                                       typeahead="createFullName(s) for s in getSpeakers($viewValue)"
+                                       typeahead-min-length="3"
                                        devoxx-on-return-key="addSpeaker()"
                                        devoxx-uniform>
                             </span>
@@ -142,8 +145,6 @@
                             </div>
                             
                         </li>
-
-
 
                         <li style="clear: both; padding-top: 30px;">
                             <label></label>

@@ -36,12 +36,12 @@ genericServices.factory('TalksService',function ($http, UserService) {
         }
     };
 }).factory('UserService',function ($q, $filter, $http, $timeout, $cookies, $location, EventBus) {
-            
         var self = {
             currentUser: null,
             currentUserToken: $cookies.userToken,
             currentUserDefer: $q.defer(),
             loginRequestedDefer: $q.defer(),
+            searchUserCache: {},
 
             login: function (username, pass) {
                 return $http.post(authUri, {}, {
@@ -118,15 +118,28 @@ genericServices.factory('TalksService',function ($http, UserService) {
                 return self.currentUserToken;
             },
             getSpeakerBySearchName: function (searchName) {
-                var url = proposalUri + '/user';
-                var namesSplitted = searchName.split(' ');
-                return $http.get(url, {
-                    params: {
-                        q: namesSplitted,
-                        filter: searchName,
-                        userToken: self.currentUserToken
-                    }
-                });
+                var defer = $q.defer();
+                var cache = self.searchUserCache;
+                var searchNameCacheEntry = cache[searchName];
+                if (!searchNameCacheEntry) {
+                    var url = proposalUri + '/user';
+                    var namesSplitted = searchName.split(' ');
+                    $http.get(url, {
+                        params: {
+                            q: namesSplitted,
+                            filter: searchName,
+                            userToken: self.currentUserToken
+                        }
+                    }).success(function(data) {
+                        cache[searchName] = data.results;
+                        defer.resolve(data.results)
+                    }).error(function(data) {
+                        defer.reject(data);
+                    });
+                } else {
+                    defer.resolve(searchNameCacheEntry);
+                }
+                return defer.promise;
             },
             updateProfile: function (user) {
                 var url = authUri + '/profile';
@@ -153,6 +166,35 @@ genericServices.factory('TalksService',function ($http, UserService) {
         };
         return self;
     }).factory('Tags',function ($http, $q, $filter, UserService) {
+        var cached;
+        var filter = function (list, partialTagName) {
+            var ret = angular.copy(list);
+            ret = $filter('filter')(ret, partialTagName.toLowerCase());
+            ret = $filter('orderBy')(ret, function (o) {
+                return o.name.toLowerCase();
+            });
+            ret = $filter('limitTo')(ret, 10);
+            return ret;
+        };
+        return {
+            query: function (partialTagName) {
+                var defer = $q.defer();
+                if (!cached) {
+                    var url = proposalUri + '/event/1/tag?size=1000&userToken=' + UserService.getToken();
+                    $http.get(url, {
+                    }).success(function (data, status, headers, config) {
+                        cached = data.results;
+                        defer.resolve(filter(cached, partialTagName));
+                    }).error(function (data, status, headers, config) {
+                        defer.reject('Error loading tags');
+                    });
+                } else {
+                    defer.resolve(filter(cached, partialTagName));
+                }
+                return defer.promise;
+            }
+        }
+    }).factory('Speakers',function ($http, $q, $filter, UserService) {
         var cached;
         var filter = function (list, partialTagName) {
             var ret = angular.copy(list);
