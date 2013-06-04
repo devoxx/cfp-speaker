@@ -289,12 +289,10 @@ div.selector.ng-invalid {
     margin: 20px;
 }
 
-.modal.terms {
-    width: 800px;
-}
-
+.modal.terms,
 .modal.speaker {
     width: 800px;
+    margin-left: -400px;
 }
 
 a {
