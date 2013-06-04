@@ -283,6 +283,20 @@ div.selector.ng-invalid {
     display: block !important;
 }
 
+.terms li {
+    list-style: decimal;
+    list-style-position: inside;
+    margin: 20px;
+}
+
+.modal.terms {
+    width: 800px;
+}
+
+a {
+    cursor: pointer;
+}
+
 /* Flexible iFrame for Google Maps */
 
 .Flexible-container {

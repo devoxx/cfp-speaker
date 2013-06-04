@@ -55,15 +55,6 @@
                      devoxx-set-focus-on="model.talk.event"
                      devoxx-set-focus-field="talkTitle">
                     <ul>
-                        <li>
-                            <label for="talkTitle">Title</label>
-                            <input id="talkTitle" type="text" ng-model="model.talk.title" required devoxx-uniform>
-                            <span devoxx-errors expression="submitProposalForm.talkTitle"></span>
-                        </li>
-                        <li>
-                            <label>State</label>
-                            <input type="text" disabled ng-model="model.talk.state" devoxx-uniform>
-                        </li>
 
                         <li>
                             <label for="talkType">Type</label>
@@ -84,6 +75,31 @@
                                     ng-disabled="!model.talk.event"
                                     ng-options="t.name for t in model.talk.event.tracks"
                                     devoxx-uniform></select>
+                        </li>
+                        <li>
+                            <label for="talkAudienceExperience">Audience experience</label>
+                            <select name="audienceExperience"
+                                    id="talkAudienceExperience"
+                                    ng-model="model.talk.audienceExperience"
+                                    ng-options="o.value as o.text for o in model.experienceOptions"
+                                    required
+                                    devoxx-uniform></select>
+                        </li>
+                        <li>
+                            <label for="talkTitle">Title</label>
+                            <input id="talkTitle" type="text" ng-model="model.talk.title" required devoxx-uniform>
+                            <span devoxx-errors expression="submitProposalForm.talkTitle"></span>
+                        </li>
+
+
+                        <li>
+                            <label for="talkSummary">Summary for the schedule<br>(1000 char)<br></label>
+                            <textarea id="talkSummary" rows="10" ng-model="model.talk.summary" devoxx-uniform required></textarea>
+                        </li>
+
+                        <li>
+                            <label for="talkExtraInfo">Private msg for the program team<br> (optional)</label>
+                            <textarea id="talkExtraInfo" rows="10" ng-model="model.talk.extraInfo" devoxx-uniform></textarea>
                         </li>
 
                         <li>
@@ -130,25 +146,7 @@
                             </ul>
                         </li>
 
-                        <li>
-                            <label for="talkSummary">Talk summary</label>
-                            <textarea id="talkSummary" ng-model="model.talk.summary" devoxx-uniform required></textarea>
-                        </li>
 
-                        <li>
-                            <label for="talkExtraInfo">Message to program committee (optional)</label>
-                            <textarea id="talkExtraInfo" ng-model="model.talk.extraInfo" devoxx-uniform></textarea>
-                        </li>
-
-                        <li>
-                            <label for="talkAudienceExperience">Audience experience</label>
-                            <select name="audienceExperience"
-                                    id="talkAudienceExperience"
-                                    ng-model="model.talk.audienceExperience"
-                                    ng-options="o.value as o.text for o in model.experienceOptions"
-                                    required
-                                    devoxx-uniform></select>
-                        </li>
 
                         <li>
                             <label></label>
@@ -173,7 +171,7 @@
                                                ng-model="model.termsAndConditionsAgreed"
                                                devoxx-uniform
                                                required>
-                                        I agree to the terms and conditions
+                                        I agree to the <a ng-click="model.termsAndConditionsOpen = true">terms and conditions</a>
                                     </label>
                                 </li>
                             </ul>
@@ -216,5 +214,38 @@
         <div class="modal-footer">
         </div>
     </div>
+
+    <div modal="model.termsAndConditionsOpen"
+         close="model.termsAndConditionsOpen = false" options="{dialogClass: 'modal terms'}">
+        <div class="modal-header">
+            <h1>Terms and Conditions</h1>
+        </div>
+        <div class="modal-body">
+            Devoxx 2013 Speaker Consent Form
+
+On behalf of myself and my company/organisation, ("Organisation") and in consideration of my participation in the Event, I grant Devoxx (and its designated contractors), and its subsidiaries and affiliates under common control ("Devoxx") the following permissions in connection with Devoxx 2013, which are scheduled to take place November 11-15, 2013 (the "Event"):<br>
+<br>
+Permission to use my name, biographic material, likeness, and portrait (hereinafter collectively referred to as my "Likeness") for the purpose of publicising my presentation(s) at/participation in the Event (my "Presentation").<br>
+Permission to make sound and visual recordings of my Presentation (the "Recordings").<br>
+Permission to use, copy, translate, reformat, broadcast, publish, and distribute all or parts of my Presentation, the Recordings, a transcript of the Recordings, and any presentation materials that I provide to Devoxx and use in connection with my Presentation (the "Presentation Materials"). This includes, without limitation, the right to distribute the Presentation Materials via streaming and download from the Parleys.com web site, and the right to distribute, broadcast and rebroadcast my Presentation as part of Event proceedings and archives that Devoxx makes available on its web site. Any such use must be in connection with the Event, and must not be misleading or reflect negatively on my Organisation or me.<br>
+<br>
+I understand that neither my Organisation nor I will receive any compensation for granting these permissions. Devoxx is not granted any other permissions or rights with respect to my Likeness, my Presentation, the Recordings, or the Presentation Materials.<br>
+<ol>
+
+<li>I am the person who is accepting the invitation to present the session listed above; </li>
+
+<li>grant this permission and agree to the terms and conditions set forth above on behalf of my Organisation and myself;</li>
+
+<li>have authority to agree to such terms and conditions on behalf of my Organisation or co-speaker; and</li>
+
+<li>confirm that no further consents or permissions are required by Devoxx in order to use the Presentation Materials.</li>
+
+<ol>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="model.termsAndConditionsOpen = false" class="btn">Close</a>
+        </div>
+    </div>
+
 
 </div>
