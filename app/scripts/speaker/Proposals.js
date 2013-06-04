@@ -21,10 +21,7 @@ speakerModule.controller(speakerCtrlPrefix + 'ProposalsCtrl', function ($scope, 
         if (confirm('Are you sure you want to delete this proposal? This cannot be undone!')) {
             // TalksService.deleteProposal(proposal).success(function(){
                 var proposals = $scope.model.myProposals;
-                console.log(JSON.stringify(proposals));
-
                 proposals.splice(proposals.indexOf(proposal), 1);    
-                console.log(JSON.stringify(proposals));
             // })
         }
     }
