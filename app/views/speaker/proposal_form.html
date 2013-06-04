@@ -25,7 +25,7 @@
         <form name="submitProposalForm" onsubmit="return false" ng-cloak ng-hide="isSubmitted">
             <div class="row">
                 <div class="col12">
-                    <h4>Submit Proposal</h4>
+                    <h4>Proposal</h4>
                     <input type="text" ng-model="model.talk.id" style="display: none">
                     <ul>
                         <li>
@@ -34,14 +34,14 @@
                                     id="talkEvent" ng-model="model.talk.event"
                                     ng-options="e.name for e in model.events"
                                     required
-                                    ng-hide="model.events.length == 1 || !isNew"
+                                    ng-hide="model.events.length == 1"
                                     devoxx-uniform>
                                 <option value="">Choose event</option>
                             </select>
                             <input type="text"
                                    ng-disabled="true"
                                    ng-model="model.talk.event.name"
-                                   ng-show="model.events.length == 1 || !isNew"
+                                   ng-show="model.events.length == 1"
                                    devoxx-uniform>
                             <div ng-show="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}}</div>
                             <div ng-hide="model.talk.event.eventFrom == model.talk.event.eventTo">{{model.talk.event.eventFrom|date:shortDate}} until {{model.talk.event.eventTo|date:shortDate}}</div>
@@ -184,8 +184,12 @@
             <div class="row">
                 <div class="col6 push6">
                     <ul>
-                        <li class="btn">
-                            <input type="submit" ng-disabled="!model.termsAndConditionsAgreed" ng-click="submit(model.talk, submitProposalForm)" name="" value="Submit">
+                        <li class="btn" ng-hide="model.editable" >
+                            <a class="btn" ng-click="cancel()">Back</a>
+                        </li> 
+                        <li class="btn" ng-show="model.editable">
+                            <input type="submit" ng-disabled="!model.termsAndConditionsAgreed" 
+                            ng-click="submit(model.talk, submitProposalForm)" name="" value="Submit">
                         </li>
                     </ul>
 

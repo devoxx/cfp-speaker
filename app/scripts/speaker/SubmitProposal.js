@@ -8,6 +8,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         talk: {},
         speakerDetails: {},
         addSpeakerDialogOpen: false,
+        editable: true,
         newTag: '',
         currentUser: currentUser,
         experienceOptions: [
@@ -22,12 +23,9 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
 
     EventService.getEvents().then(function (data) {
         $scope.model.events = data;
-
         if ($routeParams.proposalId) {
-            $scope.isNew = false;
             $scope.initializeForEdit($routeParams.proposalId);
         } else {
-            $scope.isNew = true;
             $scope.initializeForAdd();
         }
     });
@@ -48,6 +46,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
             id: null // Probably useless, but this is explicit
         };
         $scope.model.talk.speakers.push($scope.model.currentUser);
+        $scope.model.events = $scope.filterOpenEvents($scope.model.events);
         if ($scope.model.events.length == 1) {
             $scope.model.talk.event = $scope.model.events[0];
         }
@@ -70,10 +69,17 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         return null;
     };
 
+    $scope.filterOpenEvents  = function (events) {
+        var res = [];
+        events.forEach(function(event) { if ($scope.isOpen(event)) { res.push(event); } });
+        return res;
+    }
+
     $scope.initializeForEdit = function (proposalId) {
         TalksService.byId(proposalId).success(function (data, status, headers, config) {
             var model = $scope.model;
             model.talk = data;
+
             if (!model.talk.speakers) {
                 model.talk.speakers = [];
             }
@@ -82,16 +88,26 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
             }
 
             var event = $scope.matchOnId(model.events, data.event);
+            model.editable = $scope.isOpen(event);
+
+            if (!model.editable) {
+                model.events = [ event ];
+            } else {
+                $scope.model.events = $scope.filterOpenEvents($scope.model.events);
+            }
+
             model.talk.event = event;
             model.talk.track = $scope.matchOnId(event.tracks, data.track);
             model.talk.type = $scope.matchOnId(event.types, data.type);
             model.talk.language = $scope.matchOnId($scope.languageOptions, data.language);
-            console.log('$scope.model', $scope.model);
         }).error(function (data, status, headers, config) {
-            console.log(data)
-            $location.path('/proposals');
+            $location.path('/speaker/proposals');
         });
     };
+
+    $scope.isOpen = function (event) {
+        return moment().isAfter(event.cfpFrom) && moment().isBefore(moment(event.cfpTo).add({days:1}));
+    }
 
     $scope.getTags = function (partialTagName) {
         return Tags.query(partialTagName);
