@@ -3,6 +3,11 @@
 
         <h4>Please complete</h4>
         <ul>
+
+            <li style="padding: 15px 0 0 0" ng-show="model.speakerDetails.id">
+                <div class="icon" ng-style="{ background: thumbnailUrl() }" style="cursor: pointer; background: url({{thumbnailUrl()}})" ng-click="uploadThumb()">
+            </li>
+
             <li>
                 <label for="speakerDetailsEmail">Email address</label>
                 <input id="speakerDetailsEmail"

@@ -299,6 +299,23 @@ a {
     cursor: pointer;
 }
 
+.container .icon {
+
+    background-size: 100px
+    background: #f8cb7a;
+    height: 100px;
+    line-height: 100px;
+    border: 2px solid #fff;
+    text-align: center;
+    width: 100px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    transition: all 0.15s ease-out 0s;
+    -webkit-transition: all 0.15s ease-out 0s;
+
+}
+
+
 /* Flexible iFrame for Google Maps */
 
 .Flexible-container {

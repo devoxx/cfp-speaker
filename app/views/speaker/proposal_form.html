@@ -135,10 +135,10 @@
                             <ul>
                                 <ul ng-repeat="speaker in model.talk.speakers">
                                     <li style="padding: 15px 0 0 0">
-                                        <img ng-src="{{createAvatarUrl(speaker.id, speaker.imageFile)}}">
+                                        <img ng-src="{{thumbnailUrl(speaker)}}">
                                         {{speaker.firstname}} {{speaker.lastname}} |
-                                        <span ng-show="speaker.unknown"><span class="alert-info">will be invited by email</span> | </span>
-                                        <span ng-show="speaker.id == model.currentUser.id"><span class="alert-info">this is you</span> | </span>
+                                        <span ng-show="speaker.unknown"><span class="alert-info">invited</span> | </span>
+                                        <span ng-show="speaker.id == model.currentUser.id"><span class="alert-info">you</span> | </span>
                                         <a ng-click="model.talk.speakers.splice($index, 1)"
                                            style="cursor: pointer">&times;</a>
                                     </li>

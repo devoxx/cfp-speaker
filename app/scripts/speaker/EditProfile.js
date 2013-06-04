@@ -14,6 +14,10 @@ speakerModule.controller(speakerCtrlPrefix + 'EditProfileCtrl',function ($scope,
         $scope.profileComplete = UserService.isProfileComplete(model.speakerDetails);
     });
 
+    $scope.thumbnailUrl = function () {
+        return UserService.thumbnailUrl($scope.model.speakerDetails);
+    }
+
     $scope.updateProfile = function () {
         
         UserService.updateProfile(model.speakerDetails).success(function(){

@@ -139,7 +139,17 @@ genericServices.factory('TalksService',function ($http, UserService) {
                     self.currentUserDefer = $q.defer();
                     self.currentUserDefer.resolve(self.currentUser);
                 });
+            },
+            thumbnailUrl: function(user) {
+                user = user || self.currentUser;
+                if (user.id && user.imageFile && user.imageFile.length) {
+                    return 'http://devoxxcfp.s3.amazonaws.com/images/' + user.id + '/' + user.imageFile;
+                } else {
+                    return '/images_dummy/no_avatar.gif';
+                }
+                return 
             }
+
         };
         return self;
     }).factory('Tags',function ($http, $q, $filter, UserService) {
