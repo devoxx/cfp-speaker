@@ -140,12 +140,8 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         }
     };
 
-    $scope.createAvatarUrl = function (id, imageFile) {
-        if (id && imageFile && imageFile.length) {
-            return 'http://devoxxcfp.s3.amazonaws.com/images/' + id + '/' + imageFile;
-        } else {
-            return '/images_dummy/no_avatar.gif';
-        }
+    $scope.thumbnailUrl = function (speaker) {
+        return UserService.thumbnailUrl(speaker);
     };
 
     $scope.createSearchName = function(speaker) {

@@ -24,7 +24,7 @@
 
         <form name="submitProposalForm" onsubmit="return false" ng-cloak ng-hide="isSubmitted">
             <div class="row">
-                <div class="col12">
+                <div class="col16">
                     <h4>Proposal</h4>
                     <input type="text" ng-model="model.talk.id" style="display: none">
                     <ul>
@@ -51,7 +51,7 @@
             </div>
 
             <div class="row">
-                <div class="col12" ng-show="model.talk.event"
+                <div class="col16" ng-show="model.talk.event"
                      devoxx-set-focus-on="model.talk.event"
                      devoxx-set-focus-field="talkTitle">
                     <ul>
@@ -114,7 +114,7 @@
                                    devoxx-uniform>
                         </li>
                         <li>
-                            <ul style="width: 370px">
+                            <ul>
                                 <li ng-repeat="tag in model.talk.tags" style="display: inline-block; margin: 0 5px 12px 5px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;font-size: 14px;">
                                     {{tag.name}}
                                     <a style="cursor: pointer; font-size: 20px; padding: 5px;"
@@ -132,18 +132,15 @@
                                        devoxx-on-return-key="addSpeaker()"
                                        devoxx-uniform>
                             </span>
-                            <ul>
-                                <ul ng-repeat="speaker in model.talk.speakers">
-                                    <li style="padding: 15px 0 0 0">
-                                        <img ng-src="{{thumbnailUrl(speaker)}}">
-                                        {{speaker.firstname}} {{speaker.lastname}} |
-                                        <span ng-show="speaker.unknown"><span class="alert-info">invited</span> | </span>
-                                        <span ng-show="speaker.id == model.currentUser.id"><span class="alert-info">you</span> | </span>
-                                        <a ng-click="model.talk.speakers.splice($index, 1)"
-                                           style="cursor: pointer">&times;</a>
-                                    </li>
-                                </ul>
-                            </ul>
+                            
+                            <div ng-repeat="speaker in model.talk.speakers" style="float: left; margin:10px;" >
+                                <div class="icon" style="cursor: pointer; background: url({{thumbnailUrl(speaker)}});" ></div>
+                                {{speaker.firstname}} {{speaker.lastname}} <a ng-click="model.talk.speakers.splice($index, 1)"
+                                style="cursor: pointer">&times;</a><br>
+                                <span ng-show="speaker.unknown"><span class="alert-info">invited</span><br></span>
+                                <span ng-show="speaker.id == model.currentUser.id"><span class="alert-info">you</span><br></span>
+                            </div>
+                            
                         </li>
 
 
