@@ -7,7 +7,6 @@ cfpSpeakerAppModule.controller('AppCtrl',function ($rootScope, $route, $location
     $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
         console.log('$routeChangeError:', arguments);
 
-        // These redirects must be done using full page refresh, otherwise it messes up the CurrentUser Promise
         if (rejection == 'emptyprofile') {
             $location.path(speakerUrlPrefix + '/profile');
             return;
