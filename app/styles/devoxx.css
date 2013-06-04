@@ -400,3 +400,13 @@ a.btn_delete {
 a.btn_delete:hover {
     background-color: #f5af33;
 }
+#sponsors {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#sponsors h2 {
+    color: #F5AF33;
+}
+#sponsors img {
+    display: block; margin-left: auto; margin-right: auto;
+}
