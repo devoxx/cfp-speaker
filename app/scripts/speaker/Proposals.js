@@ -19,10 +19,10 @@ speakerModule.controller(speakerCtrlPrefix + 'ProposalsCtrl', function ($scope, 
 
     $scope.deleteProposal = function (proposal) {
         if (confirm('Are you sure you want to delete this proposal? This cannot be undone!')) {
-            // TalksService.deleteProposal(proposal).success(function(){
+            TalksService.deleteProposal(proposal).success(function(){
                 var proposals = $scope.model.myProposals;
                 proposals.splice(proposals.indexOf(proposal), 1);    
-            // })
+            })
         }
     }
 });

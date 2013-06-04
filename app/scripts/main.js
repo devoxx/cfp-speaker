@@ -100,10 +100,10 @@ $(document).ready(function() {
 	
 		
     // Fade in images so there isn't a color "pop" document load and then on window load
-    $("footer .sponsors img").fadeIn(200);
+    $(".sponsors img").fadeIn(200);
 
 	// Fade in images so there isn't a color "pop" document load and then on window load
-	$("footer .sponsors img")
+	$(".sponsors img")
         .fadeIn(200)
         .each(function(){
             // clone image
