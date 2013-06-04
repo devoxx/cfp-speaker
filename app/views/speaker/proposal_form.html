@@ -138,10 +138,11 @@
                             
                             <div ng-repeat="speaker in model.talk.speakers" style="float: left; margin:10px;" >
                                 <div class="icon" style="cursor: pointer; background: url({{thumbnailUrl(speaker)}});" ></div>
-                                {{speaker.firstname}} {{speaker.lastname}} <a ng-click="model.talk.speakers.splice($index, 1)"
+                                <span ng-show="speaker.id == model.currentUser.id" class="alert-info">you</span>
+                                <span ng-show="speaker.id != model.currentUser.id">{{speaker.firstname}} {{speaker.lastname}}</span> <a ng-click="model.talk.speakers.splice($index, 1)"
                                 style="cursor: pointer">&times;</a><br>
-                                <span ng-show="speaker.unknown"><span class="alert-info">invited</span><br></span>
-                                <span ng-show="speaker.id == model.currentUser.id"><span class="alert-info">you</span><br></span>
+                                <span ng-show="speaker.unknown"><span class="alert-warning">invited</span><br></span>
+                                
                             </div>
                             
                         </li>
