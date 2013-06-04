@@ -10,7 +10,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
             backdropFade: true,
             dialogFade: true
         },
-        currentUser: null,
+        currentUser: UserService.currentUser,
         experienceOptions: [
             { value: 'NOVICE', text: 'NOVICE' },
             { value: 'SENIOR', text: 'SENIOR' },
@@ -23,17 +23,21 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
 
     EventService.getEvents().then(function (data) {
         $scope.model.events = data;
-        if ($scope.isNew) {
-            if ($scope.model.events.length == 1) {
-                $scope.model.talk.event = $scope.model.events[0];
-            }
-        }
 
+        if ($routeParams.proposalId) {
+            $scope.isNew = false;
+            $scope.initializeForEdit($routeParams.proposalId);
+        } else {
+            $scope.isNew = true;
+            $scope.initializeForAdd();
+        }
     });
 
-    $scope.$watch('model.talk.event', function(){
-        $scope.model.talk.track = null;
-        $scope.model.talk.type = null;    
+    $scope.$watch('model.talk.event', function(newEvent, oldEvent){
+        if (!!newEvent && !!oldEvent && newEvent.id !== oldEvent.id) {
+            $scope.model.talk.track = null;
+            $scope.model.talk.type = null;                
+        }
     });
 
     $scope.initializeForAdd = function () {
@@ -44,6 +48,10 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
             language: '2',
             id: null // Probably useless, but this is explicit
         };
+        $scope.model.talk.speakers.push(data);
+        if ($scope.model.events.length == 1) {
+            $scope.model.talk.event = $scope.model.events[0];
+        }
     };
 
     $scope.matchOnId = function (list, obj) {
@@ -71,7 +79,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
                 model.speakers = [];
             }
             if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, data.author)) {
-                model.talk.speakers.push(data.author);
+                model.talk.speakers.push($scope.model.waitForCurrentUser);
             }
 
             var event = $scope.matchOnId(model.events, data.event);
@@ -85,21 +93,6 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
             $location.path('/proposals');
         });
     };
-
-    if ($routeParams.proposalId) {
-        $scope.isNew = false;
-        $scope.initializeForEdit($routeParams.proposalId);
-    } else {
-        $scope.isNew = true;
-        $scope.initializeForAdd();
-    }
-
-    UserService.waitForCurrentUser().then(function (data) {
-        if ($scope.isNew) {
-            $scope.model.talk.speakers.push(data);
-        }
-        $scope.model.currentUser = data;
-    });
 
     $scope.getTags = function (partialTagName) {
         return Tags.query(partialTagName);
