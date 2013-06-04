@@ -48,7 +48,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', function ($q,
             language: '2',
             id: null // Probably useless, but this is explicit
         };
-        $scope.model.talk.speakers.push(data);
+        $scope.model.talk.speakers.push($scope.currentUser);
         if ($scope.model.events.length == 1) {
             $scope.model.talk.event = $scope.model.events[0];
         }
