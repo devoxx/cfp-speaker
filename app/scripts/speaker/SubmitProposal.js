@@ -240,7 +240,19 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
             if (talk.tags.length < 3 || talk.tags.length > 8) {
                 valid = false;
                 submitProposalForm.addTag.$valid = false;
-                submitProposalForm.addTag.$error = { 'range': !valid };
+                submitProposalForm.addTag.$error = { 'range': true };
+            }
+            if (talk.speakers.length < 1) {
+                valid = false;
+                submitProposalForm.addSpeaker.$valid = false;
+                submitProposalForm.addSpeaker.$error = { 'range': true };
+            }
+            if (!talk.event || !talk.track || !talk.type || !talk.audienceExperience || !talk.title || !$scope.model.termsAndConditionsAgreed) {
+                valid = false;
+            }
+
+            if (talk.summary.length < 10 || talk.summary.length > 1000) {
+                valid = false;
             }
 
             return valid;

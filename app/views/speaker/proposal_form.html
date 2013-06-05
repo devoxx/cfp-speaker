@@ -94,8 +94,9 @@
 
 
                         <li>
-                            <label for="talkSummary">Summary for the schedule<br>(1000 char)<br></label>
+                            <label for="talkSummary">Summary for the schedule<br></label>
                             <textarea id="talkSummary" rows="10" ng-model="model.talk.summary" devoxx-uniform required></textarea>
+                            <div style="width:85%;" class="alert alert-info"> {{1000 - model.talk.summary.length}} characters left</div>
                         </li>
 
                         <li>
@@ -180,6 +181,12 @@
                 </div>
             </div>
 
+            <div class="row" ng-show="model.talk.event && !isFormValid(model.talk, submitProposalForm)">
+                <div class="col12 push3">
+                    <div class="alert alert-danger">The proposal is incomplete, all field are mandatory except for the private message. Be sure to verify the number of tags, speakers and the length of the summary is withing the given limits.</div>
+                </div>
+            </div>
+
             <div class="row" ng-show="model.talk.event">
                 <div class="col6 push9">
                     <ul>
@@ -187,7 +194,7 @@
                             <a class="btn" ng-click="cancel()">Back</a>
                         </li> 
                         <li class="btn" ng-show="model.editable">
-                            <input type="submit" ng-disabled="!model.termsAndConditionsAgreed" 
+                            <input type="submit" ng-disabled="!isFormValid(model.talk, submitProposalForm)" 
                             ng-click="submit(model.talk, submitProposalForm)" name="" value="Submit">
                         </li>
                     </ul>
