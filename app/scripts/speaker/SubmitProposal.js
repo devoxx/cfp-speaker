@@ -265,7 +265,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         }
         if (!$scope.isSubmitted) {
             $scope.isSubmitted = true;
-            Talks.post(talk)
+            Talks.save(talk)
                 .success(function () {
                     $location.path('/speaker/proposals');
                 }).error(function (error) {

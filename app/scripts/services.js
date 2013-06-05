@@ -254,7 +254,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
     }).factory('Talks', function ($http, UserService) {
         var url = proposalUri + '/event/{eventId}/presentation';
         var createUrl = function (url, talk) {
-            return url.replace('{eventId}', talk.event.id)
+            return url.replace('{eventId}', talk.event.id) + (talk.id ? "/" + talk.id : "" );
         };
         var config = {
             params: {
@@ -304,11 +304,11 @@ genericServices.factory('TalksService',function ($http, UserService) {
             return ret;
         };
         return {
-            post: function (talk) {
-                return $http.post(createUrl(url, talk), transform(talk), config);
-            },
-            put: function (talk) {
-                return $http.put(createUrl(url, talk), transform(talk), config);
+            save: function (talk) {
+                
+                var method = talk.id ? $http.put : $http.post;
+
+                return method(createUrl(url, talk), transform(talk), config);
             }
         }
     })
