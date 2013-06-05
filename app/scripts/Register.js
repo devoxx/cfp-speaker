@@ -44,10 +44,10 @@ cfpSpeakerAppModule.controller('RegisterCtrl', ['$scope', 'AnonymousService', 'U
                                 $location.path('/speaker/profile');
                             })
                     })
-                    .error(function () {
+                    .error(function (data) {
                         $scope.feedback = {
                             type: 'error',
-                            message: 'Failed to register, please try again'
+                            message: 'Failed to register: ' + data.msg
                         }
                     });
             }

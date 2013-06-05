@@ -267,10 +267,8 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
             $scope.isSubmitted = true;
             Talks.post(talk)
                 .success(function () {
-                    console.log('post success');
                     $location.path('/speaker/proposals');
                 }).error(function (error) {
-                    console.log('post error');
                     $scope.isSubmitted = false;
                 });
         }

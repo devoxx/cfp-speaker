@@ -144,6 +144,7 @@ cfpSpeakerAppModule.controller('TwitterCtrl', function ($scope, $location, $http
     };
 
     function Tweet(tweet) {
+        
         this.toString = function() {
             return this.author + " " + this.id;
         };

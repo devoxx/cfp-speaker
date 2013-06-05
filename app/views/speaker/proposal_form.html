@@ -138,7 +138,7 @@
                             </span>
                             
                             <div ng-repeat="speaker in model.talk.speakers" style="float: left; margin:10px;" >
-                                <div class="icon" style="cursor: pointer; background: url({{thumbnailUrl(speaker)}});" ></div>
+                                <div class="speakerIcon" style="cursor: pointer; background: url({{thumbnailUrl(speaker)}});" ></div>
                                 <span ng-show="speaker.id == model.currentUser.id" class="alert-info">you</span>
                                 <span ng-show="speaker.id != model.currentUser.id">{{speaker.firstname}} {{speaker.lastname}}</span> <a ng-click="model.talk.speakers.splice($index, 1)"
                                 style="cursor: pointer">&times;</a><br>
