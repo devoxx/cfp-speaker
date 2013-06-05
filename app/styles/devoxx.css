@@ -300,8 +300,8 @@ a {
 }
 
 .container .icon {
-
-    background-size: 100px
+    display: block;
+    background-size: 100px;
     background: #f8cb7a;
     height: 100px;
     line-height: 100px;
