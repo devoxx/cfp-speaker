@@ -13,7 +13,8 @@ genericServices.factory('TalksService',function ($http, UserService) {
             var url = proposalUri;
             return $http.get(url, {
                 params: {
-                    userToken: UserService.getToken()
+                    userToken: UserService.getToken(),
+                    timestamp: new Date().getTime()
                 }
             });
         },
