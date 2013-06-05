@@ -1,6 +1,6 @@
 'use strict';
 
-var baseUri = 'https://staging-cfp.devoxx.com/v2/';
+var baseUri = 'https://cfp.devoxx.com/v2/';
 var proposalUri = baseUri + 'proposal';
 var authUri = baseUri + 'auth';
 var contactUri = baseUri + 'contact'
