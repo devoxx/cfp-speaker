@@ -113,34 +113,28 @@ cfpSpeakerAppModule.controller('AboutCtrl', function ($scope, $location) {
 cfpSpeakerAppModule.controller('TwitterCtrl', function ($scope, $location, $http, $timeout, $window) {
     var self = this;
 
-    var MAX = 3;
-    var maxTweetId = 0;
-
     $scope.tweets = [];
-    $scope.scrollClass = "";
     var count = 0;
 
     $scope.openStatus = function (tweet) {
         $window.location.href = "http://twitter.com/" + tweet.author + "/status/" + tweet.statusId;
     };
 
-    this.refreshRemoteData = function() {
-        $http.jsonp("http://search.twitter.com/search.json?q=%23devoxx&count=40&since_id=" + maxTweetId
-            + "&include_entities=false&result_type=recent&callback=JSON_CALLBACK")
-        .success(function(data, status) {
-            //console.log('HTTP Code: ' + code + ' Data: ' + JSON.stringify(data));
-            data.results.forEach(function(result){
-                var tweet = new Tweet(result);
-                // Prevent the latest search result from popping up multiple times in our queue if there aren't any new tweets
-                if (maxTweetId != tweet.id) {
+    $scope.refreshRemoteData = function() {
+        $http.get(baseUri + "twitter/devoxx")
+            .success(function(data, status) {
+                //console.log('HTTP Code: ' + code + ' Data: ' + JSON.stringify(data));
+                data.forEach(function(result){
+                    var tweet = new Tweet(result);
+                    // Prevent the latest search result from popping up multiple times in our queue if there aren't any new tweets
+                    
                     tweet.class = count % 2 == 0 ? "even" : "";
                     count++;
                     $scope.tweets.push(tweet);
-                }
+                    
+                });
+                
             });
-
-            maxTweetId = data.max_id;
-        });
     };
 
     function Tweet(tweet) {
@@ -154,17 +148,17 @@ cfpSpeakerAppModule.controller('TwitterCtrl', function ($scope, $location, $http
         };
 
         this.id = tweet.id;
-        this.statusId = tweet.id_str;
-        this.author = tweet.from_user;
+        this.statusId = tweet.idStr;
+        this.author = tweet.fromUser;
         // this.image = "url(" + tweet.profile_image_url + ")";
-        this.image = "url(https://api.twitter.com/1/users/profile_image?screen_name=" + tweet.from_user + "&size=bigger)";
+        this.image = "url(https://api.twitter.com/1/users/profile_image?screen_name=" + tweet.fromUser + "&size=bigger)";
         this.tweet = tweet.text;
-        this.time = moment(tweet.created_at, "ddd, DD MMM YYYY HH:mm:ss ZZ").fromNow(); //Thu, 30 May 2013 15:02:41 +0000
+        this.time = moment(tweet.createdAt, "ddd, DD MMM YYYY HH:mm:ss ZZ").fromNow(); //Thu, 30 May 2013 15:02:41 +0000
         this.source = this.unEscape(tweet.source);
         this.class = "";
     }
 
-    $timeout(self.refreshRemoteData, 0);
+    $scope.refreshRemoteData();
 });
 
 
