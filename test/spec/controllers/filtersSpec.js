@@ -9,7 +9,7 @@ describe('Filters', function() {
         filter = $filter;
     }));
 
-    describe('spaceSeparatedArray', function() {
+    xdescribe('spaceSeparatedArray', function() {
         it('should combine all array elements in one space separated string', inject(function() {
             var result = filter('spaceSeparatedArray')(['1', '2', '3']);
             expect(result).toEqual('1 2 3');
@@ -26,7 +26,7 @@ describe('Filters', function() {
         }));
     });
 
-    describe('exclude', function() {
+    xdescribe('exclude', function() {
         it('should return an empty array if the both arguments are empty', function() {
             var result = filter('exclude')([], []);
             expect(result).toEqual([]);
