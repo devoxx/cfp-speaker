@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: GenericServices', function () {
+xdescribe('Service: GenericServices', function () {
 
     var expectedBaseUri = 'https://staging-cfp.devoxx.com/v2/';
     var rootScope;
