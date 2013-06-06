@@ -148,12 +148,12 @@ cfpSpeakerAppModule.controller('TwitterCtrl', function ($scope, $location, $http
         };
 
         this.id = tweet.id;
-        this.statusId = tweet.idStr;
+        this.statusId = tweet.idString;
         this.author = tweet.fromUser;
         // this.image = "url(" + tweet.profile_image_url + ")";
         this.image = "url(https://api.twitter.com/1/users/profile_image?screen_name=" + tweet.fromUser + "&size=bigger)";
         this.tweet = tweet.text;
-        this.time = moment(tweet.createdAt, "ddd, DD MMM YYYY HH:mm:ss ZZ").fromNow(); //Thu, 30 May 2013 15:02:41 +0000
+        this.time = moment(tweet.createdAt).fromNow(); //Thu, 30 May 2013 15:02:41 +0000
         this.source = this.unEscape(tweet.source);
         this.class = "";
     }
