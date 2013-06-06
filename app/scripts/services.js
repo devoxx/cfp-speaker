@@ -265,6 +265,7 @@ genericServices.factory('TalksService',function ($http, UserService) {
             var i;
             var ret = {};
             ret.id = talk.id;
+            ret.version = talk.version;
             ret.tags = [];
             if (talk.tags) {
                 for (i = 0; i < talk.tags.length; i++) {
