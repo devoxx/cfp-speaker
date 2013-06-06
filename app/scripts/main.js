@@ -116,7 +116,7 @@ $(document).ready(function() {
                 .queue(function(){
                     var el = $(this);
                     el.parent()
-                      .css({"width":this.width,"height":this.height})
+                      .css({"width":el.width,"height":el.height})
                       .dequeue();
                 });
             grayscale(el[0]);
