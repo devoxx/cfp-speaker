@@ -5,7 +5,7 @@ var cfpSpeakerAppModule = angular.module('cfpSpeakerApp');
 
 cfpSpeakerAppModule.controller('AppCtrl',function ($rootScope, $route, $location, $window) {
     $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
-        console.log('$routeChangeError:', arguments);
+        // console.log('$routeChangeError:', arguments);
 
         if (rejection == 'emptyprofile') {
             $location.path(speakerUrlPrefix + '/profile');
@@ -13,13 +13,13 @@ cfpSpeakerAppModule.controller('AppCtrl',function ($rootScope, $route, $location
         }
     });
     $rootScope.$on('$routeChangeStart', function (event, current, previous, rejection) {
-        console.log('$routeChangeStart', arguments);
+        // console.log('$routeChangeStart', arguments);
     });
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous, rejection) {
-        console.log('$routeChangeSuccess', arguments);
+        // console.log('$routeChangeSuccess', arguments);
     });
     $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
-        console.log('$viewContentLoaded', arguments);
+        // console.log('$viewContentLoaded', arguments);
     });
 });
 

@@ -51,14 +51,12 @@ genericServices.factory('TalksService',function ($http, UserService) {
                         password: pass
                     }
                 }).success(function (data, status, headers, config) {
-                    console.log('successful login with username/password');
                     self.currentUser = data.user;
                     self.currentUserToken = data.userToken;
 
                     EventBus.loginSuccess(data.user, data.userToken);
                     self.currentUserDefer.resolve(self.currentUser);
-                }).error(function (data, status, headers, config) {
-                    console.log(data);
+                }).error(function (data, status, headers, config) {                    
                     EventBus.loginFailed(data.msg);
                     self.currentUserDefer.reject('No currentUser');
                 });
@@ -70,7 +68,6 @@ genericServices.factory('TalksService',function ($http, UserService) {
                             userToken: self.currentUserToken
                         }
                     }).success(function (data, status, headers, config) {
-                        console.log('successful login with token')
                         self.currentUser = data;
                         EventBus.loginSuccess(data, self.currentUserToken);
                         self.currentUserDefer.resolve(self.currentUser);
