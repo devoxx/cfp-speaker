@@ -5,22 +5,28 @@ basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-  'app/components/unstable-angular-complete/angular.js',
-  'app/components/unstable-angular-complete/angular-mocks.js',
-  'app/components/unstable-angular-complete/angular-resource.js',
-  'app/components/unstable-angular-complete/angular-cookies.js',
-  'app/scripts/(!main).js',
-  'app/scripts/**/(!main).js',
-  '.tmp/scripts/**/*.js',
-  'test/mock/**/*.js',
-  'test/spec/**/*.js',
-  '.tmp/spec/**/*.js'
+    JASMINE,
+    JASMINE_ADAPTER,
+    'app/components/unstable-angular-complete/angular.js',
+    'app/components/unstable-angular-complete/angular-cookies.js',
+    'app/components/unstable-angular-complete/angular-mocks.js',
+    'app/components/angular-bootstrap/ui-bootstrap-tpls.js',
+    'app/scripts/config.js',
+    'app/scripts/services.js',
+    'app/scripts/app.js',
+    'app/scripts/generic_controllers.js',
+    'app/scripts/*.js',
+    'app/scripts/**/module.js',
+    'app/scripts/**/*.js',
+    'test/mock/**/*.js',
+    'test/spec/**/*.js'
 ];
 
 // list of files to exclude
-exclude = [];
+exclude = [
+    'app/scripts/main.js',
+    'app/scripts/not_in_karma/*.js'
+];
 
 // test results reporter to use
 // possible values: dots || progress || growl

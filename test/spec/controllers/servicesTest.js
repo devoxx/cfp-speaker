@@ -2,58 +2,68 @@
 
 describe('Service: GenericServices', function () {
 
-  beforeEach(module('cfpSpeakerApp'));
+    var expectedBaseUri = 'https://staging-cfp.devoxx.com/v2/';
+    var rootScope;
 
-  beforeEach(function () {
-    this.addMatchers({
-      toEqualData: function (expected) {
-        return angular.equals(this.actual, expected);
-      }
+    beforeEach(module('cfpSpeakerApp'));
+
+    beforeEach(inject(function($rootScope) {
+        rootScope = $rootScope;
+    }));
+
+    beforeEach(function () {
+        this.addMatchers({
+            toEqualData: function (expected) {
+                return angular.equals(this.actual, expected);
+            }
+        });
     });
-  });
 
-  var TalksService,
-      UserService,
-      EventService,
-      ConfigAPI,
-    expected = {results: [
-      {
-        "expectedData": 123
-      }
-    ]
-    };
+    var TalksService,
+        UserService,
+        EventService,
+        expected = {results: [
+            {
+                "expectedData": 123
+            }
+        ]
+        };
 
-  beforeEach(inject(function (_TalksService_, _UserService_, _EventService_, _ConfigAPI_) {
-      EventService = _EventService_;
-      TalksService = _TalksService_;
-      UserService = _UserService_;
-      ConfigAPI = _ConfigAPI_;
-  }));
+    beforeEach(inject(function (_TalksService_, _UserService_, _EventService_) {
+        EventService = _EventService_;
+        TalksService = _TalksService_;
+        UserService = _UserService_;
+    }));
 
-  xit('should get all presentations for speaker', inject(function ($httpBackend) {
+    it('should get all presentations for speaker', inject(function (TalksService, $httpBackend, $rootScope) {
+        var result;
+        $httpBackend.expectGET(new RegExp(expectedBaseUri + "proposal?")).respond(200, expected);
 
-    $httpBackend.expectGET(new RegExp(ConfigAPI.endPoint + "/proposal/event/200/presentation?")).respond(expected);
+        TalksService.allProposalsForUser().then(function(data) {
+            result = data.data;
+        });
 
-    var event = { id: 200 };
+        $httpBackend.flush();
 
-    var actual = TalksService.allTalksForSpeaker(event);
+        waitsFor(function() {
+            $rootScope.$digest(); // Digest loop triggers $evalAsync
+            return !!result;
+        }, 'Promise should have been resolved', 50);
 
-    $httpBackend.flush();
+        runs(function() {
+            expect(result).toEqualData({
+                results: [{
+                    expectedData: 123
+                }]
+            });
+        });
+    }));
 
-    expect(actual).toBeDefined();
-// TODO    expect(actual).toEqualData(expected);
+  it('should get all presentations by id', inject(function ($httpBackend) {
 
-  }));
+    $httpBackend.expectGET(new RegExp(expectedBaseUri + "proposal/123")).respond(expected);
 
-  xit('should get all presentations by id', inject(function ($httpBackend) {
-
-    $httpBackend.expectGET(ConfigAPI.endPoint + "/proposal/event/123/presentation/456?userToken=xyz").respond(expected);
-
-    var event = { id: 123 };
-    var talk = { id: 456 };
-    var userToken = "xyz";
-
-    var actual = TalksService.byId(event, talk, userToken);
+    var actual = TalksService.byId(123);
 
     $httpBackend.flush();
 
@@ -62,11 +72,11 @@ describe('Service: GenericServices', function () {
 
    }));
 
-  xit('should allow a user to login', inject(function ($httpBackend) {
+  it('should allow a user to login', inject(function ($httpBackend) {
 
       var expected = { loginTokens: [ { token : "xyz"} ]};
 
-      $httpBackend.expectPOST(ConfigAPI.endPoint + "/auth/login?login=stephan&password=test").respond(expected);
+      $httpBackend.expectPOST(expectedBaseUri + "auth?login=stephan&password=test").respond(expected);
 
       var actual = UserService.login("stephan", "test");
 
@@ -77,11 +87,11 @@ describe('Service: GenericServices', function () {
 
    }));
 
-   xit('should allow to get a speaker by email', inject(function ($httpBackend) {
+   it('should allow to get a speaker by email', inject(function ($httpBackend) {
 
-       $httpBackend.expectGET(ConfigAPI.endPoint + "/proposal/user?filter=sja@devoxx.com&q=sja@devoxx.com").respond(expected);
+       $httpBackend.expectGET(expectedBaseUri + "proposal/user?filter=Stephan+Janssen&q=Stephan&q=Janssen").respond(expected);
 
-        var actual = UserService.getSpeakerByEmailAddress("sja@devoxx.com");
+        var actual = UserService.getSpeakerBySearchName("Stephan Janssen");
 
         $httpBackend.flush();
 
@@ -90,12 +100,12 @@ describe('Service: GenericServices', function () {
     }));
 
 
-    xit('should allow a user to update his/her profile', inject(function ($httpBackend) {
+    it('should allow a user to update his/her profile', inject(function ($httpBackend) {
 
 // TODO
 //        var user = { id: 123, "firstname": "stephan"};
 //
-//        $httpBackend.expectPUT(ConfigAPI.endPoint + "/proposal/profile?filter=sja@devoxx.com&q=sja@devoxx.com").respond(expected);
+//        $httpBackend.expectPUT(expectedBaseUri + "proposal/profile?filter=sja@devoxx.com&q=sja@devoxx.com").respond(expected);
 //
 //        var actual = UserService.updateProfile(user);
 //
@@ -105,9 +115,9 @@ describe('Service: GenericServices', function () {
 
     }));
 
-    xit('should allow to retrieve an event', inject(function ($httpBackend) {
+    it('should allow to retrieve an event', inject(function ($httpBackend) {
 
-        $httpBackend.expectGET(ConfigAPI.endPoint + "/proposal/event?").respond(expected);
+        $httpBackend.expectGET(expectedBaseUri + "proposal/event?").respond(expected);
 
         var actual = EventService.load();
 
@@ -115,5 +125,6 @@ describe('Service: GenericServices', function () {
 
         expect(actual).toBeDefined();
     }));
+
 
 });
