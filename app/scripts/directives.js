@@ -210,9 +210,23 @@ angular.module('cfpSpeakerApp')
     .directive('carousel',function ($timeout) {
         return {
             link: function (scope, element, attrs) {
-
                 $timeout(function(){
-
+                    var lastStoredSlideIndex = 0,
+                        item,
+                        storeSlide;
+                    if (Modernizr.localstorage) {
+                        item = localStorage.getItem("devoxxLastStoredSlide");
+                        if (item) {
+                            lastStoredSlideIndex = parseInt(item);
+                        }
+                        storeSlide = function(index) {
+                            localStorage.setItem("devoxxLastStoredSlide", index);
+                        }
+                    } else {
+                        storeSlide = function(index) {
+                            localStorage.setItem("devoxxLastStoredSlide", index);
+                        }
+                    }
                     $(element).find('ul').bxSlider({
                         mode: 'fade',       /* */
                         speed: 500,         /* */
@@ -228,7 +242,11 @@ angular.module('cfpSpeakerApp')
                         swipeThreshold: 5,
                         oneToOneTouch: false,
                         tickerHover: true,
-                        adaptiveHeight: true
+                        adaptiveHeight: true,
+                        startSlide: lastStoredSlideIndex,
+                        onSlideAfter: function($slideElement, oldIndex, newIndex) {
+                            storeSlide(newIndex);
+                        }
                     });
 
                 },0);
