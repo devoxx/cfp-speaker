@@ -93,6 +93,11 @@ StaticServlet.prototype.handleRequest = function(req, res) {
   var parts = path.split('/');
   if (parts[parts.length-1].charAt(0) === '.')
     return self.sendForbidden_(req, res, path);
+
+  if (path === './config.js') {
+    return self.sendConfig_(req, res)
+  }
+
   fs.stat(path, function(err, stat) {
     if (err)
       return self.sendMissing_(req, res, path);
@@ -113,6 +118,15 @@ StaticServlet.prototype.sendError_ = function(req, res, error) {
   util.puts('500 Internal Server Error');
   util.puts(util.inspect(error));
 };
+
+StaticServlet.prototype.sendConfig_ = function(req, res) {
+  res.writeHead(200, {
+      'Content-Type': 'application/javascript'
+  });
+  res.write('var baseUri = \''+ process.env.API + '\';');
+  res.end();
+}
+
 
 StaticServlet.prototype.sendMissing_ = function(req, res, path) {
   path = path.substring(1);

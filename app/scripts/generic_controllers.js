@@ -34,9 +34,9 @@ cfpSpeakerAppModule.controller('LoginCtrl',function ($scope, $location, $window,
     $scope.login = function () {
         if (!$scope.model.loginDisabled) {
             $scope.model.loginDisabled = true;
-            UserService.login($scope.model.email, $scope.model.password)
-            .then(function(){
+            UserService.login($scope.model.email, $scope.model.password).then(function(){
                 $scope.model.loginRequested = false;
+                $window.location.reload();
                 hookLoginRequest();
             });
         }
@@ -44,7 +44,7 @@ cfpSpeakerAppModule.controller('LoginCtrl',function ($scope, $location, $window,
 
     $scope.logout = function () {
         UserService.logout();
-    }
+    };
 
     function hookLoginRequest() {
         UserService.waitForLoginRequest().then(function() {
