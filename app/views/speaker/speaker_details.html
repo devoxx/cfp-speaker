@@ -37,11 +37,12 @@
 
             <li>
                 <label for="speakerDetailsCountry">Country</label>
-                <input id="speakerDetailsCountry"
-                       type="text"
-                       ng-model="model.speakerDetails.country"
-                       devoxx-uniform
-                       ng-required="true">
+                <select id="speakerDetailsCountry"
+                        ng-options="c.id as c.label for c in model.countries"
+                        ng-model="model.speakerDetails.country"
+                        devoxx-uniform
+                        ng-required="true">
+                </select>
             </li>
 
             <li>

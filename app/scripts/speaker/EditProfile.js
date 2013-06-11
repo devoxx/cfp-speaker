@@ -1,8 +1,8 @@
 'use strict';
 
-speakerModule.controller(speakerCtrlPrefix + 'EditProfileCtrl',function ($scope, UserService) {
+speakerModule.controller(speakerCtrlPrefix + 'EditProfileCtrl',function ($scope, UserService, ReferenceService) {
     $scope.model = {
-        
+        countries: ReferenceService.getCountries()
     };
     var model = $scope.model;
 
@@ -16,7 +16,7 @@ speakerModule.controller(speakerCtrlPrefix + 'EditProfileCtrl',function ($scope,
 
     $scope.thumbnailUrl = function () {
         return UserService.thumbnailUrl($scope.model.speakerDetails);
-    }
+    };
 
     $scope.updateProfile = function () {
         
