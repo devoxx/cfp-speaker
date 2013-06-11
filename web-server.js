@@ -181,10 +181,19 @@ StaticServlet.prototype.sendRedirect_ = function(req, res, redirectUrl) {
 StaticServlet.prototype.sendFile_ = function(req, res, path) {
   var self = this;
   var file = fs.createReadStream(path);
-  res.writeHead(200, {
-    'Content-Type': StaticServlet.
-      MimeMap[path.split('.').pop()] || 'text/plain'
-  });
+  if(path == './index.html')
+    res.writeHead(200, {
+      'Content-Type': StaticServlet.MimeMap[path.split('.').pop()] || 'text/plain',
+      'Expires': 'Fri, 30 Oct 1998 14:19:41 GMT',
+      'Cache-Control': 'no-cache'
+    });
+  else
+    res.writeHead(200, {
+      'Content-Type': StaticServlet.MimeMap[path.split('.').pop()] || 'text/plain',
+      'Expires': 'Fri, 30 Oct 2020 11:11:11 GMT',
+      'ETag': '"'+path+'"'
+    });
+
   if (req.method === 'HEAD') {
     res.end();
   } else {
