@@ -27,6 +27,10 @@ function createServlet(Class) {
   return servlet.handleRequest.bind(servlet);
 }
 
+String.prototype.endsWith = function(suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+}
+
 /**
  * An Http server implementation that uses a map of methods to decide
  * action routing.
@@ -181,7 +185,7 @@ StaticServlet.prototype.sendRedirect_ = function(req, res, redirectUrl) {
 StaticServlet.prototype.sendFile_ = function(req, res, path) {
   var self = this;
   var file = fs.createReadStream(path);
-  if(path == './index.html')
+  if (path.endsWith('.html'))
     res.writeHead(200, {
       'Content-Type': StaticServlet.MimeMap[path.split('.').pop()] || 'text/plain',
       'Expires': 'Fri, 30 Oct 1998 14:19:41 GMT',
