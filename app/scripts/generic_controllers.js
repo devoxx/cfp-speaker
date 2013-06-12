@@ -150,8 +150,7 @@ cfpSpeakerAppModule.controller('TwitterCtrl', function ($scope, $location, $http
         this.id = tweet.id;
         this.statusId = tweet.idString;
         this.author = tweet.fromUser;
-        // this.image = "url(" + tweet.profile_image_url + ")";
-        this.image = "url(https://api.twitter.com/1/users/profile_image?screen_name=" + tweet.fromUser + "&size=bigger)";
+        this.image = "url(" + tweet.profileImageUrl + ")";
         this.tweet = tweet.text;
         this.time = moment(tweet.createdAt).fromNow(); //Thu, 30 May 2013 15:02:41 +0000
         this.source = this.unEscape(tweet.source);
