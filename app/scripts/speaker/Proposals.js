@@ -8,10 +8,10 @@ speakerModule.controller(speakerCtrlPrefix + 'ProposalsCtrl', function ($scope, 
     };
 
     TalksService.allProposalsForUser().success(function (data, status, headers, config) {
-        if (data.msg && data.msg.toLowerCase() == 'NO PRESENTATIONS FOUND FOR USER'.toLowerCase()) {
-            $scope.model.myProposals = [];
-        } else {
+        if (angular.isArray(data)) {
             $scope.model.myProposals = data;
+        } else {
+            $scope.model.myProposals = [];
         }
     }).error(function (data, status, headers, config) {
         console.log(data);
