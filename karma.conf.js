@@ -18,6 +18,7 @@ files = [
     'app/scripts/generic_controllers.js',
     'app/scripts/*.js',
     'app/scripts/**/module.js',
+    'app/scripts/**/services.js',
     'app/scripts/**/*.js',
     'test/mock/**/*.js',
     'test/spec/**/*.js'

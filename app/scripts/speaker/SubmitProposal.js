@@ -1,8 +1,8 @@
 'use strict';
 
 speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', 
-    [ '$q', '$scope', '$filter', 'UserService', 'Tags', 'Talks', 'TalksService', 'EventService', '$routeParams', '$location', 'currentUser',
- function ($q, $scope, $filter, UserService, Tags, Talks, TalksService, EventService, $routeParams, $location, currentUser) {
+    [ '$q', '$scope', '$filter', 'UserService', 'Tags', 'TalksService', 'EventService', '$routeParams', '$location', 'currentUser',
+ function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $routeParams, $location, currentUser) {
 
     $scope.model = {
         talk: {},
@@ -265,7 +265,7 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         }
         if (!$scope.isSubmitted) {
             $scope.isSubmitted = true;
-            Talks.save(talk)
+            TalksService.save(talk)
                 .success(function () {
                     $location.path('/speaker/proposals');
                 }).error(function (error) {
@@ -277,6 +277,4 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         $scope.model.talk = {};
         $location.path('/speaker/proposals')
     };
-}
-]
-);
+}]);

@@ -8,10 +8,14 @@ speakerModule.controller(speakerCtrlPrefix + 'ProposalsCtrl', function ($scope, 
     };
 
     TalksService.allProposalsForUser().success(function (data, status, headers, config) {
-        $scope.model.myProposals = data;
+        if (data.msg && data.msg.toLowerCase() == 'NO PRESENTATIONS FOUND FOR USER'.toLowerCase()) {
+            $scope.model.myProposals = [];
+        } else {
+            $scope.model.myProposals = data;
+        }
     }).error(function (data, status, headers, config) {
-            console.log(data);
-        });
+        console.log(data);
+    });
 
     $scope.editProposal = function (proposal) {
         $location.path('/speaker/proposal/' + proposal.id);

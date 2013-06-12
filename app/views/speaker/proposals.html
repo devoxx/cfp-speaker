@@ -42,7 +42,7 @@
                 <h4>Existing Proposals</h4>
                 <div ng-controller="Speaker_ProposalsCtrl" ng-cloak>
                     <h4 ng-show="!model.myProposals">Loading...</h4>
-                    <h4 ng-show="model.myProposals.length == 0">No proposals</h4>
+                    <h4 ng-show="model.myProposals.length == 0">You have no proposals</h4>
                     <table class="table" ng-show="model.myProposals.length > 0">
                         <tbody>
                             <tr ng-repeat="proposal in model.myProposals">
