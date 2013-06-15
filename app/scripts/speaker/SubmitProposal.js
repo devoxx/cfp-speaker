@@ -4,6 +4,10 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
     [ '$q', '$scope', '$filter', 'UserService', 'Tags', 'TalksService', 'EventService', '$routeParams', '$location', 'currentUser',
  function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $routeParams, $location, currentUser) {
 
+    var MIN_TAGS = 3, MAX_TAGS = 8,
+        MIN_SPEAKERS = 1,
+        MIN_SUMMARY_LENGTH = 10, MAX_SUMMARY_LENGTH = 1000;
+
     $scope.model = {
         talk: {},
         speakerDetails: {},
@@ -125,8 +129,9 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
     $scope.addTag = function () {
         var model = $scope.model;
         var tags = model.talk.tags;
-        if (model.newTag
-            && this.filterTagNames(tags).indexOf(model.newTag) == -1) {
+        if (model.newTag &&
+            tags.length < MAX_TAGS &&
+            this.filterTagNames(tags).indexOf(model.newTag) == -1) {
             Tags.query(model.newTag).then(function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var tag = data[i];
@@ -237,12 +242,13 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         } else {
             var valid = true;
             // Additional Form level validations
-            if (talk.tags.length < 3 || talk.tags.length > 8) {
+            if (talk.tags.length < MIN_TAGS ||
+                talk.tags.length > MAX_TAGS) {
                 valid = false;
                 submitProposalForm.addTag.$valid = false;
                 submitProposalForm.addTag.$error = { 'range': true };
             }
-            if (talk.speakers.length < 1) {
+            if (talk.speakers.length < MIN_SPEAKERS) {
                 valid = false;
                 submitProposalForm.addSpeaker.$valid = false;
                 submitProposalForm.addSpeaker.$error = { 'range': true };
@@ -251,7 +257,8 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
                 valid = false;
             }
 
-            if (talk.summary.length < 10 || talk.summary.length > 1000) {
+            if (talk.summary.length < MIN_SUMMARY_LENGTH ||
+                talk.summary.length > MAX_SUMMARY_LENGTH) {
                 valid = false;
             }
 

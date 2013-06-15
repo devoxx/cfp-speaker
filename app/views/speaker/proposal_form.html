@@ -95,7 +95,7 @@
 
                         <li>
                             <label for="talkSummary">Summary for the schedule<br></label>
-                            <textarea id="talkSummary" rows="10" ng-model="model.talk.summary" devoxx-uniform required></textarea>
+                            <textarea id="talkSummary" rows="10" maxlength="1000" ng-model="model.talk.summary" devoxx-uniform required></textarea>
                             <div style="width:85%;" class="alert alert-info"> {{1000 - model.talk.summary.length}} characters left</div>
                         </li>
 
