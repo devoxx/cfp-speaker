@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    
+
     <!-- TODO add local resources -->
     <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 
@@ -40,7 +40,7 @@
     <!-- endbuild -->
     <!--[endif]-->
 
-    <script src="/config.js"></script>
+    <script src="config.js"></script>
 
     <!-- build:js scripts/scripts.js -->
     <script src="components/jquery/jquery.js"></script>
@@ -130,9 +130,9 @@
                     <!--</li>-->
                     <li class="btn popup login btn_grey" ng-hide="model.currentUser()" ng-class="{'open':model.loginRequested}">
                         <a>Login</a>
-                        
+
                         <ul ng-class="{'visible':model.loginRequested}">
-                            <li> 
+                            <li>
                                 <div class="popup">
                                     <form ng-submit="login()" class="clearfix" autocomplete="off">
                                         <div class="alert alert-error" ng-show="model.loginError">{{model.loginError}}
@@ -325,11 +325,11 @@
                 <a href="http://www.kiffer.be" target="_blank"><img src="images/sponsors/kiffer.png" alt="Kiffer"/></a>
             </div>
             <div class="col5">
-                
+
             </div>
             <div class="col5">
-                
-            </div>            
+
+            </div>
         </div>
     </div>
 </div>
