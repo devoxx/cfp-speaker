@@ -6,7 +6,7 @@
                 <h3>make a difference @ Devoxx</h3>
             </div>
             <div class="col11">
-                <img src="../../images/topinfo_visual_call.png" class="visual" alt=""/>
+                <img src="images/topinfo_visual_call.png" class="visual" alt=""/>
             </div>
         </div>
     </div>
@@ -136,16 +136,16 @@
                                        devoxx-on-return-key="addSpeaker()"
                                        devoxx-uniform>
                             </span>
-                            
+
                             <div ng-repeat="speaker in model.talk.speakers" style="float: left; margin:10px;" >
                                 <div class="speakerIcon" style="cursor: pointer; background: url({{thumbnailUrl(speaker)}});" ></div>
                                 <span ng-show="speaker.id == model.currentUser.id" class="alert-info">you</span>
                                 <span ng-show="speaker.id != model.currentUser.id">{{speaker.firstname}} {{speaker.lastname}}</span> <a ng-click="model.talk.speakers.splice($index, 1)"
                                 style="cursor: pointer">&times;</a><br>
                                 <span ng-show="speaker.unknown"><span class="alert-warning">invited</span><br></span>
-                                
+
                             </div>
-                            
+
                         </li>
 
                         <li style="clear: both; padding-top: 30px;">
@@ -192,9 +192,9 @@
                     <ul>
                         <li class="btn" ng-hide="model.editable" >
                             <a class="btn" ng-click="cancel()">Back</a>
-                        </li> 
+                        </li>
                         <li class="btn" ng-show="model.editable">
-                            <input type="submit" ng-disabled="!isFormValid(model.talk, submitProposalForm)" 
+                            <input type="submit" ng-disabled="!isFormValid(model.talk, submitProposalForm)"
                             ng-click="submit(model.talk, submitProposalForm)" name="" value="Submit">
                         </li>
                     </ul>
@@ -215,7 +215,7 @@
         <div class="modal-body">
             <form name="addSpeakerForm" ng-submit="addNewSpeaker(model.speakerDetails)">
                 <ng-include src="'views/speaker/speaker_details.html'"></ng-include>
-                
+
                 <div class="col12">
                     <ul>
                         <li class="btn">
