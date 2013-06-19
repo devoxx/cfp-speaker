@@ -116,6 +116,10 @@
                                    devoxx-uniform>
                         </li>
                         <li>
+                            <label></label>
+                            <div style="width:85%;" class="alert alert-danger" ng-show="model.talk.tags.length < 3">{{model.talk.tags.length}} tag(s), add {{3 - model.talk.tags.length}} more tags</div>
+                        </li>                        
+                        <li>
                             <ul>
                                 <li ng-repeat="tag in model.talk.tags" style="display: inline-block; margin: 0 5px 12px 5px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;font-size: 14px;">
                                     {{tag.name}}
