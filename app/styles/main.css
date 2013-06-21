@@ -1163,6 +1163,9 @@ footer .sponsors a {
     border: 1px solid #dbd8d4;
     text-align: center;
 }
+.sponsors table.sponsors_opportunities tr td img {
+    padding-left: 20px;
+}
 .sponsors table.sponsors_opportunities tr td:first-child {
     text-align: left;
 }
