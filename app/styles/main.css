@@ -1138,6 +1138,46 @@ footer .sponsors a {
 
 /* @end */
 
+/* @group Page: Sponsors */
+
+.sponsors #silver {
+    padding-top: 0;
+}
+.sponsors .gold {
+    padding: 50px 0 0 0;
+}
+.sponsors table.sponsors_opportunities {
+    background: #faf9f6;
+}
+.sponsors table.sponsors_opportunities tr th {
+    background: #dbd8d4;
+    border: 1px solid #dbd8d4;
+    color: #4d4d4d;
+    font: 13px/14px "GothamBlack","Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+}
+.sponsors table.sponsors_opportunities tr:first-child th {
+    background: #c5c2be;
+    color: #fff;
+}
+.sponsors table.sponsors_opportunities tr td {
+    border: 1px solid #dbd8d4;
+    text-align: center;
+}
+.sponsors table.sponsors_opportunities tr td:first-child {
+    text-align: left;
+}
+.sponsors table.sponsors_opportunities tr td:first-child {
+    text-align: left;
+}
+.sponsors .list {
+    list-style: square;
+    padding: 20px 0 20px 15px;
+}
+.sponsors .list li {
+    margin: 0 0 10px 0;
+}
+
+
 /* @group Media Queries */
 
 @media only screen and (max-width: 900px) {
