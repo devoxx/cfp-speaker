@@ -2,8 +2,7 @@
 
 speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', 
     [ '$q', '$scope', '$filter', 'UserService', 'Tags', 'TalksService', 'EventService', '$routeParams', '$location', 'currentUser',
- function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $routeParams, $location, currentUser) {
-
+function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $routeParams, $location, currentUser) {
     var MIN_TAGS = 3, MAX_TAGS = 8,
         MIN_SPEAKERS = 1,
         MIN_SUMMARY_LENGTH = 10, MAX_SUMMARY_LENGTH = 1000;
@@ -129,21 +128,44 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
     $scope.addTag = function () {
         var model = $scope.model;
         var tags = model.talk.tags;
-        if (model.newTag &&
-            tags.length < MAX_TAGS &&
-            this.filterTagNames(tags).indexOf(model.newTag) == -1) {
+        if (model.newTag && tags.length < MAX_TAGS
+         && this.filterTagNames(tags).indexOf(model.newTag) == -1) {
             Tags.query(model.newTag).then(function (data) {
+                var tagToAdd = null;
                 for (var i = 0; i < data.length; i++) {
                     var tag = data[i];
                     if (tag.name === model.newTag) {
-                        tags.push(tag);
+                        tagToAdd = tag;
                         break;
                     }
                 }
+
+                if (tagToAdd) {
+                    tagToAdd.isNew = false;
+                    tags.push(tagToAdd);
+                } else {
+                    tags.push({
+                        name: model.newTag,
+                        isNew: true
+                    });
+                }
+
                 model.newTag = '';
             });
         }
     };
+
+    $scope.$watch('model.talk.tags', function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            var list = $filter('filter')(newValue, function(tag) {
+                return tag.isNew;
+            });
+            if (!list) {
+                list = [];
+            }
+        }
+        $scope.model.talk.nonExistentTags = list;
+    }, true);
 
     $scope.thumbnailUrl = function (speaker) {
         return UserService.thumbnailUrl(speaker);
@@ -272,12 +294,11 @@ speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl',
         }
         if (!$scope.isSubmitted) {
             $scope.isSubmitted = true;
-            TalksService.save(talk)
-                .success(function () {
-                    $location.path('/speaker/proposals');
-                }).error(function (error) {
-                    $scope.isSubmitted = false;
-                });
+            TalksService.save(talk).then(function (data) {
+                $location.path('/speaker/proposals');
+            }, function (data) {
+                $scope.isSubmitted = false;
+            });
         }
     };
     $scope.cancel = function (talk) {

@@ -425,3 +425,13 @@ a.btn_delete:hover {
     margin-right: auto;
     margin-top: 20px;
 }
+
+li.newTag {
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
+
+li.existingTag {
+    border-color: #ccc;
+}

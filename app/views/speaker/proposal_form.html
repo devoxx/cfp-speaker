@@ -112,6 +112,7 @@
                                    ng-model="model.newTag"
                                    placeholder="Add tag and press return"
                                    typeahead="t.name for t in getTags($viewValue)"
+                                   devoxx-special-keys="9,32,188"
                                    devoxx-on-return-key="addTag()"
                                    devoxx-uniform>
                         </li>
@@ -120,11 +121,19 @@
                             <div style="width:85%;" class="alert alert-danger" ng-show="model.talk.tags.length < 3">{{model.talk.tags.length}} tag(s), add {{3 - model.talk.tags.length}} more tags</div>
                         </li>                        
                         <li>
+                            <label></label>
+                            <div style="width:85%;" class="alert alert-info" ng-show="model.talk.nonExistentTags.length > 0">{{model.talk.amountOfNonExistentTags}} non existent tags will be added when proposal is submitted.</div>
+                        </li>
+                        <li>
                             <ul>
-                                <li ng-repeat="tag in model.talk.tags" style="display: inline-block; margin: 0 5px 12px 5px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;font-size: 14px;">
+                                <li ng-repeat="tag in model.talk.tags"
+                                    style="display: inline-block; margin: 0 5px 12px 5px; padding: 5px; border-radius: 5px; border: 1px solid; font-size: 14px;"
+                                    ng-class="{newTag: tag.isNew, existingTag: !tag.isNew}">
                                     {{tag.name}}
+                                    <span ng-show="tag.isNew" style="font-weight: bold">NEW</span>
                                     <a style="cursor: pointer; font-size: 20px; padding: 5px;"
-                                       ng-click="model.talk.tags.splice($index, 1)">&times;</a></li>
+                                       ng-click="model.talk.tags.splice($index, 1)">&times;</a>
+                                </li>
                             </ul>
                         </li>
 
@@ -140,16 +149,13 @@
                                        devoxx-on-return-key="addSpeaker()"
                                        devoxx-uniform>
                             </span>
-                            
                             <div ng-repeat="speaker in model.talk.speakers" style="float: left; margin:10px;" >
                                 <div class="speakerIcon" style="cursor: pointer; background: url({{thumbnailUrl(speaker)}});" ></div>
                                 <span ng-show="speaker.id == model.currentUser.id" class="alert-info">you</span>
                                 <span ng-show="speaker.id != model.currentUser.id">{{speaker.firstname}} {{speaker.lastname}}</span> <a ng-click="model.talk.speakers.splice($index, 1)"
                                 style="cursor: pointer">&times;</a><br>
                                 <span ng-show="speaker.unknown"><span class="alert-warning">invited</span><br></span>
-                                
                             </div>
-                            
                         </li>
 
                         <li style="clear: both; padding-top: 30px;">

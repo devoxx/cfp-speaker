@@ -151,6 +151,33 @@ angular.module('cfpSpeakerApp')
                 });
             }
         };
+    })
+    .directive('devoxxSpecialKeys',function ($timeout) {
+        return {
+            priority: 300,
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var attrList = attrs.devoxxSpecialKeys.split(',');
+                var list = [];
+                $.each(attrList, function(idx, val) {
+                    var trimmed = val.trim();
+                    try {
+                        var parsed = parseInt(trimmed);
+                    } catch (e) {
+                        throw new Error('Value "' + val + '" in directive: [devoxxSpecialKeys] is not a valid integer, current value: ' + list);
+                    }
+                    list[idx] = parsed;
+                });
+                $(element).keydown(function (e) {
+                    if (jQuery.inArray(e.which, list) > -1) {
+                        var newEvt = jQuery.Event("keydown");
+                        newEvt.which = 13; // Return key code
+                        $(element).trigger(newEvt);
+                        return false;
+                    }
+                });
+            }
+        };
     }).directive('devoxxSetFocusOn', function ($timeout) {
         return {
             link: function (scope, element, attrs, ctrl) {

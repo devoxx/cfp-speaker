@@ -1,6 +1,6 @@
 'use strict';
 
-genericServices.factory('TalksService', function ($http, UserService) {
+genericServices.factory('TalksService', function ($http, $q, UserService, Tags) {
     var url = proposalUri + '/event/{eventId}/presentation';
     var createUrl = function (url, talk) {
         return url.replace('{eventId}', talk.event.id) + (talk.id ? "/" + talk.id : "" );
@@ -8,6 +8,21 @@ genericServices.factory('TalksService', function ($http, UserService) {
     var config = {
         params: {
             userToken: UserService.getToken()
+        }
+    };
+    var transformNewTags = function(talk, arrayOfHttpPromises) {
+        console.log('arr', arrayOfHttpPromises)
+        for (var i = 0; i < arrayOfHttpPromises.length; i++) {
+            var promise = arrayOfHttpPromises[i],
+                newTag = promise.data,
+                name = newTag.name;
+            // Replace tags with tags returned from server
+            for (var j = 0; j < talk.tags.length; j++) {
+                if (talk.tags[j].name === name) {
+                    talk.tags[j] = newTag;
+                    break;
+                }
+            }
         }
     };
     var transform = function (talk) {
@@ -54,13 +69,24 @@ genericServices.factory('TalksService', function ($http, UserService) {
         return ret;
     };
     return {
-        save: function (talk) {
-
-            var method = talk.id ? $http.put : $http.post;
-
-            return method(createUrl(url, talk), transform(talk), config);
+        save: function(talk) {
+            var method = talk.id ? $http.put : $http.post,
+                defer = $q.defer();
+            if (talk.nonExistentTags) {
+                return Tags.addTags(talk.nonExistentTags).then(function(data) {
+                    transformNewTags(talk, data);
+                    return method(createUrl(url, talk), transform(talk), config);
+                });
+            } else {
+                method(createUrl(url, talk), transform(talk), config).success(function(data) {
+                    defer.resolve(data);
+                }).error(function(data) {
+                    defer.reject(data);
+                });
+            }
+            return defer.promise;
         },
-        allProposalsForUser: function () {
+        allProposalsForUser: function() {
             var url = proposalUri;
             return $http.get(url, {
                 params: {
