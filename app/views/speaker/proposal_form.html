@@ -144,7 +144,7 @@
                                        type="text"
                                        ng-model="model.searchSpeakerName"
                                        placeholder="Add speaker by full name and press return"
-                                       typeahead="createFullName(s) for s in getSpeakers($viewValue)"
+                                       typeahead="s as createFullName(s) for s in getSpeakers($viewValue)"
                                        typeahead-min-length="3"
                                        devoxx-on-return-key="addSpeaker()"
                                        devoxx-uniform>

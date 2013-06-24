@@ -214,37 +214,36 @@ function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $r
         var model = $scope.model,
             searchName = model.searchSpeakerName;
 
-        if (searchName && $scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, searchName)) {
-            UserService.getSpeakerBySearchName(searchName).then(function (data) {
-                // This service returns also returns users where the searchName is a partial match.
-                // So we need to be prepared for unexpected/multiple results
-                var speakersFromServer = $scope.getSpeakerBySearchName(data, searchName);
-                if (speakersFromServer.length == 1) {
-                    var speakerFromServer = speakersFromServer[0];
-                    var searchNameFromServer = $scope.createFullName(speakerFromServer);
-
-                    // Double check because of asynchronous call (prevents double tap on return key)
-                    if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, searchNameFromServer)) {
-                        model.talk.speakers.push(speakerFromServer);
-                        model.searchSpeakerName = '';
-                    }
-                } else {
-                    model.addSpeakerDialogOpen = true;
-                    var firstname = '', lastname = '';
-                    if (searchName.split(' ').length > 1) {
-                        firstname = searchName.split(' ')[0];
-                        lastname = searchName.substring(firstname.length + 1);
-                    }
-                    model.speakerDetails = {
-                        firstname: firstname,
-                        lastname: lastname,
-                        twitterHandle: '@'
-                    };
-                }
-            }, function (data) {
-                console.log(data)
-            });
+        if (!searchName) {
+            return;
         }
+
+        if (typeof searchName == "string") { // New name, not selected from dropdown
+        
+            model.addSpeakerDialogOpen = true;
+            var firstname = '', lastname = '';
+            if (searchName.split(' ').length > 1) {
+                firstname = searchName.split(' ')[0];
+                lastname = searchName.substring(firstname.length + 1);
+            }
+            model.speakerDetails = {
+                firstname: firstname,
+                lastname: lastname,
+                twitterHandle: '@'
+            };
+        
+        } else { // Speaker Model, selected from dropdown
+            
+            var speakerFromServer = searchName;
+            var searchNameFromServer = $scope.createFullName(speakerFromServer);
+
+            // Double check because of asynchronous call (prevents double tap on return key)
+            if ($scope.speakerWithSearchNameDoesNotExist(model.talk.speakers, searchNameFromServer)) {
+                model.talk.speakers.push(speakerFromServer);
+                model.searchSpeakerName = '';
+            }
+        }
+
     };
 
     $scope.addNewSpeaker = function (speaker) {
