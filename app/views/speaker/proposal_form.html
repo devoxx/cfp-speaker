@@ -52,20 +52,33 @@
             </div>
 
             <div class="row">
-                <div class="col16" ng-show="model.talk.event"
+                <div class="col17" ng-show="model.talk.event"
                      devoxx-set-focus-on="model.talk.event"
                      devoxx-set-focus-field="talkTitle">
                     <ul>
 
                         <li>
-                            <label for="talkType">Type</label>
-                            <select name="type"
-                                    id="talkType" ng-model="model.talk.type"
-                                    required
-                                    ng-disabled="!model.talk.event"
-                                    ng-options="t.name for t in model.talk.event.types"
-                                    devoxx-uniform></select>
+                            <div label="Talk Type" info="model.talk.type.description" devoxx-more-info>
+                                <!-- wrapped in div to prevent loss of functionality when uniform.js performs it's unwrap() -->
+                                <div>
+                                    <select name="type"
+                                        id="talkType" ng-model="model.talk.type"
+                                        required
+                                        class="uni_style"
+                                        ng-disabled="!model.talk.event"
+                                        ng-options="t.name for t in model.talk.event.types"
+                                        devoxx-uniform></select>
+                                </div>
+                            </div>   
                         </li>
+
+                    </ul>
+                </div>
+            </div>  
+
+            <div class="row">
+                <div class="col16" ng-show="model.talk.event">
+                    <ul>
 
                         <li>
                             <label for="talkTrack">Track</label>

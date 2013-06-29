@@ -21,6 +21,34 @@ angular.module('cfpSpeakerApp')
             }
         }
     })
+    .directive('devoxxMoreInfo', function(){
+        return {
+            restrict: 'A',
+            template:   '<div class="row">'+
+                            '<div class="col18 devoxxMoreInfo" ng-transclude>'+
+                                '<label></label>'+
+                            '</div>'+
+                            '<div tooltip-placement="right" '+
+                                'ng-class="{moreInfoDisabled:!info}" '+
+                                'tooltip-html-unsafe="{{info}}" class="offset1 col1 moreInfo" >'+
+                                '<span>?</span>'+
+                            '</div>'+  
+                        '</div>',
+            replace:false,                        
+            scope: {
+                label: '@',
+                info: '='
+            },
+            transclude: true,
+            link: function(scope, element, attrs) {
+
+                var inputCtrl = element.find('select');
+                var label = element.find('label');
+                label[0].innerHTML = scope.label
+                label.prop('for', inputCtrl.attr('id'));
+            }
+        }
+    })
     .directive('devoxxUniform', function () {
         return {
             restrict: 'A',
@@ -128,6 +156,8 @@ angular.module('cfpSpeakerApp')
                     $('.selector').css('width', '100%')
                     $('.selector span').css('width', '80%')
                     $('.selector select').css('width', '100%')
+                    //Fix up the select with moreInfo tooltip so it aligns
+                    $('.devoxxMoreInfo .selector span').css('width', '82%')
                 });
 
                 setTimeout(function () {
