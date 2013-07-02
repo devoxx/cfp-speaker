@@ -297,6 +297,10 @@ function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $r
                 $location.path('/speaker/proposals');
             }, function (data) {
                 $scope.isSubmitted = false;
+                $scope.feedback = {
+                    type: 'error',
+                    message: 'Failed to submit your proposal, please try again'
+                };
             });
         }
     };
