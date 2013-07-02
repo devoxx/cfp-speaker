@@ -23,6 +23,11 @@
         </h4>
 
         <form name="submitProposalForm" onsubmit="return false" ng-cloak ng-hide="isSubmitted">
+            <div class="row" ng-show="feedback">
+                <div class="col12 push3">
+                    <div class="alert alert-{{feedback.type}}" ng-show="feedback">{{feedback.message}}</div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col16">
                     <h4>Proposal</h4>
@@ -209,6 +214,11 @@
                         </li>
                     </ul>
 
+                </div>
+            </div>
+            <div class="row" ng-show="feedback">
+                <div class="col12 push3">
+                    <div class="alert alert-{{feedback.type}}" ng-show="feedback">{{feedback.message}}</div>
                 </div>
             </div>
         </form>
