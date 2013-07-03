@@ -1,8 +1,8 @@
 'use strict';
 
 speakerModule.controller(speakerCtrlPrefix + 'SubmitProposalCtrl', 
-    [ '$q', '$scope', '$filter', 'UserService', 'Tags', 'TalksService', 'EventService', '$routeParams', '$location', 'currentUser',
-function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $routeParams, $location, currentUser) {
+    [ '$q', '$scope', '$filter', 'UserService', 'Tags', 'TalksService', 'EventService', '$routeParams', '$location', 'currentUser', 'ReferenceService',
+function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $routeParams, $location, currentUser, ReferenceService) {
     var MIN_TAGS = 3, MAX_TAGS = 8,
         MIN_SPEAKERS = 1,
         MIN_SUMMARY_LENGTH = 10, MAX_SUMMARY_LENGTH = 1000;
@@ -231,6 +231,7 @@ function ($q, $scope, $filter, UserService, Tags, TalksService, EventService, $r
                 lastname: lastname,
                 twitterHandle: '@'
             };
+            model.countries = ReferenceService.getCountries();
         
         } else { // Speaker Model, selected from dropdown
             
