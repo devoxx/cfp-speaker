@@ -1002,6 +1002,25 @@ footer .sponsors a {
 	padding: 0;
 }
 
+.moreInfo {
+	height: 65px;
+	text-align: center;
+	font-family: "GothamBook","Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+.moreInfo span {
+	line-height: 65px;	
+}
+
+.moreInfo:hover {
+	color: #f5af33;
+}
+
+.moreInfoDisabled, .moreInfoDisabled:hover {
+	color: #DDD;
+}
+
 /* @end */
 
 
@@ -1241,6 +1260,10 @@ footer .sponsors a {
 	}
 	header nav ul li.subright ul li {
 		float: left;
+	}
+
+	.moreInfo { 
+		display: none; 
 	}
 }
 
