@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    
+
     <!-- TODO add local resources -->
     <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 
@@ -126,13 +126,13 @@
                         </ul>
                     </li>
                     <li class="btn hide_mobile">
-                    <a href="https://regbe.devoxx.com/public#DV13">Buy tickets</a>
+                        <a href="https://regbe.devoxx.com/public#DV13">Buy tickets</a>
                     </li>
                     <li class="btn popup login btn_grey" ng-hide="model.currentUser()" ng-class="{'open':model.loginRequested}">
                         <a>Login</a>
-                        
+
                         <ul ng-class="{'visible':model.loginRequested}">
-                            <li> 
+                            <li>
                                 <div class="popup">
                                     <form ng-submit="login()" class="clearfix" autocomplete="off">
                                         <div class="alert alert-error" ng-show="model.loginError">{{model.loginError}}
@@ -170,59 +170,59 @@
                     </li>
 
                     <!--<li class="popup search">-->
-                        <!--<a href="#">Search</a>-->
-                        <!--<ul>-->
-                            <!--<li>-->
-                                <!--<div class="popup">-->
-                                    <!--<form>-->
-                                        <!--<input type="text" name="search" value="" placeholder="search..."/>-->
-                                    <!--</form>-->
+                    <!--<a href="#">Search</a>-->
+                    <!--<ul>-->
+                    <!--<li>-->
+                    <!--<div class="popup">-->
+                    <!--<form>-->
+                    <!--<input type="text" name="search" value="" placeholder="search..."/>-->
+                    <!--</form>-->
 
-                                    <!--<ol>-->
-                                        <!--<li>-->
-                                            <!--<a href="#">-->
-                                                <!--<img src="images_dummy/search_icon1_dummy.jpg" alt=""/>-->
+                    <!--<ol>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<img src="images_dummy/search_icon1_dummy.jpg" alt=""/>-->
 
-                                                <!--<div class="title">Lorum ipsum dolor</div>-->
-                                                <!--<div class="subtitle">Mobi leo risus</div>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<a href="#">-->
-                                                <!--<img src="images_dummy/search_icon2_dummy.jpg" alt=""/>-->
+                    <!--<div class="title">Lorum ipsum dolor</div>-->
+                    <!--<div class="subtitle">Mobi leo risus</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<img src="images_dummy/search_icon2_dummy.jpg" alt=""/>-->
 
-                                                <!--<div class="title">Lorum ipsum dolor</div>-->
-                                                <!--<div class="subtitle">Mobi leo risus</div>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<a href="#">-->
-                                                <!--<img src="images_dummy/search_icon2_dummy.jpg" alt=""/>-->
+                    <!--<div class="title">Lorum ipsum dolor</div>-->
+                    <!--<div class="subtitle">Mobi leo risus</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<img src="images_dummy/search_icon2_dummy.jpg" alt=""/>-->
 
-                                                <!--<div class="title">Lorum ipsum dolor</div>-->
-                                                <!--<div class="subtitle">Mobi leo risus</div>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<a href="#">-->
-                                                <!--<img src="images_dummy/search_icon1_dummy.jpg" alt=""/>-->
+                    <!--<div class="title">Lorum ipsum dolor</div>-->
+                    <!--<div class="subtitle">Mobi leo risus</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<img src="images_dummy/search_icon1_dummy.jpg" alt=""/>-->
 
-                                                <!--<div class="title">Lorum ipsum dolor</div>-->
-                                                <!--<div class="subtitle">Mobi leo risus</div>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<a href="#">-->
-                                                <!--<img src="images_dummy/search_icon2_dummy.jpg" alt=""/>-->
+                    <!--<div class="title">Lorum ipsum dolor</div>-->
+                    <!--<div class="subtitle">Mobi leo risus</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<img src="images_dummy/search_icon2_dummy.jpg" alt=""/>-->
 
-                                                <!--<div class="title">Lorum ipsum dolor</div>-->
-                                                <!--<div class="subtitle">Mobi leo risus</div>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                    <!--</ol>-->
-                                <!--</div>-->
-                            <!--</li>-->
-                        <!--</ul>-->
+                    <!--<div class="title">Lorum ipsum dolor</div>-->
+                    <!--<div class="subtitle">Mobi leo risus</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--</ol>-->
+                    <!--</div>-->
+                    <!--</li>-->
+                    <!--</ul>-->
                     <!--</li>-->
                 </ul>
             </nav>
@@ -234,113 +234,51 @@
 <div class="menuSpacer"></div>
 
 <div class="container" ng-controller="AppCtrl">
-    <ng-view/>
-</div>
+    <div id="topinfo" class="area orange">
+        <div class="grid">
 
+            <div class="row">
+                <div class="col16">
 
-<footer class="area grey">
-    <div class="grid">
-
-        <div class="row">
-            <div class="col5">
-                <h4>Site map</h4>
-                <ul>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
-                    <li><a href="#about">About CFP</a></li>
-                    <li><a href="#venue">Venue</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#sponsors">Sponsorships</a></li>
-                    <li><a href="#">Schedule TBA</a></li>
-                    <li><a href="#">Speakers TBA</a></li>
-                </ul>
+                    <h1>Waiver of Liability and Indemnity Agreement</h1>
+                </div>
             </div>
 
-            <div class="col5">
-                <h4>previous editions</h4>
-                <ul>
-                    <li><a href="http://devoxx.com/display/DV12/Home">Edition 2012</a></li>
-                    <li><a href="http://devoxx.com/display/DV11/Home">Edition 2011</a></li>
-                    <li><a href="http://devoxx.com/display/Devoxx2K10/Home">Edition 2010</a></li>
-                    <li><a href="http://devoxx.com/display/DV09/Home">Edition 2009</a></li>
-                </ul>
-            </div>
-
-            <div class="col5">
-                <h4>Other countries</h4>
-                <ul>
-                    <li><a href="http://www.devoxx.com/display/FR13/Accueil">Devoxx France</a></li>
-                    <li><a href="http://www.devoxx.com/display/UK13/Home">Devoxx UK</a></li>
-                </ul>
-            </div>
-
-            <div class="col5">
-                <h4>Keep in touch</h4>
-                <ul>
-                    <li><a href="https://www.facebook.com/devoxxcom">Facebook</a></li>
-                    <li><a href="https://twitter.com/devoxx">Twitter</a></li>
-                    <li><a href="http://eepurl.com/d35a9">Newsletter</a></li>
-                </ul>
-            </div>
         </div>
     </div>
-</footer>
-<div id="sponsors" class="white sponsors">
-    <div class="grid">
-        <div class="row">
-            <div class="col5" align="center">
-                <a href="http://www.oracle.com/us/technologies/java/overview/index.html" target="_blank"><img
-                        src="images/sponsors/oracle.png" alt="Oracle"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://www.wildfly.org" target="_blank"><img src="images/sponsors/jboss.png" alt="JBoss"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="https://developers.google.com" target="_blank"><img src="images/sponsors/google.png" alt="Google"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://www.jetbrains.com" target="_blank"><img src="images/sponsors/jetbrains.png" alt="JetBrains"/></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col5" align="center">
-                <a href="https://www.smals.be/nl" target="_blank"><img src="images/sponsors/smals.png" alt="Smals"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://www.cloudbees.com/" target="_blank"><img src="images/sponsors/cloudbees.png" alt="CloudBees"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://www.hello2morrow.com/" target="_blank"><img src="images/sponsors/hello2morrow.png" alt="Hello2Morrow"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://www.vaadin.com/" target="_blank"><img src="images/sponsors/vaadin.png" alt="Vaadin"/></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col5" align="center">
-                <a href="http://www.aca-it.be" target="_blank"><img src="images/sponsors/aca.png" alt="ACA IT solutions"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://www.hazelcast.com" target="_blank"><img src="images/sponsors/hazelcast.png" alt="Hazelcast"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://www.kiffer.be" target="_blank"><img src="images/sponsors/kiffer.png" alt="Kiffer"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a  href="http://www.scm-manager.com" target="_blank"><img src="images/sponsors/triology.png" alt="Triology"/></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col5" align="center">
-                <a href="http://www.typesafe.com" target="_blank"><img src="images/sponsors/typesafe.png" alt="Typesafe"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://www.parleys.com" target="_blank"><img src="images/sponsors/parleys.png" alt="Parleys"/></a>
-            </div>
-            <div class="col5" align="center">
-                <a href="http://zeroturnaround.com" target="_blank"><img src="images/sponsors/zeroturnaround.png" alt="ZeroTurnaround"/></a>
-            </div>
-            <div class="col5" align="center">
+
+    <div id="paper_form" class="area lightgrey">
+        <div class="grid">
+            <div class="row">
+                <p>In consideration of being permitted to attend Devoxx, organised by The Java Community BVBA (“Devoxx”), and on behalf of myself (collectively “Participant”), I hereby:</p>
+
+                <p>1. Agree to indemnify and save and hold the The Java Community BVBA, their employees, volunteers, partners and sponsors (collectively "Devoxx")
+                    harmless from any liability, loss, damage or cost that may occur or be incurred due to the Participants' participation in Devoxx; </p>
+
+                <p>2. Release, waive, discharge and covenant not to sue Devoxx from all liability to Participants for any loss or damages, and any
+                    claim or demands on account of injury to or resulting in death of Participants, whether caused by the negligence of Devoxx or of
+                    any other person; </p>
+
+                <p>3. Assume full responsibility for and risk of bodily injury or death, whether due to the negligence of Devoxx or otherwise. I
+                    expressly acknowledge and understand that accidents may occur while at Devoxx and expressly assume all of the risks due to the
+                    negligence of Devoxx and any others participating or contributing to Devoxx; </p>
+
+                <p>4. Expressly agree, permit and assume the risk of any medical treatment which may be rendered and agree to expressly
+                    release and indemnify Devoxx from any liability for providing, or failing to provide, any emergency medical treatment.</p>
+
+                <p>5. I understand that I am solely responsible for the welfare and safety of myself to Devoxx Events, I further understand that Devoxx
+                    will not provide insurance for Participants at Devoxx Events, and that Participants' personal insurance will apply.</p>
+
+                <p>6. I agree to help encourage a safe and respectful atmosphere at Devoxx Events. I agree to refrain from engaging in illegal
+                    activities of any kind, and I understand that I am solely responsible for the activities of myself at Devoxx Events. </p>
+
+                <p>7. I understand that Participants often take photos and movies during Devoxx Events and I agree that these photos and movies may be
+                    used on the Devoxx and Parleys website, on related websites, and in Devoxx publications. I further expressly agree that the foregoing
+                    release, waiver, and indemnity agreement is intended to be as broad and inclusive as is permitted by the Belgian law, and that if any portion thereof
+                    is held invalid, it is agreed that the balance shall, notwithstanding, continue in full legal force and effect.</p>
+
+                <p>I have read, fully understood its content and voluntarily and automatically comply with this release, waiver, and indemnity agreement when registering for Devoxx.
+                    I further agree that no oral representations, statements, or inducement apart from the foregoing online agreement have been made.</p>
             </div>
         </div>
     </div>
@@ -350,7 +288,7 @@
     <div class="grid">
         <div class="row">
             <div class="col11">
-                <a href="agreement.html">Waiver of liability and indemnity agreement</a>
+                <!--<a href="#">privacy policy</a> | <a href="#">disclaimer</a>-->
             </div>
             <div class="col9">
                 design by <a href="http://www.three-sixty.be" target="_blank">Three-Sixty Media</a>
