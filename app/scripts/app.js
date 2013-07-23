@@ -35,6 +35,8 @@ cfpSpeakerApp.config(function ($routeProvider) {
             templateUrl: 'views/practical/venue.html'
         }).when('/sponsors', {
             templateUrl: 'views/sponsors.html'
+        }).when('/agreement', {
+                templateUrl: 'views/agreement.html'
         }).otherwise({
             redirectTo: '/'
         });
