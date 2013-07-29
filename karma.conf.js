@@ -12,7 +12,7 @@ files = [
     'app/components/unstable-angular-complete/angular-mocks.js',
     'app/components/angular-bootstrap/ui-bootstrap-tpls.js',
     'app/config.js',
-    'app/scripts/config.js',
+//    'app/scripts/config.js',
     'app/scripts/services.js',
     'app/scripts/app.js',
     'app/scripts/generic_controllers.js',
