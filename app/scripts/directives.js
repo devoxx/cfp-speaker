@@ -339,7 +339,7 @@ angular.module('cfpSpeakerApp')
                     var daySelector = "";
                     var trackSelector = "";
 
-                    var $container = $(element).find("#isoList");
+                    var $container = $(element).find("#contactList");
 
                     $container.isotope({
                         itemSelector : 'li',
