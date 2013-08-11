@@ -329,27 +329,44 @@ angular.module('cfpSpeakerApp')
         };
     })
     .directive('isotope',function ($timeout) {
+
+
         return {
             link: function (scope, element, attrs) {
 
                 $timeout(function(){
 
-                    var $container = $(element).find("#contactList");
+                    var daySelector = "";
+                    var trackSelector = "";
 
-                    var $filters = $(element).find("#filters");
+                    var $container = $(element).find("#isoList");
 
                     $container.isotope({
                         itemSelector : 'li',
                         layoutMode : 'fitRows'
                     });
 
+                    var $filters = $(element).find("#filters");
                     $filters.find('a').click(function(e){
                         e.preventDefault();
                         e.stopPropagation();
                         $filters.find('a').removeClass('selected');
                         $(this).addClass('selected');
-                        var selector = $(this).attr('data-filter');
-                        $container.isotope({ filter: selector });
+
+                        daySelector = $(this).attr('data-filter');
+                        $container.isotope({ filter: daySelector + trackSelector});
+                        return false;
+                    });
+
+                    var $filterTracks = $(element).find("#filtertracks");
+                    $filterTracks.find('a').click(function(e){
+                        e.preventDefault();
+                        e.stopPropagation();
+                        $filterTracks.find('a').removeClass('selected');
+                        $(this).addClass('selected');
+
+                        trackSelector = $(this).attr('data-filter');
+                        $container.isotope({ filter: trackSelector + daySelector});
                         return false;
                     });
 

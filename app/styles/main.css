@@ -128,7 +128,6 @@ a.btn:hover {
 	background-color: #000;
 	color: #fff;
 }
-
 .dotList {
 	text-align: center;
 }
@@ -157,6 +156,11 @@ a.btn:hover {
 }
 .dotList li .popup {
 	display: none;
+}
+.dotList li .popup .btn {
+    font-size: 14px;
+    padding: 13px 13px 13px 40px;
+    background-position: 20px -72px;
 }
 .dotList li .popup .links a {
 	background: url(../images/icons_shares.png) no-repeat 0 0;
@@ -1063,22 +1067,22 @@ footer .sponsors a {
 
 /* @group Page: Team */
 
-.team #topinfo {
-	padding: 70px 0;
+#topinfo {
+	padding: 60px 0 70px;
 }
-.team #filters {
+#filters {
 	padding: 7px 0 15px;
 }
-.team #filters li {
+#filters li {
 	display: inline;
 	float: left;
 }
-.team #filters li a {
+#filters li a {
 	background: rgba(0, 0, 0, 0.15);
-	color: #fff;
+	color: #aadbde;
 	display: inline-block;
 	font: normal 14px/14px "GothamBook","Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-	margin: 10px 15px 0 0;
+	margin: 10px 11px 0 0;
 	padding: 10px 20px;
 	text-transform: uppercase;
 	-webkit-border-radius: 6px;
@@ -1086,8 +1090,9 @@ footer .sponsors a {
 	-webkit-box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 	box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
-.team #filters li a.selected {
+#filters li a.selected {
 	background: rgba(0, 0, 0, 0.30);
+    color: #fff
 }
 
 /* @end */
@@ -1199,6 +1204,168 @@ footer .sponsors a {
     margin: 0 0 10px 0;
 }
 
+
+/* @group Page: Shedule */
+
+.shedule #topinfo {
+    padding: 30px 0;
+}
+.shedule #topinfo h1 {
+    margin-top: 40px;
+}
+.filtertracks a {
+    display: inline;
+    float: left;
+    width: 149px;
+    height: 60px;
+    padding: 0 0 0 75px;
+    position: relative;
+    font: normal 13px/14px "GothamBook","Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+}
+.filtertracks a .name {
+    color: #ab7a24;
+    display: block;
+    padding: 21px 0 0 0;
+}
+.filtertracks a.selected .name {
+    color: #000;
+}
+.filtertracks a .icon {
+    background: #f8cb7a;
+    display: block;
+    padding: 10px;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 13px;
+    -webkit-border-radius: 80px;
+    border-radius: 80px;
+}
+.filtertracks a .icon img {
+    display: block;
+    opacity:0.4;
+    filter:alpha(opacity=40);
+    width: 100%;
+}
+.filtertracks a.selected .icon img {
+    opacity:1;
+    filter:alpha(opacity=100);
+}
+.filtertracks a .checker {
+    background: url(../images/filters_checkbox.png) no-repeat -30px 0;
+    display: block;
+    height: 23px;
+    position: absolute;
+    left: 0;
+    top: 17px;
+    width: 23px;
+    z-index: 50;
+}
+.filtertracks a.selected .checker {
+    background-position: 0 0;
+}
+
+#sheduleDays {
+    padding: 0;
+}
+#sheduleDays .talks {
+    padding: 0 0 60px 0;
+}
+#sheduleDays .talks .head {
+    background: url(../images/titel_bg.png);
+    padding: 30px 0;
+}
+#sheduleDays .talks .head .row {
+    padding: 0;
+}
+#sheduleDays .talks .head .row h2 {
+    margin: 0;
+}
+#sheduleDays .talks .row {
+    border-top: 1px solid #e6e0d6;
+    padding: 53px 0 20px;
+    font: 15px/17px "GothamBook","Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+}
+#sheduleDays .talks .row:first-child {
+    border: none;
+}
+#sheduleDays .talks a {
+    color: #000;
+    font-weight: bold;
+}
+#sheduleDays .talks .row .icon {
+    background: url(../images/lightgrey_hover_bg.jpg);
+    float: left;
+    width: 74px;
+    margin: -33px 20px 0 0;
+    height: 74px;
+    overflow: hidden;
+    -webkit-border-radius: 80px;
+    border-radius: 80px;
+}
+#sheduleDays .talks .row .icon img {
+    display: block;
+    width: 65%;
+    margin: 12px auto 0;
+}
+#sheduleDays .talks .row .speakerpic {
+    float: left;
+    border: 2px solid #fff;
+    width: 70px;
+    margin: -33px 20px 0 0;
+    height: 70px;
+    overflow: hidden;
+    -webkit-border-radius: 80px;
+    border-radius: 80px;
+}
+#sheduleDays .talks .row .speakerpic img {
+    display: block;
+    width: 100%;
+}
+#sheduleDays .talks .row .speaker {
+    color: #000;
+}
+#sheduleDays .talks .row .flag {
+    float: right;
+}
+
+/* @end */
+
+/* @group Page: Speakers */
+
+.speakers #topinfo {
+    padding: 30px 0;
+}
+.speakers #topinfo h1 {
+    margin-top: 40px;
+}
+
+/* @end */
+
+
+/* @group Page: Schedule detail */
+
+.detail #topinfo .icon {
+    display: block;
+    height: 90px;
+    background: #fad799;
+    -webkit-border-radius: 85px;
+    border-radius: 85px;
+    width: 90px;
+    padding: 20px;
+}
+#detail .speakerpic {
+    float: left;
+    border: 2px solid #fff;
+    width: 170px;
+    margin: 0 auto 30px;
+    height: 170px;
+    overflow: hidden;
+    -webkit-border-radius: 85px;
+    border-radius: 85px;
+}
+
+/* @end */
 
 /* @group Media Queries */
 
