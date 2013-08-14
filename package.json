@@ -25,7 +25,7 @@
     "matchdep": "~0.1.1",
     "grunt-google-cdn": "~0.1.1",
     "grunt-ngmin": "~0.0.2",
-    "grunt-cfp-static": "~0.0.1"
+    "grunt-cfp-static": "git://github.com/devoxx/grunt-cfp-static.git"
   },
   "engines": {
     "node": ">=0.8.0"
