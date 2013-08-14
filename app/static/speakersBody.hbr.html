@@ -1,0 +1,143 @@
+<div id="topinfo" class="area orange">
+    <div class="grid">
+    
+        <div class="row">   
+            <div class="col9">
+                
+                <h1>Speakers {{eventDetails.name}}</h1>
+                <p>The rockstars and passionate community members that we've lined-up for you!</p>
+                
+            </div>  
+            <div class="col10 push1">
+            
+                <div class="filtertracks">
+                    <ul class="option-set" data-filter-group="track">
+                                                
+                        <li>
+                            <a href="#" class="selected" data-filter="">
+                                <span class="checker"></span>
+                                <span class="icon"></span>
+                                <span class="name">All</span>
+                            </a>
+                        </li>
+                        {{#each tracks}}
+                        <li>
+                            <a href="#" data-filter=".track-{{id}}">
+                                <span class="checker"></span>
+                                <span class="icon"><img src="images/tracks/{{icon}}" alt="" /></span>
+                                <span class="name">{{name}}</span>
+                            </a>
+                        </li>
+                        {{/each}}
+                        
+                    </ul>
+                </div>
+                
+            </div>      
+        </div>
+        
+    </div>
+</div>
+
+<div id="filters" class="area blue">
+    <div class="grid">
+    
+        <div class="row">           
+            <div class="col20">
+            
+                <ul class="option-set" data-filter-group="day">
+                    <li>
+                        <a href="#" data-filter="" class="selected">All</a>
+                    </li>
+                    <li>
+                        <a href="#" data-filter=".day-1">Monday</a>
+                    </li>
+                    <li>
+                        <a href="#" data-filter=".day-2">Tuesday</a>
+                    </li>
+                    <li>
+                        <a href="#" data-filter=".day-3">Wednesday</a>
+                    </li>
+                    <li>
+                        <a href="#" data-filter=".day-4">Thursday</a>
+                    </li>
+                    <li>
+                        <a href="#" data-filter=".day-5">Friday</a>
+                    </li>
+
+                </ul>
+            
+            </div>
+        </div>
+    
+    </div>
+</div>
+            
+            
+            
+<div id="team" class="area lightgrey">
+    <div class="grid">
+    
+        <div class="row">           
+            <div class="col20">
+                
+                <ul class="dotList speakers" id="contactList">
+
+                    {{#each speakers}}
+
+                    <li class="{{#each tracks}}{{this}} {{/each}} {{#each days}}{{this}} {{/each}}">
+                        <div class="icon" style="background: url({{imageURI}}) no-repeat center; background-size: 120px"></div>
+                        <h4>{{firstName}} {{lastName}}</h4>
+                        <div class="popup">
+                            <h4>{{firstName}} {{lastName}}</h4>
+                            <p>{{bio}}</p>         
+                            <a href="{{page}}" class="btn">View my talks</a>
+                        </div>
+                    </li>
+
+                    {{/each}}
+                    
+                </ul>
+                
+            </div>          
+        </div>
+        
+    </div>
+</div>
+
+<script>
+
+    var $container = $('#contactList'),filters = {};
+    
+    $container.isotope({
+        itemSelector : 'li',
+        layoutMode : 'fitRows'
+    }); 
+    
+    
+     // filter buttons
+    $('.option-set a').click(function(){
+        var $this = $(this);
+        // don't proceed if already selected
+        if ( $this.hasClass('selected') ) {
+            return;
+        }
+        var $optionSet = $this.parents('.option-set');
+        // change selected class
+        $optionSet.find('.selected').removeClass('selected');
+        $this.addClass('selected');
+        // store filter value in object
+        // i.e. filters.color = 'red'
+        var group = $optionSet.attr('data-filter-group');
+        filters[ group ] = $this.attr('data-filter');
+        // convert object into array
+        var isoFilters = [];
+        for ( var prop in filters ) {
+        isoFilters.push( filters[ prop ] )
+        }
+        var selector = isoFilters.join('');
+        $container.isotope({ filter: selector });
+        return false;
+    });                         
+
+</script>

@@ -310,6 +310,66 @@ module.exports = function (grunt) {
             ]
           }
         ]
+      },
+      staticdev: { // Only during dev of static files 
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '*.{ico,txt}',
+              '.htaccess',
+              'components/**/*',
+              'images/**/*',
+              'styles/fonts/*',
+              'styles/*',
+              'images_dummy/*',
+              'scripts/main360.js'
+            ]
+          }
+        ]
+      }
+    },
+    cfpstatic: {
+      dist: {
+        files: '<%= yeoman.app %>/static',
+        output: '<%= yeoman.dist %>',
+        events: [
+          {
+            id: 7,
+            key: "dv12",
+            url: "https://staging-cfp.devoxx.com/rest/v1",
+            trackMapping: { // track ID to image icon mapping
+              "2" : "icon_architecture.png",
+              "5" : "icon_alternative.png",
+              "6" : "icon_methology.png",
+              "7" : "icon_cloud.png",
+              "9" : "icon_javase.png",
+              "10" : "icon_mobile.png",
+              "13" : "icon_javaee.png",
+              "19" : "icon_future.png",
+              "22" : "icon_web.png"
+            }
+          },
+          // {
+          //   id: 10,
+          //   key: "dv13",
+          //   url: "https://staging-cfp.devoxx.com/rest/v1",
+          //   trackMapping: {
+          //     "2" : "icon_architecture.png",
+          //     "5" : "icon_alternative.png",
+          //     "6" : "icon_methology.png",
+          //     "7" : "icon_cloud.png",
+          //     "9" : "icon_javase.png",
+          //     "10" : "icon_mobile.png",
+          //     "13" : "icon_javaee.png",
+          //     "19" : "icon_future.png",
+          //     "22" : "icon_web.png"
+          //   }
+          // }
+        ]
       }
     }
   });
@@ -357,10 +417,11 @@ module.exports = function (grunt) {
     //'jshint',
     'coffee',
     'test',
-    'compass:dist',
+    'compass:dist',    
     'useminPrepare',
     'imagemin',
     'cssmin',
+    'cfpstatic',
     'htmlmin',
     'concat',
     'copy',
@@ -370,6 +431,8 @@ module.exports = function (grunt) {
     'rev',
     'usemin'
   ]);
+
+  grunt.registerTask('static', ['clean', 'cfpstatic', 'copy:staticdev']);
 
   grunt.registerTask('default', ['build']);
 };

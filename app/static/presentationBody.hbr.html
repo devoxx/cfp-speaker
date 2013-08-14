@@ -1,0 +1,191 @@
+<div id="topinfo" class="area orange">
+    <div class="grid">
+    
+        <div class="row">
+            <div class="col11">
+                
+                <h1>{{presentation.title}}</h1>
+                <h2>{{presentation.speakerNames}}</h2>
+                
+            </div>
+            <div class="col3 push6">
+                
+                <div class="icon">
+                    <img src="images/tracks/{{presentation.trackIcon}}" alt="" />
+                </div>
+                
+            </div>          
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div id="detail" class="area lightgrey">
+    <div class="grid">  
+            
+        <div class="row">   
+            <div class="col12">
+            
+                <h1>{{presentation.title}}</h1>
+            
+                <!-- <img src="images_dummy/video_placeholder.jpg" alt="" />                  -->
+                
+                <p>{{presentation.summary}}</p>    
+                
+            </div>
+            
+            <div class="col6 push2 ">                   
+                
+                <div class="banner">
+                    
+                    {{#each presentation.speakers}}
+
+                    <div class="speakerpic">
+                        <img src="{{imageURI}}" alt="" />
+                    </div>      
+                    
+                    <h4>{{firstName}} {{lastName}}</h4>
+                    <p>{{bio}}</p>
+
+                    {{/each}}
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+    
+<div id="sheduleDays" class="area lightgrey">
+
+    
+    <div class="talks trackFilter">
+    
+        <div class="head">          
+            <div class="grid">
+            
+                <div class="row">   
+                    <div class="col15">
+                        
+                        
+                        <h2>SCHEDULE SPEAKER</h2>
+                        
+                        
+                    </div>
+                    <div class="col5">
+                        
+                    </div>          
+                </div>
+                
+            </div>              
+        </div>
+        
+        
+        <div class="grid">
+        
+            <div class="trackFilter row">   
+                <div class="col10">
+                    
+                    <div class="icon">
+                        <img src="images/tracks/icon_cloud.png" alt="" />
+                    </div>
+                    <a href="schedule-detail.html">talk 1 webhtml5</a>
+                    
+                    
+                </div>
+                <div class="col3">                          
+                
+                    10AM - 11AM                         
+                    
+                </div>
+                <div class="col7">
+                    
+                    <div class="speakerpic">
+                        <img src="images_dummy/tweeter_dummy.jpg" alt="" />
+                    </div>                          
+                    
+                    <div class="flag">
+                        <img src="images/flags/belgium.jpg" alt="Belguim" />
+                    </div>
+                    
+                    <div class="speaker">
+                        Name speaker
+                    </div>                          
+                    
+                </div>          
+            </div>
+            
+            <div class="trackFilter row">   
+                <div class="col10">
+                    
+                    <div class="icon">
+                        <img src="images/tracks/icon_cloud.png" alt="" />
+                    </div>
+                    <a href="schedule-detail.html">talk 1 webhtml5</a>
+                    
+                    
+                </div>
+                <div class="col3">                          
+                
+                    10AM - 11AM                         
+                    
+                </div>
+                <div class="col7">
+                    
+                    <div class="speakerpic">
+                        <img src="images_dummy/tweeter_dummy.jpg" alt="" />
+                    </div>                          
+                    
+                    <div class="flag">
+                        <img src="images/flags/gb.jpg" alt="Belguim" />
+                    </div>
+                    
+                    <div class="speaker">
+                        Name speaker
+                    </div>                          
+                    
+                </div>      
+            </div>
+        
+            <div class="trackFilter row">   
+                <div class="col10">
+                    
+                    <div class="icon">
+                        <img src="images/tracks/icon_cloud.png" alt="" />
+                    </div>
+                    <a href="schedule-detail.html">talk 1 webhtml5</a>
+                    
+                    
+                </div>
+                <div class="col3">
+                    
+                
+                    10AM - 11AM
+                    
+                    
+                </div>
+                <div class="col7">
+                    
+                    <div class="speakerpic">
+                        <img src="images_dummy/tweeter_dummy.jpg" alt="" />
+                    </div>                          
+                    
+                    <div class="flag">
+                        <img src="images/flags/belgium.jpg" alt="Belguim" />
+                    </div>
+                    
+                    <div class="speaker">
+                        Name speaker
+                    </div>                          
+                    
+                </div>      
+            </div>
+            
+        </div>
+    </div>
+
+    
+</div>

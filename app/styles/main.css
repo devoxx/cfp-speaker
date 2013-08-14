@@ -150,6 +150,13 @@ a.btn:hover {
 	transition: all 0.15s ease-out 0s;
 	-webkit-transition: all 0.15s ease-out 0s;
 }
+.dotList.speakers li .icon {
+	height: 120px;
+	line-height: 120px;
+	width: 120px;
+	-webkit-border-radius: 60px;
+	border-radius: 60px;
+}
 .dotList li h4 {
 	color: #000;
 	text-align: center;
