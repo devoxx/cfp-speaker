@@ -416,7 +416,7 @@ module.exports = function (grunt) {
     'clean:dist',
     //'jshint',
     'coffee',
-    'test',
+    //'test',
     'compass:dist',    
     'useminPrepare',
     'imagemin',
