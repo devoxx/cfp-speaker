@@ -185,18 +185,15 @@ module.exports = function (grunt) {
         }
       }
     },
-    concat: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '.tmp/scripts/{,*/}*.js',
-            '<%= yeoman.app %>/scripts/{,*/}*.js'
-          ]
-        }
-      }
-    },
+    // concat: {
+    //   dist: {
+    //     files: {
+
+    //     }
+    //   }
+    // },
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/index.hbr.html'],
       options: {
         dest: '<%= yeoman.dist %>'
       }
@@ -220,16 +217,16 @@ module.exports = function (grunt) {
         ]
       }
     },
-    cssmin: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/styles/main.css': [
-            '.tmp/styles/{,*/}*.css',
-            '<%= yeoman.app %>/styles/{,*/}*.css'
-          ]
-        }
-      }
-    },
+    // cssmin: {
+    //   dist: {
+    //     files: {
+    //       '<%= yeoman.dist %>/styles/main.css': [
+    //         '.tmp/styles/{,*/}*.css',
+    //         '<%= yeoman.app %>/styles/{,*/}*.css'
+    //       ]
+    //     }
+    //   }
+    // },
     htmlmin: {
       dist: {
         options: {
@@ -247,7 +244,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: '<%= yeoman.app %>',
-            src: ['*.html', 'views/**/*.html'],
+            src: ['*.html', 'views/**/*.html', '!*.hbr.html',],
             dest: '<%= yeoman.dist %>'
           }
         ]
@@ -270,15 +267,18 @@ module.exports = function (grunt) {
         ]
       }
     },
-    uglify: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '<%= yeoman.dist %>/scripts/scripts.js'
-          ]
-        }
-      }
-    },
+    // uglify: {
+    //   dist: {
+    //     files: {
+    //       '<%= yeoman.dist %>/scripts/scripts.js': [
+    //         '<%= yeoman.dist %>/scripts/scripts.js'
+    //       ],
+    //       '<%= yeoman.dist %>/scripts/scriptsstatic.js': [
+    //         '<%= yeoman.dist %>/scripts/scriptsstatic.js'
+    //       ]
+    //     }
+    //   }
+    // },
     rev: {
       dist: {
         files: {
@@ -301,11 +301,10 @@ module.exports = function (grunt) {
             dest: '<%= yeoman.dist %>',
             src: [
               '*.{ico,txt}',
-              '.htaccess',
+              'config.js',
               'components/**/*',
               'images/{,*/}*.{gif,webp}',
-              'styles/fonts/*',
-              'styles/*',
+              'styles/*.{eot,svg,ttf,woff}',
               'images_dummy/*'
             ]
           }
@@ -320,11 +319,9 @@ module.exports = function (grunt) {
             dest: '<%= yeoman.dist %>',
             src: [
               '*.{ico,txt}',
-              '.htaccess',
               'components/**/*',
               'images/**/*',
-              'styles/fonts/*',
-              'styles/*',
+              'styles/*.{eot,svg,ttf,woff}',
               'images_dummy/*',
               'scripts/main360.js'
             ]
@@ -334,7 +331,7 @@ module.exports = function (grunt) {
     },
     cfpstatic: {
       dist: {
-        files: '<%= yeoman.app %>/static',
+        files: '<%= yeoman.app %>/',
         output: '<%= yeoman.dist %>',
         events: [
           {
@@ -416,16 +413,16 @@ module.exports = function (grunt) {
     'clean:dist',
     //'jshint',
     'coffee',
-    //'test',
+    // 'test',
     'compass:dist',    
+    'cfpstatic',
     'useminPrepare',
     'imagemin',
     'cssmin',
-    'cfpstatic',
     'htmlmin',
     'concat',
-    'copy',
-    //'cdnify',
+    'copy:dist',
+    // // //'cdnify',
     'ngmin',
     'uglify',
     'rev',
