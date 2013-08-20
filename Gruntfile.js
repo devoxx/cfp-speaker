@@ -336,9 +336,9 @@ module.exports = function (grunt) {
         output: '<%= yeoman.dist %>',
         events: [
           {
-            id: 7,
-            key: "dv12",
-            url: "https://staging-cfp.devoxx.com/rest/v1",
+            id: 10,
+            key: "dv13",
+            url: "https://cfp.devoxx.com/rest/v1",
             trackMapping: { // track ID to image icon class
               "2" : "icon_architecture",
               "5" : "icon_alternative",
