@@ -17,7 +17,7 @@
                         <li>
                             <a href="#" class="button selected datatrack" id="track-{{id}}Button">
                                 <span class="checker"></span>
-                                <span class="icon"><img src="images/tracks/{{icon}}" alt="" /></span>
+                                <span class="icon"><div class="{{icon}}"></div></span>
                                 <span class="name">{{name}}</span>
                             </a>
                         </li>
@@ -93,104 +93,12 @@
 		
 		<div class="grid">
 		
-			<div class="trackFilter row" data-day="monday" data-track="methodology">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">							
-				
-					10AM - 11AM							
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>			
-			</div>
+			{{#each fullSchedule.day-1}}
+
+				{{include "speakerRow" presentation=this}}
 			
-			<div class="trackFilter row" data-day="monday" data-track="cloudbigdata">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">							
-				
-					10AM - 11AM							
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/gb.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
-		
-			<div class="trackFilter row" data-day="monday" data-track="webhtml5">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
-			
+			{{/each}}
+						
 		</div>
 	</div>
 
@@ -218,107 +126,11 @@
 				
 		<div class="grid">
 		
-			<div class="trackFilter row" data-day="tuesday" data-track="javase">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/gb.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
+			{{#each fullSchedule.day-2}}
+
+				{{include "speakerRow" presentation=this}}
 			
-			<div class="trackFilter row" data-day="tuesday" data-track="webhtml5">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
-		
-			<div class="trackFilter row" data-day="tuesday" data-track="javase">
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
+			{{/each}}
 			
 		</div>
 	</div>
@@ -347,108 +159,12 @@
 			
 		<div class="grid">
 		
-			<div class="trackFilter row" data-day="wednesday" data-track="methodology">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
+			{{#each fullSchedule.day-3}}
+
+				{{include "speakerRow" presentation=this}}
 			
-			<div class="trackFilter row" data-day="wednesday" data-track="cloudbigdata">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/gb.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
-		
-			<div class="trackFilter row" data-day="wednesday" data-track="webhtml5">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/gb.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
-			
+			{{/each}}
+
 		</div>
 	</div>
 
@@ -477,107 +193,11 @@
 				
 		<div class="grid">
 		
-			<div class="trackFilter row" data-day="thursday" data-track="jvm">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
+			{{#each fullSchedule.day-4}}
+
+				{{include "speakerRow" presentation=this}}
 			
-			<div class="trackFilter row" data-day="thursday" data-track="webhtml5">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>			
-			</div>
-		
-			<div class="trackFilter row" data-day="thursday" data-track="methodology">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>			
-			</div>
+			{{/each}}
 			
 		</div>
 	</div>
@@ -606,107 +226,11 @@
 				
 		<div class="grid">
 		
-			<div class="trackFilter row" data-day="thursday" data-track="jvm">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>		
-			</div>
+			{{#each fullSchedule.day-5}}
+
+				{{include "speakerRow" presentation=this}}
 			
-			<div class="trackFilter row" data-day="thursday" data-track="webhtml5">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>			
-			</div>
-		
-			<div class="trackFilter row" data-day="thursday" data-track="methodology">	
-				<div class="col10">
-					
-					<div class="icon">
-						<img src="images/tracks/icon_cloud.png" alt="" />
-					</div>
-					<a href="schedule-detail.html">talk 1 webhtml5</a>
-					
-					
-				</div>
-				<div class="col3">
-					
-				
-					10AM - 11AM
-					
-					
-				</div>
-				<div class="col7">
-					
-					<div class="speakerpic">
-						<img src="images_dummy/tweeter_dummy.jpg" alt="" />
-					</div>							
-					
-					<div class="flag">
-						<img src="images/flags/belgium.jpg" alt="Belguim" />
-					</div>
-					
-					<div class="speaker">
-						Name speaker
-					</div>							
-					
-				</div>			
-			</div>
+			{{/each}}
 			
 		</div>
 	</div>

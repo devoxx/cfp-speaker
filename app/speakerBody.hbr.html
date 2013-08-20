@@ -1,0 +1,127 @@
+<div class="detail">
+
+<div id="topinfo" class="area orange">
+    <div class="grid">
+    
+        {{#each speaker.talks}}
+
+        <div class="row headerfilter talk-{{id}}">
+
+            <div class="col15">
+                
+                <h1>{{title}}</h1>
+                <h3>{{schedule schedule}} {{room}}</h3>
+                <h2>{{#each speakers}}<a href="{{page}}?presId={{../id}}">{{#if @index}},{{/if}} {{firstName}} {{lastName}}</a>{{/each}}</h2>
+                
+            </div>
+            <div class="col3 push2">
+                
+                <div class="icon">
+                    <div class="{{trackIcon}}"></div>
+                </div>
+                
+            </div>          
+        </div>
+
+        {{/each}}
+        
+    </div>
+</div>
+
+
+
+<div id="detail" class="area lightgrey">
+    <div class="grid">  
+           
+        <div class="row">   
+            {{#each speaker.talks}}
+
+            <div class="col12 talk-{{id}}">                            
+
+                <h1>{{title}}</h1>
+            
+                <!-- <img src="images_dummy/video_placeholder.jpg" alt="" />                  -->
+                
+                <p>{{nlbr summary}}</p>   
+                
+            </div>
+
+            {{/each}}
+            
+            <div class="col6 push2 ">                   
+                
+                <div class="banner">
+                    
+                    {{#with speaker}}
+
+                    <div class="speakerpic">
+                        <img src="{{imageURI}}" alt="" />
+                    </div>      
+                    
+                    <h4>{{firstName}} {{lastName}}</h4>
+                    <p>{{nlbr bio}}</p>
+
+                    {{/with}}
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    
+<div id="sheduleDays" class="area lightgrey">
+
+    
+    <div class="talks trackFilter">
+    
+        <div class="head">          
+            <div class="grid">
+            
+                <div class="row">   
+                    <div class="col15">
+                        
+                        
+                        <h2>SCHEDULE SPEAKER</h2>
+                        
+                        
+                    </div>
+                    <div class="col5">
+                        
+                    </div>          
+                </div>
+                
+            </div>              
+        </div>
+        
+        
+        <div class="grid">
+        
+            {{#each speaker.talks}}
+
+            {{include "speakerRow" presentation=this speaker=../speaker}}
+            
+            {{/each}}           
+            
+        </div>
+    </div>
+
+    
+</div>
+
+</div>
+
+<script>
+
+    var presId = parseInt(getURLParameter('presId'));
+
+    $("[class*='talk-']").hide();
+
+    if (presId) {    
+        $(".talk-"+presId).show();
+    } else {
+        $("[class*='talk-']:first-child").show();
+    }
+
+</script>

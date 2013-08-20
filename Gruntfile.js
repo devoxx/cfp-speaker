@@ -193,7 +193,7 @@ module.exports = function (grunt) {
     //   }
     // },
     useminPrepare: {
-      html: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/index.hbr.html'],
+      html: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/*.hbr.html'],
       options: {
         dest: '<%= yeoman.dist %>'
       }
@@ -244,7 +244,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: '<%= yeoman.app %>',
-            src: ['*.html', 'views/**/*.html', '!*.hbr.html',],
+            src: ['*.html', 'views/**/*.html'],
             dest: '<%= yeoman.dist %>'
           }
         ]
@@ -319,9 +319,10 @@ module.exports = function (grunt) {
             dest: '<%= yeoman.dist %>',
             src: [
               '*.{ico,txt}',
+              '*.hbr.html',
               'components/**/*',
-              'images/**/*',
-              'styles/*.{eot,svg,ttf,woff}',
+              'images/**/*',            
+              'styles/*',
               'images_dummy/*',
               'scripts/main360.js'
             ]
@@ -331,23 +332,23 @@ module.exports = function (grunt) {
     },
     cfpstatic: {
       dist: {
-        files: '<%= yeoman.app %>/',
+        files: '<%= yeoman.dist %>/',
         output: '<%= yeoman.dist %>',
         events: [
           {
             id: 7,
             key: "dv12",
             url: "https://staging-cfp.devoxx.com/rest/v1",
-            trackMapping: { // track ID to image icon mapping
-              "2" : "icon_architecture.png",
-              "5" : "icon_alternative.png",
-              "6" : "icon_methology.png",
-              "7" : "icon_cloud.png",
-              "9" : "icon_javase.png",
-              "10" : "icon_mobile.png",
-              "13" : "icon_javaee.png",
-              "19" : "icon_future.png",
-              "22" : "icon_web.png"
+            trackMapping: { // track ID to image icon class
+              "2" : "icon_architecture",
+              "5" : "icon_alternative",
+              "6" : "icon_methodology",
+              "7" : "icon_cloud",
+              "9" : "icon_javase",
+              "10" : "icon_mobile",
+              "13" : "icon_javaee",
+              "19" : "icon_future",
+              "22" : "icon_web"
             }
           },
           // {
@@ -355,15 +356,15 @@ module.exports = function (grunt) {
           //   key: "dv13",
           //   url: "https://staging-cfp.devoxx.com/rest/v1",
           //   trackMapping: {
-          //     "2" : "icon_architecture.png",
-          //     "5" : "icon_alternative.png",
-          //     "6" : "icon_methology.png",
-          //     "7" : "icon_cloud.png",
-          //     "9" : "icon_javase.png",
-          //     "10" : "icon_mobile.png",
-          //     "13" : "icon_javaee.png",
-          //     "19" : "icon_future.png",
-          //     "22" : "icon_web.png"
+              // "2" : "icon_architecture",
+              // "5" : "icon_alternative",
+              // "6" : "icon_methodology",
+              // "7" : "icon_cloud",
+              // "9" : "icon_javase",
+              // "10" : "icon_mobile",
+              // "13" : "icon_javaee",
+              // "19" : "icon_future",
+              // "22" : "icon_web"
           //   }
           // }
         ]
@@ -415,7 +416,6 @@ module.exports = function (grunt) {
     'coffee',
     // 'test',
     'compass:dist',    
-    'cfpstatic',
     'useminPrepare',
     'imagemin',
     'cssmin',
@@ -426,10 +426,11 @@ module.exports = function (grunt) {
     'ngmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    'cfpstatic'
   ]);
 
-  grunt.registerTask('static', ['clean', 'cfpstatic', 'copy:staticdev']);
+  grunt.registerTask('static', ['clean', 'copy:staticdev', 'cfpstatic']);
 
   grunt.registerTask('default', ['build']);
 };

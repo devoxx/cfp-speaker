@@ -183,3 +183,10 @@ function updateFormElements() {
 	$(".selector select").css("width","100%");
 
 }
+
+// Used to get presId param on the speaker pages
+function getURLParameter(name) {
+	return decodeURI(
+		(RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+		);
+}

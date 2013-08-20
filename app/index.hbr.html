@@ -67,26 +67,26 @@
     <div class="grid">
         <div class="row">
             <div class="col6">
-                <a href="#"><img src="images/devoxx_logo.gif"></a>
+                <a href="/#"><img src="images/devoxx_logo.gif"></a>
             </div>
 
             <nav class="">
                 <ul>
-                    <li><a href="#/">Home</a></li>
+                    <li><a href="/#/">Home</a></li>
                     <li class="submenu subleft">
                         <a href="#">Program</a>
                         <ul>
-                            <li><a href="#/schedule">Schedule</a></li>
-                            <li><a href="#/devoxxians">Devoxxians</a></li>
+                            <li><a href="/dv12-schedule.html">Schedule</a></li>
+                            <li><a href="/dv12-speakers.html">Devoxxians</a></li>
                         </ul>
                     </li>
                     <li class="submenu subright">
                         <a>Practical</a>
                         <ul>
-                            <li><a href="#/faq">FAQ</a></li>
-                            <li><a href="#/team">Team</a></li>
-                            <li><a href="#/venue">Venue</a></li>
-                            <li><a href="#/contact">Contact</a></li>
+                            <li><a href="/#/faq">FAQ</a></li>
+                            <li><a href="/#/team">Team</a></li>
+                            <li><a href="/#/venue">Venue</a></li>
+                            <li><a href="/#/contact">Contact</a></li>
                         </ul>
                     </li>
                     <li class="btn hide_mobile">
@@ -166,10 +166,15 @@
     {{#if isSchedule}}
         {{>scheduleBody}}
     {{/if}}
-    {{#if isPresentation}}
-        {{>presentationBody}}
+    {{#if isSpeaker}}
+        {{>speakerBody}}
     {{/if}}
-
+    {{#if isAgreement}}
+        {{>agreementBody}}
+    {{/if}}
+    {{#if isThankyou}}
+        {{>thankyouBody}}
+    {{/if}}
 
 </div>
 

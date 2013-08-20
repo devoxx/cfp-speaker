@@ -1,0 +1,46 @@
+
+            <div class="trackFilter row" data-day="{{presentation.dayIdVar}}" data-track="{{presentation.trackIdVar}}">   
+                <div class="col10">
+                    
+                    <div class="icon">
+                        <div class="{{presentation.trackIcon}}"></div>
+                    </div>
+                    {{#if speaker}}
+                        <a href="{{speaker.page}}?presId={{presentation.id}}">
+                    {{else}}
+                        {{#first presentation.speakers}}                        
+                            <a href="{{page}}?presId={{../presentation.id}}" alt="" />
+                        {{/first}}                        
+                    {{/if}}
+                        {{title}}
+                        </a>
+                    
+                    
+                </div>
+                <div class="col3">                          
+                
+                    {{schedule presentation.schedule}} {{presentation.room}}
+                    
+                </div>
+                <div class="col7">
+
+                    <div class="speakerpic">
+                        {{#if speaker}}
+                            <img src="{{speaker.imageURI}}" alt="" />
+                        {{else}}
+                            {{#first presentation.speakers}}
+                            <img src="{{imageURI}}" alt="" />
+                            {{/first}}
+                        {{/if}}
+                    </div>                          
+                    
+<!--                     <div class="flag">
+                        <img src="images/flags/belgium.jpg" alt="Belguim" />
+                    </div>
+ -->                    
+                    <div class="speaker">
+                        {{#each presentation.speakers}}<a href="{{page}}?presId={{../presentation.id}}">{{#if @index}},{{/if}} {{firstName}} {{lastName}}</a>{{/each}}
+                    </div>                          
+                    
+                </div>          
+            </div>

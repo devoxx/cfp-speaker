@@ -526,3 +526,67 @@ li.existingTag {
   border-bottom-color: #000000;
   border-width: 0 5px 5px;
 }
+
+/* Static Speakers page */
+
+.filtertracks a.selected .icon > div {
+  opacity:1;
+  filter:alpha(opacity=100);
+}
+.filtertracks a .icon > div {
+  width: 35px;
+  height: 35px;
+  opacity:0.4;
+  filter:alpha(opacity=40);
+  background-size: 35px 35px;
+}
+
+/* Static Speaker page */
+
+#detail .speakerpic img {
+  width: 180px;
+  height: 180px;
+}
+
+.headerfilter div.icon > div {
+  width: 89px;
+  height: 89px;
+  background-size: 89px 89px;
+}
+
+.talks .icon > div {
+  width: 45px;
+  height: 45px;
+  background-size: 45px 45px;
+  margin: 18px auto 0;
+}
+
+/* Static pages track icons */
+
+.icon_architecture {
+  background-image: url('/images/tracks/icon_architecture.png');
+}
+.icon_alternative {
+  background-image: url('/images/tracks/icon_alternative.png');
+}
+.icon_methodology {
+  background-image: url('/images/tracks/icon_methology.png');
+}
+.icon_cloud {
+  background-image: url('/images/tracks/icon_cloud.png');
+}
+.icon_javase {
+  background-image: url('/images/tracks/icon_javase.png');
+}
+.icon_mobile {
+  background-image: url('/images/tracks/icon_mobile.png');
+}
+.icon_javaee {
+  background-image: url('/images/tracks/icon_javaee.png');
+}
+.icon_future {
+  background-image: url('/images/tracks/icon_future.png');
+}
+.icon_web {
+  background-image: url('/images/tracks/icon_web.png');
+}
