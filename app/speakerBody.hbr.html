@@ -9,12 +9,23 @@
 
             <div class="col15">
                 
-                <h1>{{title}}</h1>
-                <h3>{{schedule schedule}} {{room}}</h3>
+                <h1>{{title}}</h1>                
+                <h3>
+                    {{#if schedule}}
+                        {{schedule schedule}} {{room}}<br>
+                    {{/if}}
+
+                    {{type}}
+                </h3>
+                {{#ifequal speakers.length 1}}
+                <!-- No speaker name for solo speaker -->
+                {{else}}
                 <h2>{{#each speakers}}<a href="{{page}}?presId={{../id}}">{{#if @index}},{{/if}} {{firstName}} {{lastName}}</a>{{/each}}</h2>
+                {{/ifequal}}
+                
                 
             </div>
-            <div class="col3 push2">
+            <div class="col3 push0">
                 
                 <ul class="dotList" style="padding-top: 100px;">
 

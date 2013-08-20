@@ -563,6 +563,12 @@ li.existingTag {
 
 #sheduleDays .talks .row {
     font: 12px/17px "GothamBook","Helvetica Neue",Arial,Helvetica,Geneva,sans-serif !important;
+    padding: 33px 0 20px !important;
+}
+
+#sheduleDays .talks .row .speakerpic,
+#sheduleDays .talks .row .icon { 
+  margin: -20px 20px 0 0 !important;
 }
 
 /* Static pages track icons */

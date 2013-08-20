@@ -12,14 +12,18 @@
                             <a href="{{page}}?presId={{../presentation.id}}" alt="" />
                         {{/first}}                        
                     {{/if}}
-                        {{title}}
+                        {{title}}<br>{{type}}
                         </a>
                     
                     
                 </div>
                 <div class="col3">                          
-                
-                    {{schedule presentation.schedule}} {{presentation.room}}
+                    
+                    {{#if presentation.schedule}}
+
+                    {{schedule presentation.schedule}}<br>{{presentation.room}}
+
+                    {{/if}}
                     
                 </div>
                 <div class="col7">
