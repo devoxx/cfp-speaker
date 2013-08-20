@@ -66,10 +66,12 @@
 
                 <h1>{{title}}</h1>
             
-                <!-- <img src="images_dummy/video_placeholder.jpg" alt="" />                  -->
-                
                 <p>{{nlbr summary}}</p>   
                 
+                {{#if parleysIds}}
+                <iframe type="text/html" width="495" height="650" mozallowfullscreen="true" webkitallowfullscreen="true" src="http://parleys.com/share.html#play/{{parleysIds}}" frameborder="0">&amp;lt;br /&amp;gt;</iframe>
+                {{/if}}
+
             </div>
 
             {{/each}}
