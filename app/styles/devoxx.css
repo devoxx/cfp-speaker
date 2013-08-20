@@ -561,6 +561,10 @@ li.existingTag {
   margin: 18px auto 0;
 }
 
+#sheduleDays .talks .row {
+    font: 12px/17px "GothamBook","Helvetica Neue",Arial,Helvetica,Geneva,sans-serif !important;
+}
+
 /* Static pages track icons */
 
 .icon_architecture {
