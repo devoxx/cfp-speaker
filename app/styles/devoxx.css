@@ -548,6 +548,10 @@ li.existingTag {
   height: 180px;
 }
 
+#detail p {
+  text-align: justify;
+}
+
 .headerfilter div.icon > div {
   width: 89px;
   height: 89px;
@@ -569,6 +573,16 @@ li.existingTag {
 #sheduleDays .talks .row .speakerpic,
 #sheduleDays .talks .row .icon { 
   margin: -20px 20px 0 0 !important;
+}
+
+.banner {
+  max-width: inherit !important;
+  background-size: 315px !important; 
+  text-align: justify;
+}
+
+.banner .speakerpic {
+  margin: 20px 30px !important;
 }
 
 /* Static pages track icons */
