@@ -1,7 +1,7 @@
 <div class="detail">
 
 <div id="topinfo" class="area orange">
-    <div class="grid">
+    <div id="trackList" class="grid">
     
         {{#each speaker.talks}}
 
@@ -16,10 +16,25 @@
             </div>
             <div class="col3 push2">
                 
+                <ul class="dotList" style="padding-top: 100px;">
+
+                <li>
+
                 <div class="icon">
                     <div class="{{trackIcon}}"></div>
                 </div>
-                
+                <h4 style="padding-top: 10px; text-align: center;">
+                {{track}}
+                </h4>
+                <div class="popup">
+                    {{{trackDescription}}}
+                    <span class="textballoon"></span>
+                </div>                
+
+                </li>
+
+                </ul>
+
             </div>          
         </div>
 
