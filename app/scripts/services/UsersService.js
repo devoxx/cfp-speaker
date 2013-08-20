@@ -9,12 +9,10 @@ genericServices.factory('UserService',function ($q, $filter, $http, $timeout, $c
         searchUserCache: {},
 
         login: function (username, pass) {
-            return $http.post(authUri, {}, {
-                params: {
+            return $http.post(authUri + '/login', {
                     login: username,
                     password: pass
-                }
-            }).success(function (data, status, headers, config) {
+                }).success(function (data, status, headers, config) {
                     self.currentUser = data.user;
                     self.currentUserToken = data.userToken;
 
