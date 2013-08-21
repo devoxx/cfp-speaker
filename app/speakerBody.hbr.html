@@ -86,8 +86,12 @@
                         <img src="{{imageURI}}" alt="" />
                     </div>      
                     
-                    <h4>{{firstName}} {{lastName}}</h4>
-                    <h5><a href="http://twitter.com/{{tweethandle}}">{{tweethandle}}</a></h5>
+                    
+                    <div class="links">                        
+                        <h4>{{firstName}} {{lastName}} {{#if tweethandle}}
+                        <a href="http://twitter.com/{{tweethandle}}" class="btn_twitter">Twitter</a>{{/if}}
+                        </h4>                                                                   
+                    </div>                    
                     <p>{{nlbr bio}}</p>
 
                     {{/with}}
