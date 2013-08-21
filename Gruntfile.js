@@ -304,6 +304,7 @@ module.exports = function (grunt) {
               'config.js',
               'components/**/*',
               'images/{,*/}*.{gif,webp}',
+              'images/tracks/mobile/*',
               'styles/*.{eot,svg,ttf,woff}',
               'images_dummy/*'
             ]
