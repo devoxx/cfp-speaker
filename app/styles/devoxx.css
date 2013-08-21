@@ -541,6 +541,19 @@ li.existingTag {
   background-size: 35px 35px;
 }
 
+/* Fix for ipad width */
+
+.filtertracks a {
+  width: 110px !important;
+}
+#contactList li .popup { 
+  padding: 30px 30px 0 !important;
+}
+#contactList li {
+  width: 260px !important;
+}
+
+
 /* Static Speaker page */
 
 #detail .speakerpic img {
