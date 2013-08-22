@@ -128,6 +128,9 @@
         if ( $this.hasClass('selected') ) {
             return;
         }
+
+        var trackIdClass = $this.attr('data-filter');
+
         var $optionSet = $this.parents('.option-set');
         // change selected class
         $optionSet.find('.selected').removeClass('selected');
@@ -135,7 +138,7 @@
         // store filter value in object
         // i.e. filters.color = 'red'
         var group = $optionSet.attr('data-filter-group');
-        filters[ group ] = $this.attr('data-filter');
+        filters[ group ] = trackIdClass;
         // convert object into array
         var isoFilters = [];
         for ( var prop in filters ) {
@@ -143,7 +146,19 @@
         }
         var selector = isoFilters.join('');
         $container.isotope({ filter: selector });
+
+        window.location.hash = trackIdClass.substring(1, trackIdClass.length);
+
         return false;
     });                         
+
+    var trackIdHash = window.location.hash;
+
+    if (trackIdHash && trackIdHash.match(/#track-[0-9]+/)) {
+
+        var trackId = trackIdHash.substring(1, trackIdHash.length);
+        
+        $('.option-set a[data-filter=\'.'+trackId+'\']').trigger('click');
+    } 
 
 </script>
