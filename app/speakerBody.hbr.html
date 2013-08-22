@@ -69,7 +69,7 @@
                 <p>{{nlbr summary}}</p>   
                 
                 {{#if parleysIds}}
-                <iframe type="text/html" width="420" height="650" mozallowfullscreen="true" webkitallowfullscreen="true" src="http://parleys.com/share.html#play/{{parleysIds}}" frameborder="0">&amp;lt;br /&amp;gt;</iframe>
+                <iframe class="parleysEmbed" type="text/html" width="420" height="220" mozallowfullscreen="true" webkitallowfullscreen="true" src="http://parleys.com/share.html#play/{{parleysIds}}" frameborder="0">&amp;lt;br /&amp;gt;</iframe>
                 {{/if}}
 
             </div>
@@ -156,5 +156,26 @@
     } else {
         $("[class*='talk-']:first-child").show();
     }
+
+    var ratio = 0.76; // Width:Height ratio for the Parleys player
+    var embeds = $('.parleysEmbed'); // could be more than 1 per page (multiple talks per speaker)
+
+    if (!!embeds.length) {
+
+        setInterval(function(){
+
+            embeds.each(function(index, embed){
+
+                var $embed = $(embed);
+                var width = $embed.parent().width(); // container
+
+                $embed.attr("width", width);
+                $embed.attr("height", width / ratio);
+
+            });
+
+        }, 500);
+    }
+
 
 </script>
