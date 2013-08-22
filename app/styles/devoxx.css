@@ -546,13 +546,13 @@ li.existingTag {
 .filtertracks a {
   width: 110px !important;
 }
+
 #contactList li .popup { 
-  padding: 30px 30px 0 !important;
+  padding: 20px 20px 0 !important;
 }
 #contactList li {
-  width: 260px !important;
+  width: 240px !important;
 }
-
 
 /* Static Speaker page */
 
