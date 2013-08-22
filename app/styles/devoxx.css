@@ -267,12 +267,16 @@ div.selector.ng-invalid {
     cursor: pointer;
 }
 
-#tweetwall ul li .tweet {
-    margin: 0 60px 0 200px !important;
-}
+@media all and (min-width: 450px) {
 
-#tweetwall ul li.even .tweet {
-    margin: 0 200px 0 60px !important;
+  #tweetwall ul li .tweet {
+      margin: 0 60px 0 200px !important;
+  }
+
+  #tweetwall ul li.even .tweet {
+      margin: 0 200px 0 60px !important;
+  }
+
 }
 
 .visible {
