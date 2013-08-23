@@ -36,6 +36,11 @@ Used technologies:
 ##Build your app, including testing and optimization##
 
  - grunt
+ 
+##Build static files
+
+ - grunt static
+ - This will create all the static files like speakers, schedule etc in the /dist directory
 
 ##Update your project's dependencies##
 - bower update

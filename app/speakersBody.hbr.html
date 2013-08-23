@@ -80,11 +80,9 @@
 {{/if}}           
             
 <div id="team" class="area lightgrey">
-    <div class="grid">
-    
-        <div class="row">           
-            <div class="col19">
-                
+
+        <div class="row">
+
                 <ul class="dotList speakers" id="contactList">
 
                     {{#each speakers}}
@@ -102,11 +100,7 @@
                     {{/each}}
                     
                 </ul>
-                
-            </div>          
         </div>
-        
-    </div>
 </div>
 
 </div>
@@ -114,13 +108,13 @@
 <script>
 
     var $container = $('#contactList'),filters = {};
-    
+
     $container.isotope({
         itemSelector : 'li',
         layoutMode : 'fitRows'
-    }); 
-    
-    
+    });
+
+
      // filter buttons
     $('.option-set a').click(function(){
         var $this = $(this);
