@@ -8,7 +8,7 @@
                     {{#if speaker}}
                         <a href="{{speaker.page}}?presId={{presentation.id}}">
                     {{else}}
-                        {{#first presentation.speakers}}                        
+                        {{#first presentation.speakers}}                                
                             <a href="{{page}}?presId={{../presentation.id}}" alt="" />
                         {{/first}}                        
                     {{/if}}
@@ -21,8 +21,10 @@
                     
                     {{#if presentation.schedule}}
 
-                    {{schedule presentation.schedule}}<br>{{presentation.room}}
+                        {{schedule presentation.schedule}}<br>{{presentation.room}}
 
+                    {{else}}
+                        &nbsp;
                     {{/if}}
                     
                 </div>
