@@ -103,16 +103,10 @@
                                     </form>
 
                                     <script>
-                                        $.ajaxSetup ({
-                                            cache: false
-                                        });
-
-                                        $("#searchForm").keypress(function(e) {
-                                            var code = (e.keyCode ? e.keyCode : e.which);
-                                            if (code == 13) {
-                                                var loadUrl = "https://cfp.devoxx.com/v2/search/event/10?text=" + $("#search").val();
-                                                $("#result").load(loadUrl);
-                                            }
+                                        $("#searchForm").submit(function(e) {
+                                            e.preventDefault();
+                                            var loadUrl = "https://cfp.devoxx.com/v2/search/event/10?text=" + $("#search").val();
+                                            $("#result").load(loadUrl);
                                         });
                                     </script>
 
