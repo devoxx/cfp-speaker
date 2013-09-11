@@ -93,25 +93,35 @@
                     <a href="https://regbe.devoxx.com/public#DV13">Buy tickets</a>
                     </li>
 
-                    <form id="searchForm" >
-                        <input id="search" type="text" name="text" value="" placeholder="search..."/>
-                    </form>
+                    <li class="popup search">
+                        <a href="#">Search</a>
+                        <ul>
+                            <li>
+                                <div class="popup">
+                                    <form id="searchForm" >
+                                        <input id="search" type="text" name="text" value="" placeholder="search..."/>
+                                    </form>
 
-                    <script>
-                        $.ajaxSetup ({
-                            cache: false
-                        });
+                                    <script>
+                                        $.ajaxSetup ({
+                                            cache: false
+                                        });
 
-                        $("#searchForm").keypress(function(e) {
-                            var code = (e.keyCode ? e.keyCode : e.which);
-                            if (code == 13) {
-                                var loadUrl = "https://cfp.devoxx.com/v2/search/event/10?text=" + $("#search").val();
-                                $("#result").load(loadUrl);
-                            }
-                        });
-                    </script>
+                                        $("#searchForm").keypress(function(e) {
+                                            var code = (e.keyCode ? e.keyCode : e.which);
+                                            if (code == 13) {
+                                                var loadUrl = "https://cfp.devoxx.com/v2/search/event/10?text=" + $("#search").val();
+                                                $("#result").load(loadUrl);
+                                            }
+                                        });
+                                    </script>
 
-                    <div id="result"></div>
+                                    <div id="result">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
 
                 </ul>
             </nav>
