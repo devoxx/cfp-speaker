@@ -28,7 +28,7 @@
                     {{/if}}
                     
                 </div>
-                <div class="col7">
+                <div class="col6">
 
                     <div class="speakerpic">
                         {{#if speaker}}
@@ -46,7 +46,14 @@
  -->                    
                     <div class="speaker">
                         {{#each presentation.speakers}}<a href="{{page}}?presId={{../presentation.id}}">{{#if @index}},{{/if}} {{firstName}} {{lastName}}</a>{{/each}}
-                    </div>                          
-                    
-                </div>          
+                    </div>
+
+                </div>
+
+                <div class="col1">
+
+                    <a class='favorite' href="javascript:void(0)" style="display: none" data-pres='{{presentation.id}}'><img src="images/favorite.png" alt=""/></a>
+
+                </div>
+
             </div>
