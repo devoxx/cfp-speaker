@@ -323,10 +323,12 @@ module.exports = function (grunt) {
               '*.{ico,txt}',
               '*.hbr.html',
               'components/**/*',
-              'images/**/*',            
+              'images/**/*',
               'styles/*',
               'images_dummy/*',
-              'scripts/main360.js'
+              'scripts/main360.js',
+              'scripts/favorite.js',
+              'config.js'
             ]
           }
         ]
@@ -337,11 +339,27 @@ module.exports = function (grunt) {
         files: '<%= yeoman.dist %>/',
         output: '<%= yeoman.dist %>',
         events: [
+//          {
+//            id: 10,
+//            key: "dv13",
+//            url: "https://cfp.devoxx.com",
+//            trackMapping: { // track ID to image icon class
+//              "2" : "icon_architecture",
+//              "5" : "icon_alternative",
+//              "6" : "icon_methodology",
+//              "7" : "icon_cloud",
+//              "9" : "icon_javase",
+//              "10" : "icon_mobile",
+//              "13" : "icon_javaee",
+//              "19" : "icon_future",
+//              "22" : "icon_web"
+//            }
+//          }
           {
-            id: 10,
-            key: "dv13",
-            url: "https://cfp.devoxx.com",
-            trackMapping: { // track ID to image icon class
+             id: 10,
+             key: "dv13",
+             url: "https://staging-cfp.devoxx.com",
+             trackMapping: {
               "2" : "icon_architecture",
               "5" : "icon_alternative",
               "6" : "icon_methodology",
@@ -351,24 +369,8 @@ module.exports = function (grunt) {
               "13" : "icon_javaee",
               "19" : "icon_future",
               "22" : "icon_web"
-            }
-          },
-          // {
-          //   id: 10,
-          //   key: "dv13",
-          //   url: "https://staging-cfp.devoxx.com",
-          //   trackMapping: {
-              // "2" : "icon_architecture",
-              // "5" : "icon_alternative",
-              // "6" : "icon_methodology",
-              // "7" : "icon_cloud",
-              // "9" : "icon_javase",
-              // "10" : "icon_mobile",
-              // "13" : "icon_javaee",
-              // "19" : "icon_future",
-              // "22" : "icon_web"
-          //   }
-          // }
+             }
+          }
         ]
       }
     }
@@ -417,7 +419,7 @@ module.exports = function (grunt) {
     //'jshint',
     'coffee',
     // 'test',
-    'compass:dist',    
+    'compass:dist',
     'useminPrepare',
     'imagemin',
     'cssmin',

@@ -650,3 +650,11 @@ li.existingTag {
 .icon_web {
   background-image: url('/images/tracks/icon_web.png');
 }
+
+.favorite img {
+    opacity: 0.4;
+}
+
+.favorite.on img {
+    opacity: 1;
+}
