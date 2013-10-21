@@ -113,7 +113,7 @@
                                     <script>
                                         $("#searchForm").submit(function(e) {
                                             e.preventDefault();
-                                            var loadUrl = "https://cfp.devoxx.com/v2/search/event/10?text=" + $("#search").val();
+                                            var loadUrl = DEVOXX_CONFIG.url + '/v2/search/event/' + DEVOXX_CONFIG.id + '?text=' + $("#search").val();
                                             $("#result").load(loadUrl);
                                         });
                                     </script>
