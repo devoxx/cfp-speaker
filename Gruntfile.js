@@ -340,7 +340,7 @@ module.exports = function (grunt) {
           {
             id: 10,
             key: "dv13",
-            url: "https://cfp.devoxx.com/rest/v1",
+            url: "https://cfp.devoxx.com",
             trackMapping: { // track ID to image icon class
               "2" : "icon_architecture",
               "5" : "icon_alternative",
@@ -356,7 +356,7 @@ module.exports = function (grunt) {
           // {
           //   id: 10,
           //   key: "dv13",
-          //   url: "https://staging-cfp.devoxx.com/rest/v1",
+          //   url: "https://staging-cfp.devoxx.com",
           //   trackMapping: {
               // "2" : "icon_architecture",
               // "5" : "icon_alternative",
