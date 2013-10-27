@@ -66,9 +66,7 @@
 
                 <h1>{{title}}</h1>
             
-                <p>{{nlbr summary}}</p>
-
-                <a href="javascript:void(0)" class="btn" id="addToFavorites" style="display: none"></a> <br><br>
+                <p>{{nlbr summary}}</p>   
                 
                 {{#if parleysIds}}
                 <iframe class="parleysEmbed" type="text/html" width="420" height="220" mozallowfullscreen="true" webkitallowfullscreen="true" src="http://parleys.com/share.html#play/{{parleysIds}}" frameborder="0">&amp;lt;br /&amp;gt;</iframe>
@@ -179,6 +177,5 @@
         }, 500);
     }
 
-    managePresentationFavorite(presId);
 
 </script>
