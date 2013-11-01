@@ -326,7 +326,8 @@ module.exports = function (grunt) {
               'images/**/*',            
               'styles/*',
               'images_dummy/*',
-              'scripts/main360.js'
+              'scripts/main360.js',
+              'scripts/favorite.js'
             ]
           }
         ]
