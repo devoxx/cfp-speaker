@@ -44,9 +44,8 @@ function addToFavorite(presId) {
     var index = favorite.presentationIds.indexOf(presId);
     if (index < 0) {
         favorite.presentationIds.push(presId);
-
-        return updateFavorite(favorite);
     }
+    return updateFavorite(favorite);
 }
 
 function updateFavorite(favorite) {
@@ -66,8 +65,8 @@ function delFromFavorite(presId) {
     var index = favorite.presentationIds.indexOf(presId);
     if (index >= 0) {
         favorite.presentationIds.splice(index, 1);
-        return updateFavorite(favorite);
     }
+    return updateFavorite(favorite);
 }
 
 function fetchFavorites() {
@@ -97,9 +96,8 @@ function getAndSavePresIds(favorites) {
             $.localStorage('favorite', favorites[0]);
             return favorites[0].presentationIds;
         }
-    } else {
-        $.localStorage('favorite', favoriteTemplate);
     }
+    $.localStorage('favorite', favoriteTemplate);
     return [];
 }
 
