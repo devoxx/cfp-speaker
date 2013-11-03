@@ -17,27 +17,6 @@ function userIsLogged() {
     return $.post(url, {});
 }
 
-function presIsFavorite(presId) {
-    var defer = $.Deferred();
-    if (presId) {
-        fetchFavorites() //
-            .done(function (favorites) {
-                var presIds = getAndSavePresIds(favorites);
-                var found = presIds.some(function (id) {
-                    return id === presId;
-                });
-                defer.resolve(found);
-            }) //
-            .fail(function () {
-                defer.reject();
-            });
-
-    } else {
-        defer.reject();
-    }
-    return defer.promise();
-}
-
 function addToFavorite(presId) {
     var favorite = $.localStorage('favorite');
 
@@ -101,7 +80,13 @@ function getAndSavePresIds(favorites) {
     return [];
 }
 
-function manageFavoritesLinks() {
+function manageFavoritesLinks(presentationId) {
+
+    function hideFavoritesButtons() {
+        $('.button.myschedule').hide();
+        favButton.hide();
+        favoritesLinks.hide();
+    }
 
     var favoritesLinks = $(".favorite");
 
@@ -110,21 +95,34 @@ function manageFavoritesLinks() {
         bindFavoriteButton(presId, false, $(this), false);
     });
 
+    var favButton = $('#addToFavorites' + presentationId);
+
     userIsLogged() //
         .done(function () {
+
             favoritesLinks.show();
+            favButton.show();
+            bindFavoriteButton(presentationId, false, favButton, true);
+
             fetchFavorites() //
                 .done(function (favorites) {
                     var presIds = getAndSavePresIds(favorites);
                     $.each(presIds, function (index, value) {
+                        var presId = parseInt(value);
                         var link = favoritesLinks.filter("[data-pres='" + value + "']");
-                        link.addClass('on');
-                        var presId = parseInt(link.attr('data-pres'));
-                        bindFavoriteButton(presId, true, link, false);
+                        if (link.length) {
+                            link.addClass('on');
+                            bindFavoriteButton(presId, true, link, false);
+                        }
+                        if (presId === presentationId) {
+                            bindFavoriteButton(presId, true, favButton, true);
+                        }
                     });
+                }).fail(function () {
+                    hideFavoritesButtons();
                 });
         }).fail(function () {
-            $('.button.myschedule').hide();
+            hideFavoritesButtons();
         });
 }
 
@@ -155,19 +153,4 @@ function bindFavoriteButton(presId, isFavorite, favButton, hasText) {
             });
         });
     }
-}
-
-function managePresentationFavorite(presId) {
-    var favButton = $('#addToFavorites');
-    userIsLogged() //
-        .done(function () {
-            presIsFavorite(presId) //
-                .done(function (isFavorite) {
-                    favButton.show();
-                    favButton.attr('data-favorite', isFavorite);
-                    bindFavoriteButton(presId, isFavorite, favButton, true);
-                }).fail(function () {
-                    favButton.hide();
-                });
-        });
 }
