@@ -123,6 +123,8 @@ function manageFavoritesLinks() {
                         bindFavoriteButton(presId, true, link, false);
                     });
                 });
+        }).fail(function () {
+            $('.button.myschedule').hide();
         });
 }
 

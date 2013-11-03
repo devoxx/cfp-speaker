@@ -58,7 +58,9 @@
 					<li>
 						<a href="#" class="button selected dataday" id="day-5Button">Friday</a>
 					</li>
-
+					<li>
+						<a href="#" class="button myschedule">My Schedule</a>
+					</li>
 				</ul>
 			
 			</div>
@@ -272,20 +274,26 @@
 
 	$(".button").click(function() {
 	    $(this).toggleClass('selected');
-	
+
 	    $(".trackFilter").hide();
-	
+
 	    var datatracks = $(".trackFilter");
-	
+
+	    if ( $(".button.selected.myschedule").length ) {
+	        datatracks = datatracks.filter(function() {
+	            return $( ".favorite.on", this ).length;
+	        });
+	    }
+
 	    $(".button.datatrack").not('.selected').each(function() {
 	        var selClass = $(this).attr('id').replace('Button', '');
-	
+
 	        datatracks = datatracks.filter(".trackFilter[data-track!='" + selClass + "']");
 	    });
-	
+
 	    $(".button.selected.dataday").each(function() {
 	        var selClass = $(this).attr('id').replace('Button', '');
-	
+
 	        datatracks.filter(".trackFilter[data-day='" + selClass + "']").show();
 	    });
 	});
