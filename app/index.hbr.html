@@ -103,6 +103,41 @@
                     <li class="btn hide_mobile">
                     <a href="https://regbe.devoxx.com/public#DV13">Sold Out</a>
                     </li>
+                    <li class="btn popup login btn_grey" class="open" id="login">
+                        <a>Login</a>
+                        <ul nclass="visible">
+                            <li>
+                                <div class="popup">
+                                    <form class="clearfix" autocomplete="off">
+                                        <div class="alert alert-error" style="display: none"></div>
+                                        <input type="text" name="login" value="" placeholder="E-mail" onkeydown="if (event.keyCode == 13) staticlogin()"/>
+                                        <input type="password" name="pass" value="" placeholder="Password" onkeydown="if (event.keyCode == 13) staticlogin()"/>
+                                        <a href="/#/register" class="btnRegister">Register</a>
+                                        <input type="button" class="btn" onclick="staticlogin()" value="Login"/>
+                                    </form>
+
+                                    <div class="connect clearfix hidden">
+                                        <a href="#" class="btnFacebook">Facebook</a>
+                                        <a href="#" class="btnTwitter">Twitter</a>
+                                        <a href="#" class="btnLinkedin">LinkedIn</a>
+                                        <a href="#" class="btnGoogle">Google+</a>
+                                    </div>
+
+                                    <div class="actionslinks clearfix">
+                                        <a href="/#/lost_password" class="btnForgot">Forgot password</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu subright" id="logged" style="display: none">
+                        <a><span id="userNames"></span> <img src="images/User-icon.png" height="10" width="10" style="margin-top: -1px;"></a>
+                        <ul>
+                            <li><a href="/" onclick="staticlogout()">Logout</a></li>
+                            <li><a href="/#/speaker/proposals">Proposals</a></li>
+                            <li><a href="/#/speaker/profile">Profile</a></li>
+                        </ul>
+                    </li>
 
                     <li class="popup search">
                         <a href="#">Search</a>

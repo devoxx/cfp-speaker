@@ -7,6 +7,14 @@ function getCurrentUserToken() {
     return $.cookie('userToken');
 }
 
+function setCurrentUserToken(userToken) {
+    $.cookie('userToken', userToken);
+}
+
+function setCurrentUser(user) {
+    $.localStorage('user', user);
+}
+
 function userIsLogged() {
     var url = window.DEVOXX_CONFIG.url + '/v2/auth/token';
     var userToken = getCurrentUserToken();
@@ -14,7 +22,14 @@ function userIsLogged() {
         return $.Deferred().reject();
     }
     url += '?userToken=' + userToken;
-    return $.post(url, {});
+    return $.post(url, {})
+        .done(function (data) {
+            var user = data.firstname + ' ' + data.lastname;
+            setCurrentUser(user);
+            $('#userNames').text(user);
+            $('#login').hide();
+            $('#logged').show();
+        });
 }
 
 function addToFavorite(presId) {
@@ -153,4 +168,45 @@ function bindFavoriteButton(presId, isFavorite, favButton, hasText) {
             });
         });
     }
+}
+
+function staticlogin() {
+    var username = $('[name="login"]').val();
+    var pass = $('[name="pass"]').val();
+
+    var url = window.DEVOXX_CONFIG.url + '/v2/auth/login';
+
+    var data = JSON.stringify({
+        login: username,
+        password: pass
+    });
+
+    var log = $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+        contentType: 'application/json'
+    });
+
+    log.done(function (data) {
+        setCurrentUserToken(data.userToken);
+        setCurrentUser(data.user);
+        $('#userNames').text(data.user);
+        $('#login').hide();
+        $('#logged').show();
+
+        var presId = parseInt(getURLParameter('presId') || 0);
+
+        manageFavoritesLinks(presId);
+    });
+
+    log.fail(function (data) {
+        $('#login .alert.alert-error').show().text(JSON.parse(data.responseText).msg);
+        $('#logged').hide();
+        $('#login').show();
+    });
+}
+
+function staticlogout() {
+    $.removeCookie('userToken');
 }
