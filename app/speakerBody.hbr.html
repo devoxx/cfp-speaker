@@ -5,11 +5,11 @@
     
         {{#each speaker.talks}}
 
-        <div class="row headerfilter talk-{{id}}" style="display:none;">
+        <div class="row headerfilter talk-{{id}}" style="display:none;" >
 
             <div class="col14">
                 
-                <h1>{{title}}</h1>                
+                <h1 itemprop="name">{{title}}</h1>                
                 <h3>
                     {{#if schedule}}
                         {{schedule schedule}} {{room}}<br>
@@ -20,7 +20,7 @@
                 {{#ifequal speakers.length 1}}
                 <!-- No speaker name for solo speaker -->
                 {{else}}
-                <h2>{{#each speakers}}<a href="{{page}}?presId={{../id}}">{{#if @index}},{{/if}} {{firstName}} {{lastName}}</a>{{/each}}</h2>
+                <h2>{{#each speakers}}<a href="{{page}}?presId={{../id}}" >{{#if @index}},{{/if}} {{firstName}} {{lastName}}</a>{{/each}}</h2>
                 {{/ifequal}}
                 
                 
@@ -62,11 +62,11 @@
         <div class="row">   
             {{#each speaker.talks}}
 
-            <div class="col11 talk-{{id}}" style="display:none;">                            
+            <div class="col11 talk-{{id}}" style="display:none;" itemscope itemtype="http://schema.org/CreativeWork">                            
 
-                <h1>{{title}}</h1>
+                <h1 itemprop="name">{{title}}</h1>
             
-                <p>{{nlbr summary}}</p>
+                <p itemprop="description">{{nlbr summary}}</p>
 
                 <a href="javascript:void(0)" class="btn" id="addToFavorites{{id}}" style="display: none"></a> <br><br>
                 
@@ -80,21 +80,21 @@
             
             <div class="col7 push1 ">                   
                 
-                <div class="banner">
+                <div class="banner" itemscope itemtype="http://schema.org/Person">
                     
                     {{#with speaker}}
 
                     <div class="speakerpic">
-                        <img src="{{imageURI}}" alt="" />
+                        <img src="{{imageURI}}" alt="" itemprop="image" />
                     </div>      
                     
                     
                     <div class="links">                        
-                        <h4>{{firstName}} {{lastName}} {{#if tweethandle}}
-                        <a href="http://twitter.com/{{tweethandle}}" class="btn_twitter">Twitter</a>{{/if}}
+                        <h4><span itemprop="name">{{firstName}} {{lastName}}</span> {{#if tweethandle}}
+                        <a href="http://twitter.com/{{tweethandle}}" class="btn_twitter" itemprop="nickname">Twitter</a>{{/if}}
                         </h4>                                                                   
                     </div>                    
-                    <p>{{nlbr bio}}</p>
+                    <p itemprop="description">{{nlbr bio}}</p>
 
                     {{/with}}
                 </div>
