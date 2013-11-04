@@ -11,10 +11,6 @@ function setCurrentUserToken(userToken) {
     $.cookie('userToken', userToken);
 }
 
-function setCurrentUser(user) {
-    $.localStorage('user', user);
-}
-
 function userIsLogged() {
     var url = window.DEVOXX_CONFIG.url + '/v2/auth/token';
     var userToken = getCurrentUserToken();
@@ -22,10 +18,9 @@ function userIsLogged() {
         return $.Deferred().reject();
     }
     url += '?userToken=' + userToken;
-    return $.post(url, {})
+    return $.post(url)
         .done(function (data) {
             var user = data.firstname + ' ' + data.lastname;
-            setCurrentUser(user);
             $('#userNames').text(user);
             $('#login').hide();
             $('#logged').show();
@@ -190,7 +185,6 @@ function staticlogin() {
 
     log.done(function (data) {
         setCurrentUserToken(data.userToken);
-        setCurrentUser(data.user);
         $('#userNames').text(data.user);
         $('#login').hide();
         $('#logged').show();
