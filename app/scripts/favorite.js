@@ -7,6 +7,14 @@ function getCurrentUserToken() {
     return $.cookie('userToken');
 }
 
+function setCurrentUserToken(userToken) {
+    $.cookie('userToken', userToken);
+}
+
+function setCurrentUser(user) {
+    $.localStorage('user', user);
+}
+
 function userIsLogged() {
     var url = window.DEVOXX_CONFIG.url + '/v2/auth/token';
     var userToken = getCurrentUserToken();
@@ -14,28 +22,14 @@ function userIsLogged() {
         return $.Deferred().reject();
     }
     url += '?userToken=' + userToken;
-    return $.post(url, {});
-}
-
-function presIsFavorite(presId) {
-    var defer = $.Deferred();
-    if (presId) {
-        fetchFavorites() //
-            .done(function (favorites) {
-                var presIds = getAndSavePresIds(favorites);
-                var found = presIds.some(function (id) {
-                    return id === presId;
-                });
-                defer.resolve(found);
-            }) //
-            .fail(function () {
-                defer.reject();
-            });
-
-    } else {
-        defer.reject();
-    }
-    return defer.promise();
+    return $.post(url, {})
+        .done(function (data) {
+            var user = data.firstname + ' ' + data.lastname;
+            setCurrentUser(user);
+            $('#userNames').text(user);
+            $('#login').hide();
+            $('#logged').show();
+        });
 }
 
 function addToFavorite(presId) {
@@ -101,7 +95,13 @@ function getAndSavePresIds(favorites) {
     return [];
 }
 
-function manageFavoritesLinks() {
+function manageFavoritesLinks(presentationId) {
+
+    function hideFavoritesButtons() {
+        $('.button.myschedule').hide();
+        favButton.hide();
+        favoritesLinks.hide();
+    }
 
     var favoritesLinks = $(".favorite");
 
@@ -110,19 +110,34 @@ function manageFavoritesLinks() {
         bindFavoriteButton(presId, false, $(this), false);
     });
 
+    var favButton = $('#addToFavorites' + presentationId);
+
     userIsLogged() //
         .done(function () {
+
             favoritesLinks.show();
+            favButton.show();
+            bindFavoriteButton(presentationId, false, favButton, true);
+
             fetchFavorites() //
                 .done(function (favorites) {
                     var presIds = getAndSavePresIds(favorites);
                     $.each(presIds, function (index, value) {
+                        var presId = parseInt(value);
                         var link = favoritesLinks.filter("[data-pres='" + value + "']");
-                        link.addClass('on');
-                        var presId = parseInt(link.attr('data-pres'));
-                        bindFavoriteButton(presId, true, link, false);
+                        if (link.length) {
+                            link.addClass('on');
+                            bindFavoriteButton(presId, true, link, false);
+                        }
+                        if (presId === presentationId) {
+                            bindFavoriteButton(presId, true, favButton, true);
+                        }
                     });
+                }).fail(function () {
+                    hideFavoritesButtons();
                 });
+        }).fail(function () {
+            hideFavoritesButtons();
         });
 }
 
@@ -155,17 +170,43 @@ function bindFavoriteButton(presId, isFavorite, favButton, hasText) {
     }
 }
 
-function managePresentationFavorite(presId) {
-    var favButton = $('#addToFavorites');
-    userIsLogged() //
-        .done(function () {
-            presIsFavorite(presId) //
-                .done(function (isFavorite) {
-                    favButton.show();
-                    favButton.attr('data-favorite', isFavorite);
-                    bindFavoriteButton(presId, isFavorite, favButton, true);
-                }).fail(function () {
-                    favButton.hide();
-                });
-        });
+function staticlogin() {
+    var username = $('[name="login"]').val();
+    var pass = $('[name="pass"]').val();
+
+    var url = window.DEVOXX_CONFIG.url + '/v2/auth/login';
+
+    var data = JSON.stringify({
+        login: username,
+        password: pass
+    });
+
+    var log = $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+        contentType: 'application/json'
+    });
+
+    log.done(function (data) {
+        setCurrentUserToken(data.userToken);
+        setCurrentUser(data.user);
+        $('#userNames').text(data.user);
+        $('#login').hide();
+        $('#logged').show();
+
+        var presId = parseInt(getURLParameter('presId') || 0);
+
+        manageFavoritesLinks(presId);
+    });
+
+    log.fail(function (data) {
+        $('#login .alert.alert-error').show().text(JSON.parse(data.responseText).msg);
+        $('#logged').hide();
+        $('#login').show();
+    });
+}
+
+function staticlogout() {
+    $.removeCookie('userToken');
 }
