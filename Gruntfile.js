@@ -34,6 +34,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass']
       },
+      recess: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['recess:dist']
+      },
       livereload: {
         files: [
           '<%= yeoman.app %>/*.html',
@@ -184,6 +188,20 @@ module.exports = function (grunt) {
           debugInfo: true
         }
       }
+    },
+    recess: {
+        options: {
+            compile: true
+        },
+        dist: {
+            files: [{
+                expand: true,
+                cwd: '<%= yeoman.app %>/styles',
+                src: '{,*/}*.less',
+                dest: '.tmp/styles/',
+                ext: '.css'
+            }]
+        }
     },
     // concat: {
     //   dist: {
@@ -381,6 +399,7 @@ module.exports = function (grunt) {
     'clean:server',
     'coffee:dist',
     'compass:server',
+    'recess:dist',
     'livereload-start',
     'connect:livereload',
     'open:server',
@@ -391,6 +410,7 @@ module.exports = function (grunt) {
     'clean:server',
     'coffee:dist',
     'compass:server',
+    'recess:dist',
     'connect:e2eDist',
     'open:serverDist',
     'watch'
@@ -418,7 +438,8 @@ module.exports = function (grunt) {
     //'jshint',
     'coffee',
     // 'test',
-    'compass:dist',    
+    'compass:dist',
+    'recess:dist',
     'useminPrepare',
     'imagemin',
     'cssmin',

@@ -1,0 +1,45 @@
+
+#tweets .scrollup {
+    -webkit-animation: tweets-slide-up 1.9s;
+}
+
+#tweets .scrollup div.border > div:first-of-type {
+    -webkit-animation: tweets-slide-out 1.9s;
+}
+#tweets .scrollup div.border > div:last-of-type {
+    -webkit-animation: tweets-slide-in 1.9s;
+}
+
+@-webkit-keyframes tweets-slide-up {
+  0% {
+    -webkit-transform: translateY(0%)
+  }
+  100% {
+    -webkit-transform: translateY(-18.2%)
+  }
+}
+
+@-webkit-keyframes tweets-slide-out {
+  0% {
+    -webkit-transform: translatex(0%)
+  }
+  80% {
+    -webkit-transform: translateX(110%)
+  }
+  100% {
+    -webkit-transform: translateX(110%)
+  }
+}
+
+@-webkit-keyframes tweets-slide-in {
+  0% {
+    -webkit-transform: translatex(100%)
+  }
+  80% {
+    -webkit-transform: translateX(0%)
+  }
+  100% {
+    -webkit-transform: translateX(0%)
+  }
+}
+

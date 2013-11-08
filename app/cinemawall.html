@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>DEVOXX</title>
+    <meta name="description" content="Devoxx cinema sweetwall and schedule">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    
+    <!-- TODO add local resources -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+    <!-- build:css styles/all.css -->
+    <link rel="stylesheet" href="styles/keyframes-schedule.css">
+    <link rel="stylesheet" href="styles/keyframes-tweets.css">
+    <link rel="stylesheet" href="styles/wall.css">
+    <!-- endbuild -->
+
+    <!-- TODO: scripts to bottom of the page (performance) -->
+    <!--[if lt IE 9]>
+    <!-- build:js scripts/scripts-ie.js -->
+    <script src="components/es5-shim/es5-shim.js"></script>
+    <script src="components/json3/lib/json3.min.js"></script>
+    <!-- endbuild -->
+    <!--[endif]-->
+
+    <script src="config.js"></script>
+
+    <!-- build:js scripts/scripts.js -->
+    <script src="components/jquery/jquery.js"></script>
+    <script src="components/underscore/underscore-min.js"></script>
+    <script src="components/unstable-angular-complete/angular.js"></script>
+    <script src="scripts/wall/date.js"></script>
+    <script src="scripts/wall/md5.js"></script>
+    <script src="scripts/wall/anim.js"></script>
+    <script src="scripts/wall/controllers.js"></script>
+    <script src="scripts/wall/models.js"></script>
+    <script src="scripts/wall/utilities.js"></script>
+    <!-- endbuild -->
+</head>
+
+<body ng-app>
+
+    <div id="screen">
+
+        <!-- Overlays -->
+
+        <div id="tweets" ng-controller="TwallController">
+            <div ng-class="scrollClass">
+                <div class="container">
+                    <div class="border">
+                        <div ng-repeat="tweet in tweets">
+                            <div class="image"><img ng-src="{{tweet.image}}" /></div>
+                            <div class="tweet">{{tweet.createdAt}} <span class="author">{{tweet.author}}</span> {{tweet.tweet}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="schedule" ng-controller="ScheduleController">
+
+            <div ng-class="scrollClass">
+
+                <div class="container">
+                    <div class="border">
+                        <div ng-repeat="item in scheduleNow">
+                            <div class="room">{{item.room}}</div>
+                            <div class="image"><img ng-src="{{item.speakerImgUrl}}" /></div>
+                            <div class="talk"><span class="time">{{item.time}}</span> {{item.title}} <span class="speaker">{{item.speakers}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="border">
+                        <div ng-repeat="item in scheduleNext">
+                            <div class="room">{{item.room}}</div>
+                            <div class="image"><img ng-src="{{item.speakerImgUrl}}" /></div>
+                            <div class="talk"><span class="time">{{item.time}}</span> {{item.title}} <span class="speaker">{{item.speakers}}</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="notice" ng-controller="NoticeController">{{notice}}</div>
+
+    </div>
+
+
+
+</body>
+
+</html>

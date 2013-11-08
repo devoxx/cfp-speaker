@@ -1,0 +1,178 @@
+
+@width: 1920px;
+@height: 817px;
+
+* { margin: 0; pading: 0; }
+
+body { background-color: black; }
+
+.screen(@url) {
+    background: @url no-repeat;
+    border: none;
+    height: @height;
+    width: @width;
+    overflow: hidden;
+    position: absolute;
+    top:0px;
+    left:0px;
+}
+
+#screen { .screen(url('../images/dv13-cinemawall.jpg')); }
+
+#schedule {
+
+    position: absolute;
+    left: 240px;
+    top: 0px;
+    width: 780px;
+    height: @height;
+    overflow: hidden;
+
+    > div { // SideScroller
+
+        display: table;
+        overflow: hidden;
+        width: 1560px;
+        height: @height;
+
+    }
+
+    .container {
+        display: table-cell;
+        vertical-align: middle;
+        width: 780px;
+
+         .border {
+            > div {
+                width: 760px;
+                height: 82px;
+                clear:both;
+                margin: 7px;
+                background: rgba(10,10,10,.7);
+                -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+                -webkit-border-radius: 10px;
+                overflow: hidden;
+            }
+         }
+
+        .room {
+            font-family: 'Lato';
+            font-size: 3em;
+            color: #ff4520;
+            text-shadow: 2px 2px 2px #000;
+            float: left;
+            width: 50px;
+            height: 66px;
+            vertical-align: middle;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .image{
+            margin-top: 8px;
+            img {
+                width: 60px;
+                height: 66px;
+                float: left;
+            }
+        }
+
+        .talk {
+            margin-left: 120px;
+            margin-right: 5px;
+            font-family: 'Lato';
+            font-size: 1.50em;
+            font-weight: bold;
+            line-height: 1.1em;
+            color: white;
+            float: none;
+            text-shadow: 2px 2px 2px #000;
+
+            .time {
+                color: yellow;
+                font-size: 0.95em;
+            }
+
+            .speaker {
+                color: orange; //rgb(0,122,224);
+                font-size: 0.95em;
+                clear: left;
+            }
+
+        }
+    }
+
+}
+
+
+#tweets {
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    width: 860px;
+    height: @height;
+    display: table;
+
+    .container {
+        display: table-cell;
+        vertical-align: middle;
+        width: 780px;
+
+        .border {
+            > div {
+                width: 760px;
+                height: 100px;
+                clear:both;
+                margin: 20px;
+                margin-top: 60px;
+                margin-bottom: 60px;
+                background: rgba(10,10,10,.7);
+                -webkit-box-shadow: 2px 2px 10px 5px rgba(0,0,0,0.7);
+                -webkit-border-radius: 10px;
+                overflow: hidden;
+            }
+        }
+
+        .image{
+            img {
+                width: 100px;
+                height: 100px;
+                float: right;
+            }
+        }
+
+        .tweet {
+            margin-left: 5px;
+            margin-right: 5px;
+            font-family: 'Lato';
+            font-size: 1.50em;
+            font-weight: bold;
+            line-height: 1.2em;
+            color: white;
+            float: none;
+            text-shadow: 2px 2px 2px #000;
+
+            .author {
+                color: #ff4520;
+                //color: orange; //rgb(0,122,224);
+                font-size: 0.95em;
+                clear: left;
+            }
+
+        }
+    }
+
+}
+
+#notice {
+    opacity: 0.8;
+    font-family: 'verdana';
+    font-size: 2em;
+    color: red;
+    background-color: black;
+    -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,0.7);
+    position: absolute;
+    top: 10px;
+    width: @width;
+    text-align: center;
+}
