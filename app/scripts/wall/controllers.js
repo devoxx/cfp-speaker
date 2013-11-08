@@ -259,7 +259,7 @@ function ScheduleController($http, $scope) {
 
     var speakers = [];
 
-    var currentTime = new Date(2013,10,11,12,0); //new Date();
+    var currentTime = new Date();
     var currentDay = day(currentTime);
     var currentData = [];
 

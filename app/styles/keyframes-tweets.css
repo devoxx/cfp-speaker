@@ -6,6 +6,7 @@
 #tweets .scrollup div.border > div:first-of-type {
     -webkit-animation: tweets-slide-out 1.9s;
 }
+
 #tweets .scrollup div.border > div:last-of-type {
     -webkit-animation: tweets-slide-in 1.9s;
 }
@@ -42,4 +43,5 @@
     -webkit-transform: translateX(0%)
   }
 }
+
 

@@ -1,7 +1,3 @@
-
-@width: 1920px;
-@height: 817px;
-
 * { margin: 0; pading: 0; }
 
 body { background-color: black; }
@@ -17,15 +13,31 @@ body { background-color: black; }
     left:0px;
 }
 
-#screen { .screen(url('../images/dv13-cinemawall.jpg')); }
+#hallway {
+  @width: 1300px;
+  @height: 817px;
+  .screen(url('../images/dv13-hallwall.jpg'));
+}
+#cinema {
+  @width: 1920px;
+  @height: 817px;
+  .screen(url('../images/dv13-cinemawall.jpg'));
+}
+
+
+#hallway #schedule {
+  left: 40px;
+}
+
+#cinema #schedule {
+  left: 240px;
+}
 
 #schedule {
-
     position: absolute;
-    left: 240px;
     top: 0px;
     width: 780px;
-    height: @height;
+    height: 100%;
     overflow: hidden;
 
     > div { // SideScroller
@@ -33,7 +45,7 @@ body { background-color: black; }
         display: table;
         overflow: hidden;
         width: 1560px;
-        height: @height;
+        height: 100%;
 
     }
 
@@ -110,7 +122,7 @@ body { background-color: black; }
     right: 0px;
     top: 50px;
     width: 860px;
-    height: @height;
+    height: 100%;
     display: table;
 
     .container {
@@ -173,6 +185,6 @@ body { background-color: black; }
     -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,0.7);
     position: absolute;
     top: 10px;
-    width: @width;
+    width: 100%;
     text-align: center;
 }

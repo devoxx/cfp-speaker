@@ -13,7 +13,6 @@
 
     <!-- build:css styles/all.css -->
     <link rel="stylesheet" href="styles/keyframes-schedule.css">
-    <link rel="stylesheet" href="styles/keyframes-tweets.css">
     <link rel="stylesheet" href="styles/wall.css">
     <!-- endbuild -->
 
@@ -42,22 +41,9 @@
 
 <body ng-app>
 
-    <div id="cinema">
+    <div id="hallway">
 
         <!-- Overlays -->
-
-        <div id="tweets" ng-controller="TwallController">
-            <div ng-class="scrollClass">
-                <div class="container">
-                    <div class="border">
-                        <div ng-repeat="tweet in tweets">
-                            <div class="image"><img ng-src="{{tweet.image}}" /></div>
-                            <div class="tweet"><span class="author">{{tweet.author}}</span> {{tweet.tweet}} </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div id="schedule" ng-controller="ScheduleController">
 
