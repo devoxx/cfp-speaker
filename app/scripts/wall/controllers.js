@@ -1,4 +1,7 @@
-function NoticeController($scope) {
+var wallApp = angular.module('wallApp', [ ]);
+
+
+wallApp.controller('NoticeController', [ '$scope', function ($scope) {
 
     var self = this;
 
@@ -27,9 +30,9 @@ function NoticeController($scope) {
         });
 
     }
-}
+}]);
 
-function TwallController($http, $scope) {
+wallApp.controller('TwallController', ['$http', '$scope', function ($http, $scope) {
 
     window.tc = this;
     var self = this;
@@ -108,7 +111,7 @@ function TwallController($http, $scope) {
         setInterval(self.tweetQueueProcessor, 3000);
     }
 
-}
+}]);
 
 var lsc = new LocalStorageController();
 
@@ -247,7 +250,7 @@ function LocalStorageController() {
  * @param $defer
  * @param $updateView
  */
-function ScheduleController($http, $scope) {
+wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $scope) {
 
     window.sc = this; // Global var to interact with from console
 
@@ -476,6 +479,6 @@ function ScheduleController($http, $scope) {
         return talks;
     }
 
-}
+}]);
 
 
