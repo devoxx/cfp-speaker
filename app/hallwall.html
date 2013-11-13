@@ -39,6 +39,7 @@
     <script src="scripts/wall/controllers.js"></script>
     <script src="scripts/wall/models.js"></script>
     <script src="scripts/wall/utilities.js"></script>
+    <script src="scripts/wall/voteservice.js"></script>
     <!-- endbuild -->
 </head>
 
@@ -67,6 +68,22 @@
                             <div class="room">{{item.room}}</div>
                             <div class="image"><img ng-src="{{item.speakerImgUrl}}" /></div>
                             <div class="talk"><span class="time">{{item.time}}</span> {{item.title}} <span class="speaker">{{item.speakers}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container" ng-controller="MostPopularOfWeekController">
+                    <div class="border">
+                        <h1 class="bestof" ng-show="hasTopTalksOfWeek">Top Talks Overall</h1>
+                        <div ng-repeat="talk in topTalksOfWeek">
+                            <div class="room">{{$index + 1}}</div>
+                            <div class="image"><img ng-src="{{talk.scheduleItem.speakerImgUrl}}" /></div>
+                            <div class="talk"><span class="time">{{talk.likes}}</span> {{talk.scheduleItem.title}} <span class="speaker">{{talk.scheduleItem.speakers}}</span></div>
+                        </div>
+                        <h1 class="bestof" ng-show="hasTopTalksOfToday">Today's Top Talks</h1>
+                        <div ng-repeat="talk in topTalksOfToday">
+                                <div class="room">{{$index + 1}}</div>
+                                <div class="image"><img ng-src="{{talk.scheduleItem.speakerImgUrl}}" /></div>
+                                <div class="talk"><span class="time">{{talk.likes}}</span> {{talk.scheduleItem.title}} <span class="speaker">{{talk.scheduleItem.speakers}}</span></div>
                         </div>
                     </div>
                 </div>

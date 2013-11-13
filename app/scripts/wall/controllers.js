@@ -1,4 +1,4 @@
-var wallApp = angular.module('wallApp', [ ]);
+var wallApp = angular.module('wallApp', ['VotingService']);
 
 
 wallApp.controller('NoticeController', [ '$scope', function ($scope) {
@@ -120,6 +120,7 @@ function LocalStorageController() {
     var DAY_KEY = 'day_';
     var DAYMD5_KEY = 'md5_' + DAY_KEY;
     var SPEAKER_KEY = 'speaker';
+    var SCHEDULE_KEY = 'schedule';
 
     var self = this;
 
@@ -218,6 +219,40 @@ function LocalStorageController() {
         }
     }
 
+    this.hasSchedule = function () {
+        try {
+            var data = localStorage.getItem(SCHEDULE_KEY);
+            if (data == undefined || data == null) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+
+    this.setSchedule = function (scheduleItems) {
+        var map = {};
+        for (var i = 0; i < scheduleItems.length; i++) {
+            map[scheduleItems[i].id] = scheduleItems[i];
+        }
+        localStorage.setItem(SCHEDULE_KEY, JSON.stringify(map));
+    }
+
+    this.getSchedule = function () {
+        try {
+            var data = localStorage.getItem(SCHEDULE_KEY);
+            if (data == undefined) {
+                return data;
+            } else {
+                return JSON.parse(data);
+            }
+        } catch(e) {
+            console.error('ERROR Loading Speakers error: ' + e.message);
+        }
+    }
+
     function key(dayNr) {
         checkDay(dayNr);
         return DAY_KEY + dayNr;
@@ -273,7 +308,7 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $
 
             var onDone = function() {
 
-                if (!lsc.hasDay(currentDay)) {
+                if ( (!lsc.hasDay(currentDay)) || (! lsc.hasSchedule())) {
                     self.refreshRemoteData();
                 } else {
                     currentData = lsc.getDay(currentDay);
@@ -342,6 +377,8 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $
                 console.log("Received Schedule");
 
                 var tak = filterTalksAndKeynotes(data.data, speakers);
+
+                lsc.setSchedule(tak);
 
                 var group = [];
                 var itemDay = 1;
@@ -481,4 +518,55 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $
 
 }]);
 
+wallApp.controller('MostPopularOfWeekController',["$scope", "$timeout","VotingService", function($scope, $timeout, VotingService) {
+
+    function enrich (talks) {
+        var schedule = lsc.getSchedule();
+        var log = [];
+        angular.forEach(talks, function(value, key){
+            value.scheduleItem = schedule[value.talkId];
+        });
+        return talks;
+    }
+
+    function filterKeyNotes (talks) {
+        var filtered = [];
+        angular.forEach(talks, function(value, key){
+            if ((value.scheduleItem) && (value.scheduleItem.type != "Keynote")) {
+                filtered.push(value);
+            }
+        }, filtered);
+        return filtered;
+    }
+
+    var refreshInterval = 60000;
+
+    var refresh = function() {
+        var stop =  $timeout(function () {
+            $scope.$apply(function()  {
+                VotingService.topOfWeek(function(err, data) {
+                    if (err) {
+                        console.log("In Error");
+                    } else {
+                        var filteredData = filterKeyNotes(enrich(data));
+                        $scope.topTalksOfWeek = filteredData.slice(0,3);
+                        $scope.hasTopTalksOfWeek = (filteredData.length > 0);
+                    }
+                });
+                VotingService.topOfToday(function(err, data) {
+                    if (err) {
+                        console.log("In Error");
+                    } else {
+                        var filteredData = filterKeyNotes(enrich(data));
+                        $scope.topTalksOfToday = filteredData.slice(0,4);
+                        $scope.hasTopTalksOfToday = (filteredData.length > 0);
+                    }
+                });
+
+            });
+            refresh();
+        }, refreshInterval);
+    }
+    refresh();
+} ]);
 

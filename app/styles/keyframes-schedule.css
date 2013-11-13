@@ -1,6 +1,6 @@
 
 #schedule .sidescroll {
-    -webkit-animation: schedule-slide 10s infinite ease alternate;
+    -webkit-animation: schedule-slide 20s infinite ease;
 
 }
 
@@ -9,14 +9,37 @@
     -webkit-transform: translateX(0%)
   }
 
+  20% {
+      -webkit-transform: translateX(0%)
+  }
+
+  25% {
+    -webkit-transform: translateX(-774px)
+  }
   45% {
-    -webkit-transform: translateX(0%)
+    -webkit-transform: translateX(-774px)
   }
-  55% {
-    -webkit-transform: translateX(-50%)
+  50% {
+    -webkit-transform: translateX(-1548px)
   }
+
+  70% {
+    -webkit-transform: translateX(-1548px)
+  }
+
+  75% {
+    -webkit-transform: translateX(-774px)
+  }
+
+  95% {
+    -webkit-transform: translateX(-774px)
+  }
+
   100% {
-    -webkit-transform: translateX(-50%)
-  }
+        -webkit-transform: translateX(0%)
+
+    }
+
+
 }
 
