@@ -1,6 +1,5 @@
 var wallApp = angular.module('wallApp', ['VotingService']);
 
-
 wallApp.controller('NoticeController', [ '$scope', function ($scope) {
 
     var self = this;
@@ -279,13 +278,16 @@ function LocalStorageController() {
     }
 }
 
+var scheduleLoadedDefer = $.Deferred();
+var scheduleLoaded = scheduleLoadedDefer.promise();
+
 /**
  * ScheduleController, instantiated by AngularJS.
  * @param $xhr
  * @param $defer
  * @param $updateView
  */
-wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $scope) {
+wallApp.controller('ScheduleController', [ '$http', '$scope', '$q', function ($http, $scope, $q) {
 
     window.sc = this; // Global var to interact with from console
 
@@ -313,6 +315,8 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $
                 } else {
                     currentData = lsc.getDay(currentDay);
                     updateModels();
+                    console.log("Resolve after speakers");
+                    scheduleLoadedDefer.resolve();
                 }
 
                 var MINUTES_10 = 1000 * 60 * 10;
@@ -400,7 +404,7 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $
                     }
                 }
 
-            });
+            }).then(scheduleLoadedDefer.resolve());
     }
 
     function updateModels() {
@@ -494,6 +498,7 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $
                     talks.push(si);
                 } catch (e) {
                     // Ignore buggy scheduleitems
+                    console.error(e);
                 }
             }
         });
@@ -549,29 +554,34 @@ wallApp.controller('MostPopularOfWeekController',["$scope", "$timeout","VotingSe
     var refresh = function() {
         var stop =  $timeout(function () {
             $scope.$apply(function()  {
-                VotingService.topOfWeek(function(err, data) {
-                    if (err) {
-                        console.log("In Error");
-                    } else {
-                        var filteredData = filterKeyNotes(enrich(data));
-                        $scope.topTalksOfWeek = filteredData.slice(0,3);
-                        $scope.hasTopTalksOfWeek = (filteredData.length > 0);
-                    }
-                });
-                VotingService.topOfToday(function(err, data) {
-                    if (err) {
-                        console.log("In Error");
-                    } else {
-                        var filteredData = filterKeyNotes(enrich(data));
-                        $scope.topTalksOfToday = filteredData.slice(0,4);
-                        $scope.hasTopTalksOfToday = (filteredData.length > 0);
-                    }
-                });
+                try {
+                    VotingService.topOfWeek(function(err, data) {
+                        if (err) {
+                            console.log("In Error");
+                        } else {
+                            var filteredData = filterKeyNotes(enrich(data));
+                            $scope.topTalksOfWeek = filteredData.slice(0,3);
+                            $scope.hasTopTalksOfWeek = (filteredData.length > 0);
+                        }
+                    });
+                    VotingService.topOfToday(function(err, data) {
+                        if (err) {
+                            console.log("In Error");
+                        } else {
+                            var filteredData = filterKeyNotes(enrich(data));
+                            $scope.topTalksOfToday = filteredData.slice(0,4);
+                            $scope.hasTopTalksOfToday = (filteredData.length > 0);
+                        }
+                    });
+                } catch(e) {
+                    console.log(e);
+                }
 
             });
             refresh();
         }, refreshInterval);
     }
-    refresh();
+
+    scheduleLoaded.then(refresh);
 } ]);
 
