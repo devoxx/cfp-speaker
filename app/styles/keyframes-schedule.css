@@ -1,6 +1,6 @@
 
 #schedule .sidescroll {
-    -webkit-animation: schedule-slide 20s infinite ease;
+    -webkit-animation: schedule-slide 30s infinite ease;
 
 }
 
@@ -16,9 +16,11 @@
   25% {
     -webkit-transform: translateX(-772px)
   }
+
   45% {
     -webkit-transform: translateX(-772px)
   }
+
   50% {
     -webkit-transform: translateX(-1548px)
   }
