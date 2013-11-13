@@ -544,7 +544,7 @@ wallApp.controller('MostPopularOfWeekController',["$scope", "$timeout","VotingSe
         return filtered;
     }
 
-    var refreshInterval = 60000;
+    var refreshInterval = 30000;
 
     var refresh = function() {
         var stop =  $timeout(function () {
