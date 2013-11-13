@@ -491,12 +491,17 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', function ($http, $
 
                 try {
                     var si = new ScheduleItem(item, findSpeakerImageUrl);
-                    console.log("Room: " + si.room + " Time: " + si.time + " Title: " + si.title + " Speakers: " + si.speakers + " SpeakerImg: " + si.speakerImgUri);
                     talks.push(si);
                 } catch (e) {
                     // Ignore buggy scheduleitems
                 }
             }
+        });
+
+
+        talks = _.sortBy(talks, "date");
+        _.each(talks, function(si){
+            console.log("Day: "+ si.day + " Room: " + si.room + " Time: " + si.time + " Title: " + si.title + " Speakers: " + si.speakers + " SpeakerImg: " + si.speakerImgUri);
         });
 
         function findSpeakerImageUrl(id) {
