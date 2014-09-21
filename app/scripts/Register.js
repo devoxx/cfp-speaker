@@ -1,6 +1,6 @@
 "use strict";
 
-cfpSpeakerAppModule.controller('RegisterCtrl', ['$scope', 'AnonymousService', 'UserService', '$location', 
+cfpSpeakerApp.controller('RegisterCtrl', ['$scope', 'AnonymousService', 'UserService', '$location',
                                         function($scope, AnonymousService, UserService, $location) {
 
     $scope.model = {};

@@ -1,6 +1,6 @@
 "use strict";
 
-cfpSpeakerAppModule.controller('ChangePasswordCtrl', ['$scope', 'AnonymousService', '$routeParams', function($scope, AnonymousService, $routeParams) {
+cfpSpeakerApp.controller('ChangePasswordCtrl', ['$scope', 'AnonymousService', '$routeParams', function($scope, AnonymousService, $routeParams) {
 
     $scope.model = { 
         newUser: {}
@@ -10,7 +10,7 @@ cfpSpeakerAppModule.controller('ChangePasswordCtrl', ['$scope', 'AnonymousServic
 
     $scope.passwordsMatch = function(){
         return ($scope.model.newUser.password && $scope.model.newUser.password.length > 3 && $scope.model.newUser.password == $scope.model.newUser.password2) || false;
-    }
+    };
 
     $scope.changePassword = function() {
         

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cfpSpeakerApp').filter('spaceSeparatedArray',function () {
+cfpSpeakerApp.filter('spaceSeparatedArray',function () {
     return function (input) {
         if (input && input.join) {
             return input.join(' ');

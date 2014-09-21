@@ -1,9 +1,7 @@
 'use strict';
 
-var cfpSpeakerAppModule = angular.module('cfpSpeakerApp');
 // Injecting rootScope only allowed in AppCtrl, because of handling routing errors
-
-cfpSpeakerAppModule.controller('AppCtrl',function ($rootScope, $route, $location, $window) {
+cfpSpeakerApp.controller('AppCtrl',function ($rootScope, $route, $location, $window) {
     $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
         // console.log('$routeChangeError:', arguments);
 
@@ -23,7 +21,7 @@ cfpSpeakerAppModule.controller('AppCtrl',function ($rootScope, $route, $location
     });
 });
 
-cfpSpeakerAppModule.controller('LoginCtrl',function ($scope, $location, $window, $cookies, $http, $filter, UserService, EventBus) {
+cfpSpeakerApp.controller('LoginCtrl',function ($scope, $location, $window, $cookies, $http, $filter, UserService, EventBus) {
     $scope.model = {
         loginDisabled: false,
         loginError: null,
@@ -71,11 +69,11 @@ cfpSpeakerAppModule.controller('LoginCtrl',function ($scope, $location, $window,
     });
 });
 
-cfpSpeakerAppModule.controller('HomeCtrl', function ($scope, $location) {
+cfpSpeakerApp.controller('HomeCtrl', function ($scope, $location) {
 
 });
 
-cfpSpeakerAppModule.controller('ContactCtrl', function ($scope, $location, $http, ContactService) {
+cfpSpeakerApp.controller('ContactCtrl', function ($scope, $location, $http, ContactService) {
 
     $scope.model = {
         name: null,
@@ -107,10 +105,10 @@ cfpSpeakerAppModule.controller('ContactCtrl', function ($scope, $location, $http
 
 });
 
-cfpSpeakerAppModule.controller('AboutCtrl', function ($scope, $location) {
+cfpSpeakerApp.controller('AboutCtrl', function ($scope, $location) {
 });
 
-cfpSpeakerAppModule.controller('TwitterCtrl', function ($scope, $location, $http, $timeout, $window) {
+cfpSpeakerApp.controller('TwitterCtrl', function ($scope, $location, $http, $timeout, $window) {
     var self = this;
 
     $scope.tweets = [];

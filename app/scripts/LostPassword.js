@@ -1,6 +1,6 @@
 "use strict";
 
-cfpSpeakerAppModule.controller('LostPasswordCtrl', ['$scope', 'AnonymousService', function($scope, AnonymousService) {
+cfpSpeakerApp.controller('LostPasswordCtrl', ['$scope', 'AnonymousService', function($scope, AnonymousService) {
     $scope.model = { email : null };
 
     $scope.lostPassword = function() {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cfpSpeakerApp')
+cfpSpeakerApp
     .directive('scroll', function(){
         return {
             restrict: 'A',
