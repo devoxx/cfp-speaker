@@ -1,6 +1,6 @@
 'use strict';
 
-var cfpSpeakerApp = angular.module('cfpSpeakerApp', [ 'GenericServices', 'Speaker', 'ui.bootstrap' ]);
+var cfpSpeakerApp = angular.module('cfpSpeakerApp', [ 'ngRoute', 'ngCookies', 'GenericServices', 'Speaker', 'ui.bootstrap' ]);
 
 cfpSpeakerApp.config(function ($routeProvider) {
     // General routing
