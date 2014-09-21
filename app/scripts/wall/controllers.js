@@ -4,8 +4,7 @@ wallApp.controller('NoticeController', [ '$scope', function ($scope) {
 
     var self = this;
 
-    $scope.notice;
-    this.notices = [ "Wifi SSID: devoxx13 password: devoxx13" ]; // <- Add String messages here
+    this.notices = [ "Wifi SSID: devoxx14 password: devoxx14" ]; // <- Add String messages here
 
     setInterval(cycleNotices, 10 * 1000);
     var noticeIndex = 0;
@@ -46,7 +45,7 @@ wallApp.controller('TwallController', ['$http', '$scope', function ($http, $scop
 
     this.refreshRemoteData = function() {
 
-        $http.get("https://cfp.devoxx.com/v2/twitter/devoxx")
+        $http.get(baseUri + "twitter/devoxx")
             .then(function(data){
 
                 if ("" == data.data) {
@@ -68,13 +67,10 @@ wallApp.controller('TwallController', ['$http', '$scope', function ($http, $scop
                 if ($scope.tweets.length == 0) {
                     setTimeout(self.tweetQueueProcessor, 0); // Populate on init (via timeout to avoid nested scope.apply)
                 }
-
             });
-
-    }
+    };
 
     this.tweetQueueProcessor = function() {
-
         $scope.$apply(function(){
 
             // Initialisation
@@ -100,8 +96,7 @@ wallApp.controller('TwallController', ['$http', '$scope', function ($http, $scop
                 $scope.scrollClass = "";
             });
         }
-
-    }
+    };
 
     setTimeout(init, 0);
     function init() {
@@ -109,7 +104,6 @@ wallApp.controller('TwallController', ['$http', '$scope', function ($http, $scop
         setInterval(self.refreshRemoteData, 10000);
         setInterval(self.tweetQueueProcessor, 3000);
     }
-
 }]);
 
 var lsc = new LocalStorageController();
@@ -130,7 +124,7 @@ function LocalStorageController() {
             console.error('Error HAS day ' + dayNr + ' in LocalStorage: ' + e.message);
         }
         return false;
-    }
+    };
 
     /**
      * Check if the ScheduleItems Array has changed.
@@ -147,7 +141,7 @@ function LocalStorageController() {
             console.error('Error MD5 day ' + dayNr + ' from LocalStorage: ' + e.message);
         }
         return true;
-    }
+    };
 
     this.getDay = function(dayNr) {
         try {
@@ -161,7 +155,7 @@ function LocalStorageController() {
         } catch(e) {
             console.error('Error GET day ' + dayNr + ' from LocalStorage: ' + e.message);
         }
-    }
+    };
 
     /**
      * Set the ScheduleItems for a day.
@@ -185,7 +179,7 @@ function LocalStorageController() {
             console.error('Error SET day ' + dayNr + ' to LocalStorage: ' + e.message);
         }
         return false;
-    }
+    };
 
     this.setSpeakers = function(speakers) {
         try {
@@ -194,7 +188,7 @@ function LocalStorageController() {
         } catch(e) {
             console.error('ERROR Storing Speakers error: ' + e.message);
         }
-    }
+    };
 
     this.getSpeakers = function() {
         try {
@@ -207,7 +201,7 @@ function LocalStorageController() {
         } catch(e) {
             console.error('ERROR Loading Speakers error: ' + e.message);
         }
-    }
+    };
 
     this.clear = function() {
         try {
@@ -216,20 +210,16 @@ function LocalStorageController() {
         } catch(e) {
             console.error('Error clearing LocalStorage: ' + e.message);
         }
-    }
+    };
 
     this.hasSchedule = function () {
         try {
             var data = localStorage.getItem(SCHEDULE_KEY);
-            if (data == undefined || data == null) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(data == undefined || data == null);
         } catch (e) {
             return false;
         }
-    }
+    };
 
     this.setSchedule = function (scheduleItems) {
         var map = {};
@@ -237,7 +227,7 @@ function LocalStorageController() {
             map[scheduleItems[i].id] = scheduleItems[i];
         }
         localStorage.setItem(SCHEDULE_KEY, JSON.stringify(map));
-    }
+    };
 
     this.getSchedule = function () {
         try {
@@ -250,7 +240,7 @@ function LocalStorageController() {
         } catch(e) {
             console.error('ERROR Loading Speakers error: ' + e.message);
         }
-    }
+    };
 
     function key(dayNr) {
         checkDay(dayNr);
@@ -329,7 +319,7 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', '$q', function ($h
             function preLoadSpeakerImageUrls(done) {
                 console.log('Preloading all speaker images...');
                 try {
-                    var fullScheduleUrl = "https://cfp.devoxx.com/rest/v1/events/10/speakers"
+                    var fullScheduleUrl = baseUriV1 + "events/10/speakers";
                     $http.get(fullScheduleUrl)
                         .then(function (data, code) {
                             if ("" == data.data) {
@@ -365,14 +355,14 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', '$q', function ($h
         }
         console.log("NowAndNextTime", currentTime.toLongDateString(), currentDay);
         $scope.$apply(updateModels);
-    }
+    };
 
-    var MINUTES_1 = 1000 * 60 * 1;
+    var MINUTES_1 = 1000 * 60;
     setInterval(self.nowAndNextTimer, MINUTES_1);
 
     this.refreshRemoteData = function() {
 
-        $http.get("https://cfp.devoxx.com/rest/v1/events/10/schedule")
+        $http.get(baseUriV1 + "events/10/schedule")
             .then(function(data, code) {
                 if ("" == data.data) {
                     console.error('Failed to call CFP REST');
@@ -405,7 +395,7 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', '$q', function ($h
                 }
 
             }).then(scheduleLoadedDefer.resolve());
-    }
+    };
 
     function updateModels() {
 
@@ -422,7 +412,7 @@ wallApp.controller('ScheduleController', [ '$http', '$scope', '$q', function ($h
         var nowAndNext = nowAndNextSlot(slots);
 
         $scope.scheduleNow = filterTime(nowAndNext[0]);
-        $scope.scheduleNext = filterTime(nowAndNext[1])
+        $scope.scheduleNext = filterTime(nowAndNext[1]);
         $scope.scrollClass = $scope.scheduleNext.length != 0 ? "sidescroll" : "";
 
         console.log("Slots", slots, "NowAndNext", nowAndNext);
@@ -532,7 +522,6 @@ wallApp.controller('MostPopularOfWeekController',["$scope", "$timeout","VotingSe
 
     function enrich (talks) {
         var schedule = lsc.getSchedule();
-        var log = [];
         angular.forEach(talks, function(value, key){
             value.scheduleItem = schedule[value.talkId];
         });
@@ -552,7 +541,7 @@ wallApp.controller('MostPopularOfWeekController',["$scope", "$timeout","VotingSe
     var refreshInterval = 30000;
 
     var refresh = function() {
-        var stop =  $timeout(function () {
+        $timeout(function () {
             $scope.$apply(function()  {
                 try {
                     VotingService.topOfWeek(function(err, data) {
@@ -580,7 +569,7 @@ wallApp.controller('MostPopularOfWeekController',["$scope", "$timeout","VotingSe
             });
             refresh();
         }, refreshInterval);
-    }
+    };
 
     scheduleLoaded.then(refresh);
 } ]);
