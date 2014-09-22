@@ -3,4 +3,4 @@
 */
 
 var baseUri = 'http://localhost/v2/';
-var baseUriV1 = 'http://localhost/v1/';
+var baseUriV1 = 'http://localhost/rest/v1/';
